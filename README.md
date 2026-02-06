@@ -1,20 +1,34 @@
 # antigravity-agent
-1️⃣ Mỗi ngày vào làm (BẮT BUỘC)
+cd .agent hoặc folder chứa agent
+
 git checkout master
 git pull --rebase
-➡️ Đảm bảo local luôn mới nhất trước khi sửa
-2️⃣ Kiểm tra trạng thái trước khi commit
+
 git status
-3️⃣ Stage đúng phần cần push
-Push toàn bộ thay đổi
+
 git add .
-Chỉ push .agent
-git add .agent
-4️⃣ Commit
-git commit -m "chore(agent): update rules"
-Commit message ngắn, rõ, 1 mục đích
-5️⃣ Push thẳng lên master
+
+git commit -m ""
+
 git push origin master
-⚠️ Nếu push bị từ chối (remote mới hơn)
+
 git pull --rebase
 git push origin master
+
+
+chore(agent): update rule priority
+docs(agent): add daily update guide
+fix(agent): resolve conflict in naming rule
+feat(agent): add override mechanism
+
+Type    Khi dùng
+feat    Thêm tính năng mới
+fix    Sửa lỗi
+docs    Chỉ sửa tài liệu
+chore    Việc bảo trì, cấu hình, rule
+refactor    Sửa code/rule nhưng không đổi hành vi
+style    Format, spacing, markdown, lint
+test    Test, sample, validation
+build    Build script, CI/CD
+ci    Pipeline CI
+perf    Cải thiện hiệu năng
