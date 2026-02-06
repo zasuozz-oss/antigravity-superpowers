@@ -1,6 +1,4 @@
 # antigravity-agent
-cd .agent hoặc folder chứa agent
-
 git checkout master
 git pull --rebase
 
