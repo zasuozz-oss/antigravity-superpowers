@@ -1,5 +1,8 @@
 ---
+name: Remove
 description: Xoá feature/script/variable an toàn
+trigger: /remove
+disable-model-invocation: true
 ---
 
 ## remove request

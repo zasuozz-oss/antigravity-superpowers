@@ -1,10 +1,10 @@
 ---
-description: Add new feature/UI/script to project
+name: Add
+description: "Add new C# scripts, UI components, or features to Unity project. Use when user requests new functionality, UI from screenshots, or gameplay mechanics."
+trigger: /add
 ---
 
 # Add Workflow
-
-> **Required Skill**: Read `skills/my-skills/add/SKILL.md` for implementation strategy.
 
 ## Next Steps
 After completing the implementation plan or code generation:
@@ -15,10 +15,11 @@ After completing the implementation plan or code generation:
 ---
 
 rules:
+- minimal impact
 - no refactor
 - no rename
-- minimal impact
 - follow script-folder skill
+- do not invent file paths, line numbers, packages, or project settings. If not provided → cannot verify.
 
 output:
 use add format from ai-output-formats.md
@@ -40,14 +41,13 @@ when input includes a ui screenshot:
 8. If screenshot-only and no existing code shared → implement new scripts only, do not propose edits to unknown files.
 
 restrictions:
-- do not refactor existing code
 - do not modify unrelated scripts
+- do not refactor existing code
 - do not introduce backend or network logic unless requested
 
--Environment: if Unity version / pipeline / platform not provided → assume from 00-ai-rules.md and mark cannot verify for pipeline-specific claims.
--Add a short "Assumptions / Cannot verify" bullet if any dependency is unknown.
-
-Do not invent file paths, line numbers, packages, or project settings. If not provided → cannot verify.
+environment:
+- if Unity version / pipeline / platform not provided → assume from 00-ai-rules.md and mark cannot verify for pipeline-specific claims.
+- add a short "Assumptions / Cannot verify" bullet if any dependency is unknown.
 
 ---
 

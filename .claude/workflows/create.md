@@ -1,5 +1,8 @@
 ---
+name: Create
 description: Tạo prefab/UI/scene/VFX tự động qua editor script
+trigger: /create
+disable-model-invocation: true
 ---
 
 ## create request

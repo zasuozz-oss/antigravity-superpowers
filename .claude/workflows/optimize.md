@@ -1,12 +1,12 @@
 ---
-description: Áp dụng optimization changes sau khi review
+name: Optimize
+description: "Apply performance optimizations to Unity C# code: reduce allocations, cache lookups, optimize loops. Use after /review or standalone on specific files."
+trigger: /optimize
 ---
 
 # Optimize Workflow
 
-> **Required Skills**: 
-> - Read `skills/my-skills/optimize/SKILL.md` for optimization rules.
-> - Read `skills/my-skills/csharp-conventions/SKILL.md` for naming and code style.
+> **Required**: Also read `my-csharp-conventions` skill for naming and code style.
 
 ## Purpose
 Apply performance optimizations to Unity C# code for mobile games. Focus on reducing allocations, caching, and improving runtime efficiency without changing behavior.

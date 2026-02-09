@@ -1,5 +1,7 @@
 ---
-description: Phân tích requirements từ image/text
+name: Analyze
+description: "Analyze requirements from screenshots, mockups, or text descriptions. Outputs structured implementation plan with /add commands. No code changes."
+trigger: /analyze
 ---
 
 ## analyze
@@ -20,11 +22,11 @@ non-goals:
 
 rules:
 - analysis ONLY; no code changes.
+- do not invent features beyond what can be inferred
+  from the image or description.
 - respect all existing rules (scope, mobile, folder, technology defaults).
 - ask questions only if critical information is missing (max 3 short questions).
 - if information cannot be confirmed, explicitly state "cannot verify".
-- do not invent features beyond what can be inferred
-  from the image or description.
 
 analysis steps:
 1) restate the user goal in 1–2 concise lines.

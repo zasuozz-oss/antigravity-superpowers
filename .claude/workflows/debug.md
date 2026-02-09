@@ -1,10 +1,10 @@
 ---
-description: Dùng để debug lỗi
+name: Debug
+description: "Investigate bugs and errors in Unity C# scripts. Use when encountering runtime errors, unexpected behavior, or crash logs. Outputs root causes and verification checklist."
+trigger: /debug
 ---
 
 # Debug Workflow
-
-> **Required Skill**: Read `skills/my-skills/debug/SKILL.md` for investigation strategy.
 
 ## Purpose
 - Investigate a reported bug and determine likely root causes
@@ -49,12 +49,12 @@ analyze possible causes based on:
 
 ## rules
 - do NOT modify code
+- do NOT introduce new systems
 - do NOT refactor
 - do NOT rename
-- do NOT introduce new systems
-- one (1) critical question allowed ONLY if needed to narrow root cause
 - do NOT invent file paths, line numbers, packages, or project settings
 - if not provided → cannot verify
+- one (1) critical question allowed ONLY if needed to narrow root cause
 
 ---
 
@@ -90,14 +90,6 @@ analyze possible causes based on:
 ## handoff
 - if user requests to proceed → use `/review` to propose fixes
 - fixing only occurs after explicit fix request
-
----
-
-## Rules Summary
-- Do NOT apply code changes
-- If info missing → "cannot verify"
-- Location = single clickable link only
-- Never guess file paths or line numbers
 
 ---
 

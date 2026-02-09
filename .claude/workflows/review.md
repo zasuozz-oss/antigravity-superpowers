@@ -1,12 +1,12 @@
 ---
-description: Review code for correctness and mobile performance
+name: Review
+description: "Review Unity C# code for correctness, mobile performance, and safety. Outputs issues with fix_ids and optimizations. Use before /fix or /optimize."
+trigger: /review
 ---
 
 # Unity Mobile Code Review Workflow
 
-> **Required Skills**: 
-> - Read `skills/my-skills/review/SKILL.md` for detailed checklist and process.
-> - Read `skills/my-skills/csharp-conventions/SKILL.md` for naming and code style.
+> **Required**: Also read `my-csharp-conventions` skill for naming and code style.
 
 ## Purpose
 Review Unity C# code for mobile games with focus on performance, memory safety, and maintainability.
@@ -139,15 +139,15 @@ For methods with multiple state variables affecting control flow:
 
 ## Output Format
 
-### ❌ ERRORS
-#### ❌ <Unique error title>
+### ERRORS
+#### ERROR_XX: <Unique error title>
 - Location: <clickable link>
 - Description: (behavior, not solution)
 - Impact: Runtime error / crash / incorrect logic
 - Confidence: High | Medium | Low
 
-### ⚠️ Warnings
-#### ⚠️ <Unique warning title>
+### Warnings
+#### WARNING_XX: <Unique warning title>
 - Location: <clickable link>
 - Description: (potential issue, edge case)
 - Impact: Future bug / readability risk

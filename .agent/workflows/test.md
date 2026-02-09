@@ -1,10 +1,10 @@
 ---
+name: Test
 description: Chạy và phân tích unit tests
+trigger: /test
 ---
 
 # Test Workflow
-
-> **Required Skill**: Read `skills/my-skills/test/SKILL.md` for testing patterns and tools.
 
 ## Purpose
 Run, analyze, or generate unit tests for the project.

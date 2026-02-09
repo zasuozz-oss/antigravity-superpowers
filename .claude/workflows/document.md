@@ -1,10 +1,10 @@
 ---
-description: Tự động sinh documentation cho code/feature
+name: Document
+description: "Generate documentation for Unity C# scripts, features, or folders. Outputs inline XML docs or markdown. Use when user asks to document code."
+trigger: /document
 ---
 
 # Document Workflow
-
-> **Required Skill**: Read `skills/my-skills/document/SKILL.md` for documentation standards and format.
 
 ## Purpose
 Automatically generate documentation for code, features, or folders.

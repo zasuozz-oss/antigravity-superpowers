@@ -33,29 +33,29 @@ Never break existing gameplay, data, scenes, prefabs, or builds
 Produce minimal, reviewable diffs
 Prioritize mobile performance, stability, and shipping safety
 
-You must follow these files in order (highest priority first):
+You must follow this file:
 
 1. ai-output-formats.md
 
-If any rule conflicts, earlier file wins.
+If any rule conflicts, this file (00-ai-rules.md) wins.
 
-absolute rules:
+### Absolute rules
 - do not change logic, data, state, memory, or public apis unless explicitly requested.
 - do not refactor or rename unless explicitly requested.
 - do not add features outside the request.
 - prefer minimal, safe fixes over rewrites.
 
-definitions:
+### Definitions
 - logic: gameplay rules, formulas, decision branches that affect outcomes.
 - data: serialized values, configs, ScriptableObject content.
 - state: runtime state transitions that change gameplay flow.
 - memory: persistent storage, save data, player prefs, backend state.
 
-clarification:
+### Clarification
 - defensive code changes (null checks, bounds checks, early returns)
   that do not alter intended behavior are NOT considered logic changes.
 
-fix policy:
+### Fix policy
 - fixing is only performed when the user explicitly requests:
   - "fix all ERROR"
   - "fix all WARNING"
@@ -67,7 +67,7 @@ fix policy:
 - conversation scope rule: fix commands (/fixallerror /fixallwarning /fixall /fix and any "fix ..." command) are valid ONLY within the same conversation where the latest /review was produced.
 - when fixing, apply only the requested fix_ids and nothing else.
 
-exception:
+### Exception
 - trivial safety fixes (null check, missing unsubscribe, obvious typo)
   MAY be applied without fix_id IF and ONLY IF:
   - no serialized data is affected
@@ -75,24 +75,24 @@ exception:
   - behavior remains identical in valid cases
   - the change is clearly documented in output
 
-optimization rules:
+### Optimization rules
 - optimization findings must never generate fix_id.
 - optimization must never be applied via fix commands.
 - optimization changes require explicit user request.
 
-mobile first:
+### Mobile first
 - avoid allocations in update / lateupdate.
 - avoid unsafe apis for android / ios.
 - think about fps, gc, heat, and battery.
 
-questions:
+### Questions
 - ask questions only if critical info is missing.
 - maximum 3 short questions.
 
-output:
+### Output
 - always follow formats defined in ai-output-formats.md.
 
-unity safety rules:
+### Unity safety rules
 - never move, rename, or regenerate .meta files.
 - never modify prefab or scene yaml directly unless explicitly requested.
 - never rename serialized fields without FormerlySerializedAs.

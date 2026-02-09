@@ -7,7 +7,7 @@ trigger: always_on
 Title capitalization rules:
 - all section titles and list headers must start with a capital letter
 
-## debug
+## Debug
 
 - Bug summary:
 - Analysis result:
@@ -41,14 +41,28 @@ Rules:
 - Risks & assumptions:
   Any remaining risks or assumptions.
 
-## Apply rules:
-- Apply ONLY explicitly selected issue titles
-- Apply ONLY within the same conversation as the originating Review
-- Never modify serialized fields or prefab references unless explicitly requested
-- "apply all errors" applies all ERROR severity fixes
-- "apply all warnings" applies all WARNING severity fixes
-- "apply all" applies all correctness fixes
-- "apply optimization all" applies all optimizations
+## Review output
+
+- File: `<file_path>`
+- Issues found:
+
+| # | fix_id | Severity | Title | Description |
+|---|--------|----------|-------|-------------|
+| 1 | FIX_01 | ERROR / WARNING | Short title | Brief description |
+
+- Optimizations found:
+
+| # | Title | Description |
+|---|-------|-------------|
+| 1 | Short title | Brief description |
+
+- Summary:
+  Total errors: N | Total warnings: N | Optimizations: N
+
+Rules:
+- Each issue MUST have a unique fix_id
+- Optimizations MUST NOT have fix_id
+- Do not modify code during review; only propose
 
 ## Patched code presentation
 

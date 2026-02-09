@@ -1,10 +1,10 @@
 ---
-description: Tìm kiếm code/symbols trong project
+name: Search
+description: "Search for C# classes, methods, variables, and symbols across Unity project. Use when user asks 'where is...', 'find...', or needs to locate code."
+trigger: /search
 ---
 
 # Search Workflow
-
-> **Required Skill**: Read `skills/my-skills/search/SKILL.md` for search strategy and ranking rules.
 
 ## Purpose
 Find code, symbols, or text within the project based on a query or context.
@@ -18,12 +18,11 @@ After completing the search:
 ---
 
 rules:
+- follow script-and-folder-rules
 - no refactor
 - no rename
 - minimal impact
-- follow script-and-folder-rules
-- do not invent file paths, line numbers, packages, or project settings.  
-  If not provided → cannot verify.
+- do not invent file paths, line numbers, packages, or project settings. If not provided → cannot verify.
 
 output:
 use search format from ai-output-formats.md
@@ -139,17 +138,16 @@ when input includes a UI screenshot:
 
 ## restrictions
 
+- do not modify unrelated scripts
 - do not refactor existing code
 - do not rename symbols
-- do not modify unrelated scripts
 - do not introduce backend, indexing, or network logic unless requested
 
 environment:
 - if Unity version / pipeline / platform is not provided
   → assume from 00-ai-rules.md
   → mark pipeline-specific behavior as "cannot verify"
-
-add a short **Assumptions / Cannot verify** section when dependencies are unknown.
+- add a short **Assumptions / Cannot verify** section when dependencies are unknown.
 
 ---
 

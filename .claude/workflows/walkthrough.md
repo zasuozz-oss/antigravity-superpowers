@@ -1,10 +1,10 @@
 ---
-description: Giải thích feature/system hiện có (read-only)
+name: Walkthrough
+description: "Explain existing feature or system in detail (read-only). Use when user asks 'how does X work', 'explain this system', or wants to understand code flow."
+trigger: /walkthrough
 ---
 
 # Walkthrough Workflow
-
-> **Required Skill**: Read `skills/my-skills/walkthrough/SKILL.md` for structure and explanation rules.
 
 ## Purpose
 Explain an existing feature or system in detail (read-only).

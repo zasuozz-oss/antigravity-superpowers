@@ -1,5 +1,7 @@
 ---
-description: Refactor code (formatting, naming, structure)
+name: Refactor
+description: "Refactor Unity C# code: rename, restructure, extract methods, improve readability. Use when user explicitly requests refactoring."
+trigger: /refactor
 ---
 
 ## refactor request
