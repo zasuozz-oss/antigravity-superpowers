@@ -85,6 +85,15 @@ If any rule conflicts, this file (00-ai-rules.md) wins.
 - avoid unsafe apis for android / ios.
 - think about fps, gc, heat, and battery.
 
+### Code generation
+- ALL newly generated C# code MUST follow my-csharp-conventions/SKILL.md.
+- key rules: _camelCase private fields, PascalCase methods/properties,
+  [SerializeField] private over public fields, Allman braces, Async suffix.
+- do NOT retroactively rename existing code to match conventions
+  unless the user explicitly requests refactoring.
+- when editing existing files, match the surrounding code style
+  if it conflicts with conventions (consistency > convention).
+
 ### Questions
 - ask questions only if critical info is missing.
 - maximum 3 short questions.
