@@ -26,7 +26,7 @@ rules:
 - if information cannot be confirmed → state "cannot verify"
 - prioritize official Unity docs and recent forum posts (< 2 years old)
 - mark Unity version–specific findings clearly
-- language: explanations in Vietnamese, structure in English
+- language: all content in English
 
 ---
 
@@ -193,12 +193,12 @@ After completing the research, ALWAYS output this section:
 
 ```
 ## Next Steps
-Bạn có thể:
-- `/web-search <query khác>` - tìm kiếm thêm
-- `/debug` - phân tích bug dựa trên kết quả
-- `/fix` - áp dụng fix từ giải pháp tìm được
-- `/add` - thêm tính năng dựa trên research
-- Yêu cầu lưu report đầy đủ
+You can:
+- `/web-search <another query>` - search for more information
+- `/debug` - analyze bugs based on results
+- `/fix` - apply fixes from found solutions
+- `/add` - add features based on research
+- Request to save the full report
 
-Vui lòng cho biết bạn muốn thực hiện gì tiếp theo.
+Please let me know what you'd like to do next.
 ```

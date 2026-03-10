@@ -1,6 +1,6 @@
 ---
 name: Remove
-description: Xoá feature/script/variable an toàn
+description: "Safely remove feature/script/variable"
 trigger: /remove
 disable-model-invocation: true
 ---

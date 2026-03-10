@@ -1,65 +1,62 @@
 ---
-name: Document
-description: "Generate documentation for Unity C# scripts, features, or folders. Outputs inline XML docs or markdown. Use when user asks to document code."
-trigger: /document
+description: Generate documentation for Unity C# scripts or folders. Outputs inline XML docs or markdown README. Use when user asks to document code.
 ---
 
 # Document Workflow
 
 ## Purpose
-Automatically generate documentation for code, features, or folders.
+Generate inline XML docs for scripts or README.md for folders.
+Output is presented as a plan for user review — no files are written until user approves.
 
-## Next Steps
-After generating the documentation:
-1. Present the documentation (inline or markdown content).
-2. If saving to a file, confirm the file path.
-3. Wait for user input.
+> **For detailed feature documentation** (HTML with Mermaid, edge cases, test summary):
+> Use `/generate-document` instead.
 
 ---
 
-rules:
-- do not modify code logic
-- do not refactor or rename
-- inline XML docs: modify file to add /// comments
-- markdown docs: create separate .md file
-- respect existing documentation style if present
-- use Vietnamese for descriptions (per 00-ai-rules.md)
+## Rules
+- Do not modify code logic
+- Do not refactor or rename
+- Do NOT write files directly — present as plan for user review first
+- Inline XML docs: show proposed `///` comments in plan
+- Markdown docs: show proposed content in plan
+- Respect existing documentation style if present
+- Use English for all descriptions and documentation content
 
-======================DOCUMENT SCRIPT WORKFLOW======================
+---
 
-## document script
+## Document Script
 
-steps:
-1. analyze script structure:
-   - class purpose and responsibility
-   - public API surface
-   - serialized fields (Inspector-facing)
-   - events and callbacks
-   - dependencies
-2. generate documentation:
-   - class summary
-   - method descriptions (public only by default)
-   - parameter descriptions
-   - return value descriptions
-   - important usage notes
-3. output based on format:
-   - inline-xml: add /// comments to code
-   - markdown: create <ScriptName>.md
+### Steps
+1. **Analyze script structure**:
+   - Class purpose and responsibility
+   - Public API surface
+   - Serialized fields (Inspector-facing)
+   - Events and callbacks
+   - Dependencies
+2. **Generate documentation**:
+   - Class summary
+   - Method descriptions (public only by default)
+   - Parameter descriptions
+   - Return value descriptions
+   - Important usage notes
+3. **Present as plan for review**:
+   - `inline-xml`: show proposed `///` comments (do NOT apply yet)
+   - `markdown`: show proposed `<ScriptName>.md` content (do NOT create yet)
 
-output format (inline-xml):
+### Output Format (inline-xml)
 ```csharp
 /// <summary>
-/// Mô tả ngắn gọn class/method
+/// Brief description of class/method
 /// </summary>
-/// <param name="paramName">Mô tả parameter</param>
-/// <returns>Mô tả return value</returns>
+/// <param name="paramName">Parameter description</param>
+/// <returns>Return value description</returns>
 ```
 
-output format (markdown):
+### Output Format (markdown)
 ```markdown
 # ClassName
 
-## Mô tả
+## Description
 ...
 
 ## Public API
@@ -67,69 +64,37 @@ output format (markdown):
 ...
 
 ## Inspector Fields
-| Field | Type | Mô tả |
+| Field | Type | Description |
 |-------|------|-------|
 ```
 
-======================DOCUMENT FEATURE WORKFLOW======================
+---
 
-## document feature
+## Document Folder
 
-purpose:
-- create high-level documentation for a feature or system
+### Steps
+1. Scan folder contents
+2. Categorize scripts by role
+3. Generate `README.md` with:
+   - Folder purpose
+   - File listing with one-line descriptions
+   - Dependencies
+   - Usage notes
 
-steps:
-1. identify feature scope:
-   - entry scripts
-   - related scripts
-   - prefabs/scenes (if mentioned)
-2. analyze:
-   - feature purpose
-   - user-facing behavior
-   - data flow
-   - key classes and their roles
-   - dependencies
-3. generate documentation:
-   - overview
-   - architecture diagram (text-based)
-   - key components
-   - usage guide
-   - configuration notes
-
-output:
-- feature documentation (markdown)
-- location: project docs folder or alongside feature
-
-======================DOCUMENT FOLDER WORKFLOW======================
-
-## document folder
-
-purpose:
-- generate README.md for a folder/module
-
-steps:
-1. scan folder contents
-2. categorize scripts by role
-3. generate README.md with:
-   - folder purpose
-   - file listing with one-line descriptions
-   - dependencies
-   - usage notes
-
-output:
-- README.md in target folder
+### Output
+- Show proposed `README.md` content for user review (do NOT create yet)
 
 ---
 
-### 📋 Next Steps (MANDATORY OUTPUT)
-After generating documentation, ALWAYS output this section:
+## Next Steps (MANDATORY OUTPUT)
+After presenting the documentation plan, ALWAYS output:
 
 ```
 ## Next Steps
-Bạn có thể:
-- Xem lại documentation đã sinh
-- Yêu cầu chỉnh sửa/bổ sung
-- Lưu file vào project
+You can:
+- Approve → I will apply the documentation to your project
+- `/generate-document` — generate detailed feature document
+- Request edits before applying
 
-Vui lòng cho biết bạn muốn thực hiện gì tiếp theo.
+Please let me know what you'd like to do next.
 ```

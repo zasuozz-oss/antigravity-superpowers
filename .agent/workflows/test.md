@@ -1,6 +1,6 @@
 ---
 name: Test
-description: Chạy và phân tích unit tests
+description: "Run and analyze unit tests"
 trigger: /test
 ---
 
@@ -117,10 +117,10 @@ After completing the test action, ALWAYS output this section:
 
 ```
 ## Next Steps
-Bạn có thể:
+You can:
 - `/debug` - debug failing tests
 - `/fix <id>` - fix identified bugs
-- Chạy lại tests sau khi fix
+- Re-run tests after applying fixes
 
-Vui lòng cho biết bạn muốn thực hiện gì tiếp theo.
+Please let me know what you'd like to do next.
 ```

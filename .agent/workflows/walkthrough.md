@@ -23,7 +23,7 @@ rules:
 - do not generate fix_id or opt_id
 - do not assume project-wide state
 - if information is missing → state "cannot verify"
-- explanations in Vietnamese (per 00-ai-rules.md)
+- explanations in English
 - section titles in English
 
 ======================WALKTHROUGH WORKFLOW======================
@@ -116,10 +116,10 @@ After completing the walkthrough, ALWAYS output this section:
 
 ```
 ## Next Steps
-Bạn có thể:
-- Hỏi thêm về một phần cụ thể
-- `/review <file>` - review code liên quan
-- `/debug` nếu phát hiện vấn đề
+You can:
+- Ask about a specific section for more details
+- `/review <file>` - review related code
+- `/debug` if an issue is identified
 
-Vui lòng cho biết bạn muốn thực hiện gì tiếp theo.
+Please let me know what you'd like to do next.
 ```

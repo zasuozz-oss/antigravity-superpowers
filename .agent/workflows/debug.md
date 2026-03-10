@@ -98,9 +98,9 @@ After presenting the debug analysis, ALWAYS output this section:
 
 ```
 ## Next Steps
-Bạn có thể:
-- `/review <file>` - review file để đề xuất fixes
-- Cung cấp thêm logs/thông tin để phân tích sâu hơn
+You can:
+- `/review <file>` - review the file to propose fixes
+- Provide additional logs/information for deeper analysis
 
-Vui lòng cho biết bạn muốn thực hiện gì tiếp theo.
+Please let me know what you'd like to do next.
 ```

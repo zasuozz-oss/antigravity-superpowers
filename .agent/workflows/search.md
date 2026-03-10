@@ -156,11 +156,11 @@ After completing the search, ALWAYS output this section:
 
 ```
 ## Next Steps
-Bạn có thể:
-- Mở file để xem chi tiết
-- `/walkthrough <file>` - giải thích code
-- `/review <file>` - review file
-- Tìm kiếm thêm với query khác
+You can:
+- Open the file for detailed inspection
+- `/walkthrough <file>` - explain the code
+- `/review <file>` - review the file
+- Search again with a different query
 
-Vui lòng cho biết bạn muốn thực hiện gì tiếp theo.
+Please let me know what you'd like to do next.
 ```

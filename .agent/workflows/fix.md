@@ -1,6 +1,6 @@
 ---
 name: Fix
-description: Áp dụng fixes từ review (specific, all, error-only, warning-only)
+description: "Apply fixes from review (specific, all, error-only, warning-only)"
 trigger: /fix
 disable-model-invocation: true
 ---
