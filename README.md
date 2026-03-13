@@ -29,10 +29,18 @@ A fork of the [Superpowers](https://github.com/obra/superpowers) agentic skills 
 
 ### 1. Install Globally (One-time)
 
+**macOS / Linux:**
 ```bash
 git clone https://github.com/zasuozz-oss/antigravity-superpowers.git
 cd antigravity-superpowers
 bash setup-global.sh
+```
+
+**Windows (PowerShell):**
+```powershell
+git clone https://github.com/zasuozz-oss/antigravity-superpowers.git
+cd antigravity-superpowers
+powershell -ExecutionPolicy Bypass -File setup-global.ps1
 ```
 
 **What gets installed:**
@@ -100,7 +108,8 @@ Open Antigravity in your project. Skills auto-load via `GEMINI.md`.
 
 ```
 antigravity-superpowers/
-├── setup-global.sh              # Global installation script
+├── setup-global.sh              # Install script (macOS/Linux)
+├── setup-global.ps1             # Install script (Windows)
 ├── GEMINI.md                    # Example project configuration
 ├── gemini-extension.json        # Extension metadata
 └── global-config/
@@ -158,15 +167,22 @@ Fork từ framework [Superpowers](https://github.com/obra/superpowers), tùy ch�
 
 ## Cài Đặt
 
+**macOS / Linux:**
 ```bash
-# 1. Clone repo
 git clone https://github.com/zasuozz-oss/antigravity-superpowers.git
 cd antigravity-superpowers
-
-# 2. Cài đặt toàn cục (chạy 1 lần)
 bash setup-global.sh
+```
 
-# 3. Setup cho project mới
+**Windows (PowerShell):**
+```powershell
+git clone https://github.com/zasuozz-oss/antigravity-superpowers.git
+cd antigravity-superpowers
+powershell -ExecutionPolicy Bypass -File setup-global.ps1
+```
+
+**Setup cho project mới:**
+```bash
 cd /path/to/project
 bash ~/.gemini/antigravity/workflows/setup-antigravity-project.sh
 ```
