@@ -11,6 +11,15 @@ GEMINI_MD="$PROJECT_DIR/GEMINI.md"
 BLOCK_START="<!-- BEGIN antigravity-superpowers -->"
 BLOCK_END="<!-- END antigravity-superpowers -->"
 
+GLOBAL_DIR="$HOME/.gemini/antigravity"
+RULE_FILE="$GLOBAL_DIR/gemini_rule.md"
+if [ -f "$RULE_FILE" ]; then
+    RULE_CONTENT=$(cat "$RULE_FILE")
+else
+    RULE_CONTENT="$BLOCK_START
+$BLOCK_END"
+fi
+
 echo "╔════════════════════════════════════════════════════════════╗"
 echo "║     Superpowers Antigravity Project Setup                 ║"
 echo "║     Configure project to use global skills                 ║"
@@ -30,13 +39,12 @@ fi
 
 # Create GEMINI.md
 echo "📝 Creating GEMINI.md..."
-cat > "$GEMINI_MD" << 'EOF'
-@~/.gemini/antigravity/skills/using-superpowers/SKILL.md
-@~/.gemini/antigravity/skills/using-superpowers/references/gemini-tools.md
-
-<!-- BEGIN antigravity-superpowers -->
-<!-- END antigravity-superpowers -->
-EOF
+{
+    echo "@~/.gemini/antigravity/skills/using-superpowers/SKILL.md"
+    echo "@~/.gemini/antigravity/skills/using-superpowers/references/gemini-tools.md"
+    echo ""
+    echo "$RULE_CONTENT"
+} > "$GEMINI_MD"
 
 echo "   ✓ GEMINI.md created"
 echo ""

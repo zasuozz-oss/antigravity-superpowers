@@ -47,6 +47,11 @@ rm -rf "$GLOBAL_DIR/skills"
 cp -r "$SCRIPT_DIR/global-config/skills" "$GLOBAL_DIR/skills"
 SKILL_COUNT=$(ls -1 "$GLOBAL_DIR/skills" | wc -l | tr -d ' ')
 echo "   ✓ $SKILL_COUNT skills installed"
+# Also install gemini_rule.md to global dir
+if [ -f "$SCRIPT_DIR/global-config/gemini_rule.md" ]; then
+    cp "$SCRIPT_DIR/global-config/gemini_rule.md" "$GLOBAL_DIR/gemini_rule.md"
+    echo "   ✓ gemini_rule.md installed"
+fi
 echo ""
 
 # Step 4: Install scripts
@@ -61,8 +66,15 @@ echo ""
 # Step 5: Update GEMINI.md
 echo "📝 Step 5: Updating global GEMINI.md..."
 
-SUPERPOWERS_BLOCK="$BLOCK_START
+RULE_FILE="$SCRIPT_DIR/global-config/gemini_rule.md"
+if [ -f "$RULE_FILE" ]; then
+    RULE_CONTENT=$(cat "$RULE_FILE")
+else
+    RULE_CONTENT="$BLOCK_START
 $BLOCK_END"
+fi
+
+SUPERPOWERS_BLOCK="$RULE_CONTENT"
 
 SKILL_REFS="@~/.gemini/antigravity/skills/using-superpowers/SKILL.md
 @~/.gemini/antigravity/skills/using-superpowers/references/gemini-tools.md"
@@ -72,13 +84,19 @@ mkdir -p "$(dirname "$GEMINI_MD")"
 if [ -f "$GEMINI_MD" ]; then
     content=$(cat "$GEMINI_MD")
     if echo "$content" | grep -qF "$BLOCK_START"; then
-        # Replace existing block
+        # Replace existing block using sed + temp file
         tmpfile=$(mktemp)
-        awk -v bs="$BLOCK_START" -v be="$BLOCK_END" -v block="$SUPERPOWERS_BLOCK" '
-            $0 == bs { print block; skip=1; next }
-            skip && $0 == be { skip=0; next }
-            !skip { print }
-        ' "$GEMINI_MD" > "$tmpfile"
+        in_block=false
+        while IFS= read -r line; do
+            if [ "$line" = "$BLOCK_START" ]; then
+                echo "$SUPERPOWERS_BLOCK" >> "$tmpfile"
+                in_block=true
+            elif [ "$line" = "$BLOCK_END" ]; then
+                in_block=false
+            elif [ "$in_block" = false ]; then
+                echo "$line" >> "$tmpfile"
+            fi
+        done < "$GEMINI_MD"
         mv "$tmpfile" "$GEMINI_MD"
         echo "   ✓ Updated existing block in: $GEMINI_MD"
     else

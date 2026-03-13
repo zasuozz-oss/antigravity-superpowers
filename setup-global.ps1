@@ -58,10 +58,15 @@ Write-Host ""
 # Step 5: Update GEMINI.md
 Write-Host "[5/6] Updating global GEMINI.md..."
 
-$SuperpowersBlock = @"
+$RuleFile = "$ScriptDir\global-config\gemini_rule.md"
+if (Test-Path $RuleFile) {
+    $SuperpowersBlock = Get-Content $RuleFile -Raw
+} else {
+    $SuperpowersBlock = @"
 $BlockStart
 $BlockEnd
 "@
+}
 
 $SkillRefs = @"
 @~/.gemini/antigravity/skills/using-superpowers/SKILL.md
