@@ -1,144 +1,239 @@
-# ai-gent
+# Antigravity Superpowers
 
-**ai-gent** is a centralized agent system designed to **standardize, control, and scale the use of AI inside Unity projects**.
-
-This repository does **not** contain gameplay code or Unity assets.  
-Instead, it acts as an **AI governance layer** that defines how AI is allowed to assist during development — ensuring consistency, safety, and predictable outcomes across all Unity projects.
+**Global configuration template for Superpowers skills in Google Antigravity**
 
 ---
 
-## Why ai-gent exists
+## 🎯 What Is This?
 
-As AI becomes deeply integrated into Unity development (code assistance, architecture decisions, asset workflows, tooling, etc.), teams often face these problems:
+This repository provides a template for setting up the [Superpowers framework](https://github.com/cyanheads/superpowers) as a **global configuration** for Google Antigravity AI agents.
 
-- AI behaves differently across projects
-- Each developer uses AI in their own way
-- AI unintentionally changes logic, structure, or conventions
-- Rules and guidelines become fragmented or outdated
-
-**ai-gent solves this by acting as a single source of truth for AI behavior in Unity projects.**
-
----
-
-## What ai-gent is used for
-
-### 1. Standardizing AI behavior in Unity development
-ai-gent defines:
-- What AI **can** and **cannot** modify
-- How AI should reason about Unity architecture
-- Constraints around scripts, assets, folders, and naming
-- How AI responds to refactor, optimization, and debugging requests
-
-This prevents AI from making unsafe or inconsistent decisions.
+**Features:**
+- ✅ Global skills installation (~/.claude/global-config/skills/)
+- ✅ Global rules enforcement (~/.claude/global-config/rules/)
+- ✅ Auto-setup workflow for new projects
+- ✅ Update workflow for upstream changes
+- ✅ No per-project duplication
 
 ---
 
-### 2. Enforcing shared rules across all Unity projects
-- Every Unity project uses the same agent rules
-- Updates are applied once and propagated everywhere
-- Older projects automatically benefit from improved rules
+## ⚡ Quick Start
 
-This eliminates rule drift between projects.
+### 1. Install Global Configuration (One-time setup)
 
----
+```bash
+# Clone this repository
+git clone https://github.com/[your-username]/antigravity-superpowers.git
+cd antigravity-superpowers
 
-### 3. Protecting project structure and logic
-ai-gent limits AI from:
-- Changing gameplay logic without explicit permission
-- Breaking folder structures
-- Renaming scripts or assets incorrectly
-- Modifying systems outside the defined scope
+# Run global setup (copies skills, rules, workflows to ~/.claude/global-config/)
+bash setup-global.sh
+```
 
-The agent **assists**, but never overrides developer intent.
+This installs:
+- 14 Superpowers skills → `~/.claude/global-config/skills/`
+- 3 enforcement rules → `~/.claude/global-config/rules/`
+- 2 workflow scripts → `~/.claude/global-config/workflows/`
 
----
+### 2. Setup New Project (Per-project)
 
-### 4. Improving onboarding and team scalability
-New developers or technical artists can:
-- Join a project
-- Read the agent rules
-- Immediately work with AI in a safe, consistent way
+```bash
+# Navigate to your project
+cd /path/to/your/project
 
-No tribal knowledge or repeated explanations required.
+# Run project setup (creates GEMINI.md)
+bash ~/.claude/global-config/workflows/setup-antigravity-project.sh
+```
 
----
+This creates a `GEMINI.md` that references global skills.
 
-## Repository structure
+### 3. Start Using
 
-ai-gent/
-├── .agent/ # Core AI rules for Unity projects
-├── .gemini/ # Gemini-specific configurations (optional)
-└── README.md
-
-### `.agent`
-- Mandatory
-- Contains all core AI rules and constraints
-- Applies to every Unity project using this system
-- Managed via Git and updated regularly
-
-### `.gemini`
-- Optional
-- AI-provider-specific prompts and configurations
-- Designed to be extensible for future AI providers
+Open Antigravity in your project directory. Skills auto-load via `GEMINI.md`.
 
 ---
 
-## How ai-gent is used in Unity projects
+## 📚 Documentation
 
-- ai-gent is cloned or synced into each Unity project
-- The project **consumes** the rules but does not own them
-- Unity projects remain independent
-- AI behavior remains centralized and consistent
-
-This separation allows teams to scale projects without duplicating or diverging AI rules.
-
----
-
-## Operational principles
-
-- ai-gent is a **shared internal repository**
-- Rule changes affect all projects
-- Updates should be pulled daily before development
-- Changes must be intentional and clearly documented
+| File | Purpose | Read Time |
+|------|---------|-----------|
+| [README.md](README.md) | This file - Overview | 5 min |
+| [docs/GLOBAL-SETUP-GUIDE.md](docs/GLOBAL-SETUP-GUIDE.md) | Complete setup guide | 15 min |
+| [docs/UPDATE-WORKFLOW.md](docs/UPDATE-WORKFLOW.md) | Update instructions | 10 min |
 
 ---
 
-## When should ai-gent be updated?
+## 🎯 What Gets Installed
 
-- When Unity workflows change
-- When AI repeatedly produces incorrect or risky output
-- When new systems or pipelines are introduced
-- When expanding AI usage to new areas (animation, tools, build systems)
+### Global Skills (14)
+**Location:** `~/.claude/global-config/skills/`
+
+**Core Skills:**
+- **brainstorming** - Design before code (MANDATORY)
+- **test-driven-development** - TDD workflow
+- **systematic-debugging** - Root cause analysis
+
+**Collaboration Skills:**
+- writing-plans, executing-plans
+- subagent-driven-development
+- dispatching-parallel-agents
+- requesting-code-review, receiving-code-review
+- using-git-worktrees
+- finishing-a-development-branch
+
+**Meta Skills:**
+- using-superpowers (framework)
+- writing-skills
+- verification-before-completion
+
+### Global Rules (3)
+**Location:** `~/.claude/global-config/rules/`
+
+- 00-mandatory-skills.md - Skill invocation requirements
+- 01-iron-laws.md - The 3 Iron Laws
+- 02-workflow-enforcement.md - Standard workflows
+
+### Global Workflows (3)
+**Location:** `~/.claude/global-config/workflows/`
+
+- update-superpowers.sh - Update skills from upstream
+- setup-project.sh - Setup new Claude Code project
+- setup-antigravity-project.sh - Setup new Antigravity project
 
 ---
 
-## Design philosophy
+## 🎮 Unity Skills (Separate Repository)
 
-> **ai-gent does not aim to make AI smarter.**  
-> **It aims to make AI predictable, safe, and aligned with Unity production rules.**
+Unity-specific skills have been moved to a separate repository for better organization.
 
-The system ensures:
-- AI understands project context
-- Developers stay in control
-- Pipelines remain stable as projects scale
+**Repository:** [antigravity-unity-skills](https://github.com/[your-username]/antigravity-unity-skills)
 
----
+**Includes:**
+- 70 Unity-specific skills
+- 9 categories (Architecture, Gameplay, Visuals, UI/UX, Performance, etc.)
+- Complete documentation
 
-## Intended audience
-
-- Unity developers
-- Game engineers
-- Technical artists
-- Tooling engineers
-- Team leads and pipeline owners
+**To use Unity skills:**
+```bash
+# Clone the Unity skills repository
+git clone https://github.com/[your-username]/antigravity-unity-skills.git
+```
 
 ---
 
-## Important notes
+## 🔑 3 Iron Laws
 
-- ai-gent is intended for **internal studio use**
-- It is not a gameplay framework
-- It is not tied to a single Unity project
-- It exists to support long-term production scalability
+1. **Brainstorming before implementation** - No code without design
+2. **Test-driven development** - No code without test first
+3. **Root cause before fixes** - No fixes without investigation
 
 ---
+
+## 🔄 Updating Superpowers
+
+Keep skills up-to-date with upstream:
+
+```bash
+bash ~/.claude/global-config/workflows/update-superpowers.sh
+```
+
+See [docs/UPDATE-WORKFLOW.md](docs/UPDATE-WORKFLOW.md) for details.
+
+---
+
+## 📁 Repository Structure
+
+```
+antigravity-superpowers/
+├── GEMINI.md                    # Example Antigravity configuration
+├── README.md                    # This file
+├── setup-global.sh              # Global installation script
+│
+├── global-config/               # Files to be installed globally
+│   ├── skills/                  # 14 Superpowers skills
+│   ├── rules/                   # 3 enforcement rules
+│   └── workflows/               # 3 workflow scripts
+│
+└── docs/                        # Documentation
+    ├── GLOBAL-SETUP-GUIDE.md
+    └── UPDATE-WORKFLOW.md
+```
+
+---
+
+## 🚀 Usage in Antigravity
+
+### Auto-Loading (Recommended)
+Skills automatically load via `GEMINI.md`. Just start working.
+
+### Manual Activation
+```python
+# Activate a specific skill
+view_file("~/.claude/global-config/skills/brainstorming/SKILL.md")
+```
+
+---
+
+## ✅ Verification
+
+```bash
+# Check global installation
+ls -1 ~/.claude/global-config/skills/ | wc -l
+# Should show: 14
+
+ls -1 ~/.claude/global-config/rules/ | wc -l
+# Should show: 3
+
+ls -1 ~/.claude/global-config/workflows/ | wc -l
+# Should show: 3
+
+# Check project setup
+cat GEMINI.md
+# Should reference: @~/.claude/global-config/skills/using-superpowers/SKILL.md
+```
+
+---
+
+## 🆘 Need Help?
+
+1. **Quick start:** Read [docs/GLOBAL-SETUP-GUIDE.md](docs/GLOBAL-SETUP-GUIDE.md)
+2. **Updates:** Read [docs/UPDATE-WORKFLOW.md](docs/UPDATE-WORKFLOW.md)
+3. **Issues:** Check [GitHub Issues](https://github.com/[your-username]/antigravity-superpowers/issues)
+
+---
+
+## 📊 Status
+
+```
+Repository: antigravity-superpowers
+Status: ✅ PRODUCTION-READY
+Platform: Google Antigravity
+Version: 2.0.0 (Global configuration)
+
+✅ Global Skills: 14/14
+✅ Global Rules: 3/3
+✅ Global Workflows: 3/3
+✅ Auto-setup: Available
+✅ Update Workflow: Available
+✅ Documentation: Complete
+```
+
+---
+
+## 🔗 Links
+
+- **Superpowers Framework:** https://github.com/cyanheads/superpowers
+- **Google Antigravity:** https://antigravity.google
+- **Unity Skills Repository:** [antigravity-unity-skills](https://github.com/[your-username]/antigravity-unity-skills)
+
+---
+
+## 📝 License
+
+This repository follows the Superpowers framework license. See upstream repository for details.
+
+---
+
+**Last Updated:** 2026-03-13T05:21:44Z
+**Version:** 2.0.0 (Global configuration)
+**Status:** Production-ready
