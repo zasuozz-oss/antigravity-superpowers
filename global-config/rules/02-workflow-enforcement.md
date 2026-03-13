@@ -1,4 +1,4 @@
-# Workflow Enforcement
+# Workflow Enforcement - Antigravity
 
 ## Standard Development Workflow
 
@@ -25,30 +25,60 @@ Every task follows this workflow. No shortcuts.
 - **Before** any planning
 - **Before** any exploration
 
+**How to invoke in Antigravity:**
+```python
+view_file("~/.claude/global-config/skills/brainstorming/SKILL.md")
+```
+
 ### Rule 2: Use Git Worktrees for Features
 - Isolates work from main branch
 - Allows safe experimentation
 - Prevents contamination of working code
+
+**How to invoke in Antigravity:**
+```python
+view_file("~/.claude/global-config/skills/using-git-worktrees/SKILL.md")
+```
 
 ### Rule 3: Write Plans Before Execution
 - Break work into concrete tasks
 - Specify files, code, commands
 - Get user approval on approach
 
+**How to invoke in Antigravity:**
+```python
+view_file("~/.claude/global-config/skills/writing-plans/SKILL.md")
+```
+
 ### Rule 4: Execute with TDD
 - Test first, always
 - Red → Green → Refactor
 - No production code without tests
+
+**How to invoke in Antigravity:**
+```python
+view_file("~/.claude/global-config/skills/test-driven-development/SKILL.md")
+```
 
 ### Rule 5: Verify Before Claiming Done
 - All tests pass
 - All requirements met
 - No regressions introduced
 
+**How to invoke in Antigravity:**
+```python
+view_file("~/.claude/global-config/skills/verification-before-completion/SKILL.md")
+```
+
 ### Rule 6: Clean Finish
 - Merge properly
 - Clean up worktree
 - Document changes
+
+**How to invoke in Antigravity:**
+```python
+view_file("~/.claude/global-config/skills/finishing-a-development-branch/SKILL.md")
+```
 
 ## Red Flags
 
@@ -67,3 +97,8 @@ These thoughts mean you're about to skip the workflow:
 The workflow exists because undisciplined work creates technical debt.
 
 Follow it even when it feels slow. Especially when it feels slow.
+
+## Platform: Google Antigravity
+
+This configuration is for Google Antigravity AI agents.
+Use `view_file()` to activate skills.
