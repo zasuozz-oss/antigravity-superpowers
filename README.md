@@ -1,18 +1,27 @@
 # Antigravity Superpowers
 
-**Customized [Superpowers](https://github.com/obra/superpowers) framework for Google Antigravity with global configuration and enforcement rules.**
+**[English](#-what-is-this) · [Tiếng Việt](#-giới-thiệu)**
+
+---
+
+## 📋 Requirements
+
+- [Google Antigravity](https://antigravity.google) (macOS / Windows / Linux)
+- Git
+- Bash shell
 
 ---
 
 ## 🎯 What Is This?
 
-A fork of the [Superpowers](https://github.com/obra/superpowers) agentic skills framework, customized for **Google Antigravity**. Ships 14 skills + 3 enforcement rules that install globally to `~/.gemini/antigravity/`.
+A fork of the [Superpowers](https://github.com/obra/superpowers) agentic skills framework, customized for **Google Antigravity**. Ships 14 skills + 4 enforcement rules that install globally to `~/.gemini/antigravity/`.
 
 **Key differences from upstream:**
 - ✅ Installs to Antigravity's native path (`~/.gemini/antigravity/`)
 - ✅ Auto-generates `~/.gemini/GEMINI.md` with global rules
-- ✅ 3 Iron Laws enforcement rules (not in upstream)
+- ✅ 3 Iron Laws + language convention enforcement rules
 - ✅ Setup scripts for quick project bootstrapping
+- ✅ Auto-sync fork repo when updating from upstream
 
 ---
 
@@ -21,16 +30,19 @@ A fork of the [Superpowers](https://github.com/obra/superpowers) agentic skills 
 ### 1. Install Globally (One-time)
 
 ```bash
-git clone https://github.com/zasuozz/antigravity-superpowers.git
+git clone https://github.com/zasuozz-oss/antigravity-superpowers.git
 cd antigravity-superpowers
 bash setup-global.sh
 ```
 
 **What gets installed:**
-- 14 skills → `~/.gemini/antigravity/skills/`
-- 3 rules → `~/.gemini/antigravity/rules/`
-- 3 workflows → `~/.gemini/antigravity/workflows/`
-- Global rules → `~/.gemini/GEMINI.md` (auto-generated)
+
+| Item | Path | Count |
+|------|------|-------|
+| Skills | `~/.gemini/antigravity/skills/` | 14 |
+| Rules | `~/.gemini/antigravity/rules/` | 4 |
+| Workflows | `~/.gemini/antigravity/workflows/` | 3 |
+| Global rules | `~/.gemini/GEMINI.md` | auto-generated |
 
 ### 2. Setup New Project
 
@@ -38,8 +50,6 @@ bash setup-global.sh
 cd /path/to/your/project
 bash ~/.gemini/antigravity/workflows/setup-antigravity-project.sh
 ```
-
-Creates a `GEMINI.md` in your project that references global skills.
 
 ### 3. Start Using
 
@@ -59,13 +69,14 @@ Open Antigravity in your project. Skills auto-load via `GEMINI.md`.
 | **Git** | using-git-worktrees, finishing-a-development-branch |
 | **Meta** | using-superpowers, writing-skills, verification-before-completion |
 
-### Rules (3)
+### Rules (4)
 
 | File | Purpose |
 |------|---------|
 | `00-mandatory-skills.md` | Skill invocation requirements |
 | `01-iron-laws.md` | The 3 Iron Laws enforcement |
 | `02-workflow-enforcement.md` | Standard development workflow |
+| `03-language-convention.md` | Language convention (EN code / VI docs) |
 
 ### Workflows (3)
 
@@ -73,7 +84,7 @@ Open Antigravity in your project. Skills auto-load via `GEMINI.md`.
 |--------|---------|
 | `setup-antigravity-project.sh` | Bootstrap new Antigravity project |
 | `setup-project.sh` | Bootstrap new project (generic) |
-| `update-superpowers.sh` | Update skills from upstream |
+| `update-superpowers.sh` | Update skills from upstream + sync fork |
 
 ---
 
@@ -94,7 +105,7 @@ antigravity-superpowers/
 ├── gemini-extension.json        # Extension metadata
 └── global-config/
     ├── skills/                  # 14 Superpowers skills
-    ├── rules/                   # 3 enforcement rules
+    ├── rules/                   # 4 enforcement rules
     └── workflows/               # 3 setup/update scripts
 ```
 
@@ -104,20 +115,8 @@ antigravity-superpowers/
 ├── GEMINI.md                    # Global rules (auto-generated)
 └── antigravity/
     ├── skills/                  # 14 skills
-    ├── rules/                   # 3 rules
+    ├── rules/                   # 4 rules
     └── workflows/               # 3 scripts
-```
-
----
-
-## 🚀 Usage
-
-### Auto-Loading (Recommended)
-Skills automatically load via `GEMINI.md`. Just start working.
-
-### Manual Activation
-```python
-view_file("~/.gemini/antigravity/skills/brainstorming/SKILL.md")
 ```
 
 ---
@@ -128,15 +127,7 @@ view_file("~/.gemini/antigravity/skills/brainstorming/SKILL.md")
 bash ~/.gemini/antigravity/workflows/update-superpowers.sh
 ```
 
----
-
-## ✅ Verification
-
-```bash
-ls -1 ~/.gemini/antigravity/skills/ | wc -l   # → 14
-ls -1 ~/.gemini/antigravity/rules/ | wc -l    # → 3
-cat ~/.gemini/GEMINI.md                        # → @imports for rules
-```
+Updates installed skills from upstream and auto-syncs back to fork repo.
 
 ---
 
@@ -149,7 +140,50 @@ cat ~/.gemini/GEMINI.md                        # → @imports for rules
 
 ## 📝 License
 
-MIT — See [upstream repository](https://github.com/obra/superpowers) for details.
+MIT — See [LICENSE-SUPERPOWERS](LICENSE-SUPERPOWERS) for details.
+
+---
+
+---
+
+# 🇻🇳 Giới Thiệu
+
+Fork từ framework [Superpowers](https://github.com/obra/superpowers), tùy chỉnh cho **Google Antigravity**. Bao gồm 14 skills + 4 rules cài đặt toàn cục tại `~/.gemini/antigravity/`.
+
+## Yêu Cầu
+
+- [Google Antigravity](https://antigravity.google) (macOS / Windows / Linux)
+- Git
+- Bash shell
+
+## Cài Đặt
+
+```bash
+# 1. Clone repo
+git clone https://github.com/zasuozz-oss/antigravity-superpowers.git
+cd antigravity-superpowers
+
+# 2. Cài đặt toàn cục (chạy 1 lần)
+bash setup-global.sh
+
+# 3. Setup cho project mới
+cd /path/to/project
+bash ~/.gemini/antigravity/workflows/setup-antigravity-project.sh
+```
+
+## Cập Nhật Skills
+
+```bash
+bash ~/.gemini/antigravity/workflows/update-superpowers.sh
+```
+
+Tự động pull từ upstream, cập nhật skills đã cài, và sync ngược vào fork repo.
+
+## 3 Luật Sắt
+
+1. **Brainstorming trước khi code** — Không code khi chưa có thiết kế
+2. **Test-driven development** — Không code khi chưa có test
+3. **Tìm root cause trước khi fix** — Không fix khi chưa điều tra
 
 ---
 
