@@ -112,39 +112,20 @@ function step4_installScripts() {
 function step5_updateGeminiMd() {
   console.log('📝 Step 5: Updating global GEMINI.md...');
 
-  // Read gemini_rule.md content for the block
   const ruleFile = join(ROOT, 'global-config', 'gemini_rule.md');
-  let block;
-  if (existsSync(ruleFile)) {
-    block = readFileSync(ruleFile, 'utf8').trimEnd();
-  } else {
-    block = `${BLOCK_START}\n${BLOCK_END}`;
-  }
 
   const skillRefs = `@~/.gemini/antigravity/skills/using-superpowers/SKILL.md
 @~/.gemini/antigravity/skills/using-superpowers/references/gemini-tools.md`;
 
   mkdirSync(dirname(GEMINI_MD), { recursive: true });
 
-  if (existsSync(GEMINI_MD)) {
-    let content = readFileSync(GEMINI_MD, 'utf8');
-    if (content.includes(BLOCK_START)) {
-      // Replace existing block
-      const re = new RegExp(
-        escapeRegExp(BLOCK_START) + '[\\s\\S]*?' + escapeRegExp(BLOCK_END),
-      );
-      content = content.replace(re, block);
-      writeFileSync(GEMINI_MD, content, 'utf8');
-      log('✓', `Updated existing block in: ${GEMINI_MD}`);
-    } else {
-      // Append block
-      writeFileSync(GEMINI_MD, content + '\n' + block + '\n', 'utf8');
-      log('✓', `Appended block to: ${GEMINI_MD}`);
-    }
-  } else {
-    writeFileSync(GEMINI_MD, skillRefs + '\n\n' + block + '\n', 'utf8');
-    log('✓', `Created: ${GEMINI_MD}`);
+  // Always overwrite — GEMINI.md is a generated file
+  let content = skillRefs + '\n';
+  if (existsSync(ruleFile)) {
+    content += '\n' + readFileSync(ruleFile, 'utf8');
   }
+  writeFileSync(GEMINI_MD, content, 'utf8');
+  log('✓', `Written: ${GEMINI_MD}`);
   console.log('');
 }
 

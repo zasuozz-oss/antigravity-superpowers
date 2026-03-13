@@ -59,40 +59,16 @@ Write-Host ""
 Write-Host "[5/6] Updating global GEMINI.md..."
 
 $RuleFile = "$ScriptDir\global-config\gemini_rule.md"
-if (Test-Path $RuleFile) {
-    $SuperpowersBlock = Get-Content $RuleFile -Raw
-} else {
-    $SuperpowersBlock = @"
-$BlockStart
-$BlockEnd
-"@
-}
-
-$SkillRefs = @"
-@~/.gemini/antigravity/skills/using-superpowers/SKILL.md
-@~/.gemini/antigravity/skills/using-superpowers/references/gemini-tools.md
-"@
 
 New-Item -ItemType Directory -Path (Split-Path $GeminiMd) -Force | Out-Null
 
-if (Test-Path $GeminiMd) {
-    $content = Get-Content $GeminiMd -Raw
-    if ($content -match [regex]::Escape($BlockStart)) {
-        # Replace existing block
-        $pattern = [regex]::Escape($BlockStart) + '[\s\S]*?' + [regex]::Escape($BlockEnd)
-        $content = [regex]::Replace($content, $pattern, $SuperpowersBlock.Trim())
-        Set-Content -Path $GeminiMd -Value $content -Encoding UTF8
-        Write-Host "   OK: Updated existing block" -ForegroundColor Green
-    } else {
-        # Append block
-        Add-Content -Path $GeminiMd -Value "`n$SuperpowersBlock"
-        Write-Host "   OK: Appended block" -ForegroundColor Green
-    }
-} else {
-    # Create new file with skill refs + block
-    Set-Content -Path $GeminiMd -Value "$SkillRefs`n`n$SuperpowersBlock" -Encoding UTF8
-    Write-Host "   OK: Created $GeminiMd" -ForegroundColor Green
+# Always overwrite — GEMINI.md is a generated file
+$content = "@~/.gemini/antigravity/skills/using-superpowers/SKILL.md`n@~/.gemini/antigravity/skills/using-superpowers/references/gemini-tools.md`n"
+if (Test-Path $RuleFile) {
+    $content += "`n" + (Get-Content $RuleFile -Raw)
 }
+Set-Content -Path $GeminiMd -Value $content -Encoding UTF8
+Write-Host "   OK: Written $GeminiMd" -ForegroundColor Green
 Write-Host ""
 
 # Step 6: Cleanup old rules/workflows if present

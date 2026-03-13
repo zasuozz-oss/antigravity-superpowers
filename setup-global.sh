@@ -67,51 +67,19 @@ echo ""
 echo "📝 Step 5: Updating global GEMINI.md..."
 
 RULE_FILE="$SCRIPT_DIR/global-config/gemini_rule.md"
-if [ -f "$RULE_FILE" ]; then
-    RULE_CONTENT=$(cat "$RULE_FILE")
-else
-    RULE_CONTENT="$BLOCK_START
-$BLOCK_END"
-fi
-
-SUPERPOWERS_BLOCK="$RULE_CONTENT"
-
-SKILL_REFS="@~/.gemini/antigravity/skills/using-superpowers/SKILL.md
-@~/.gemini/antigravity/skills/using-superpowers/references/gemini-tools.md"
 
 mkdir -p "$(dirname "$GEMINI_MD")"
 
-if [ -f "$GEMINI_MD" ]; then
-    content=$(cat "$GEMINI_MD")
-    if echo "$content" | grep -qF "$BLOCK_START"; then
-        # Replace existing block using sed + temp file
-        tmpfile=$(mktemp)
-        in_block=false
-        while IFS= read -r line; do
-            if [ "$line" = "$BLOCK_START" ]; then
-                echo "$SUPERPOWERS_BLOCK" >> "$tmpfile"
-                in_block=true
-            elif [ "$line" = "$BLOCK_END" ]; then
-                in_block=false
-            elif [ "$in_block" = false ]; then
-                echo "$line" >> "$tmpfile"
-            fi
-        done < "$GEMINI_MD"
-        mv "$tmpfile" "$GEMINI_MD"
-        echo "   ✓ Updated existing block in: $GEMINI_MD"
-    else
-        # Append block
-        echo "" >> "$GEMINI_MD"
-        echo "$SUPERPOWERS_BLOCK" >> "$GEMINI_MD"
-        echo "   ✓ Appended block to: $GEMINI_MD"
+# Always overwrite — GEMINI.md is a generated file
+{
+    echo "@~/.gemini/antigravity/skills/using-superpowers/SKILL.md"
+    echo "@~/.gemini/antigravity/skills/using-superpowers/references/gemini-tools.md"
+    echo ""
+    if [ -f "$RULE_FILE" ]; then
+        cat "$RULE_FILE"
     fi
-else
-    # Create new file with skill refs + block
-    echo "$SKILL_REFS" > "$GEMINI_MD"
-    echo "" >> "$GEMINI_MD"
-    echo "$SUPERPOWERS_BLOCK" >> "$GEMINI_MD"
-    echo "   ✓ Created: $GEMINI_MD"
-fi
+} > "$GEMINI_MD"
+echo "   ✓ Written: $GEMINI_MD"
 echo ""
 
 # Step 6: Cleanup old rules/workflows if present
