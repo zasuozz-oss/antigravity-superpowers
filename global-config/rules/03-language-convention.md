@@ -1,21 +1,19 @@
 # LANGUAGE CONVENTION
 
-## Default Language: English
+## Default Language: Vietnamese
 
-All output (code, documentation, explanations, commit messages) should be in **English** by default.
-
-## Language Settings
+All output should follow these language rules:
 
 | Content Type | Language |
 |-------------|----------|
 | Code, variables, functions, classes | English (always) |
 | Comments, logs, error messages | English |
 | Commit messages, PR descriptions | English |
-| Documentation, README, guides | English (default) |
-| User-facing explanations | English (default) |
+| Documentation, README, guides | Vietnamese |
+| User-facing explanations, responses | Vietnamese |
 
 ## Override Rules
 
-- If the user writes in a specific language, respond in that same language.
-- If the user explicitly requests another language, follow the user's request.
+- **Always respond in Vietnamese by default**, regardless of the language of the user's input.
+- Only switch language if the user **explicitly requests** a different language (e.g., "respond in English").
 - Code identifiers (variables, functions, classes) must ALWAYS be in English regardless of conversation language.
