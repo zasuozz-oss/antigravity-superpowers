@@ -72,9 +72,6 @@ mkdir -p "$(dirname "$GEMINI_MD")"
 
 # Always overwrite — GEMINI.md is a generated file
 {
-    echo "@~/.gemini/antigravity/skills/using-superpowers/SKILL.md"
-    echo "@~/.gemini/antigravity/skills/using-superpowers/references/gemini-tools.md"
-    echo ""
     if [ -f "$RULE_FILE" ]; then
         cat "$RULE_FILE"
     fi

@@ -63,9 +63,9 @@ $RuleFile = "$ScriptDir\global-config\gemini_rule.md"
 New-Item -ItemType Directory -Path (Split-Path $GeminiMd) -Force | Out-Null
 
 # Always overwrite — GEMINI.md is a generated file
-$content = "@~/.gemini/antigravity/skills/using-superpowers/SKILL.md`n@~/.gemini/antigravity/skills/using-superpowers/references/gemini-tools.md`n"
+$content = ""
 if (Test-Path $RuleFile) {
-    $content += "`n" + (Get-Content $RuleFile -Raw)
+    $content = Get-Content $RuleFile -Raw
 }
 Set-Content -Path $GeminiMd -Value $content -Encoding UTF8
 Write-Host "   OK: Written $GeminiMd" -ForegroundColor Green

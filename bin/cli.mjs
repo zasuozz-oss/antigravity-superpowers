@@ -114,15 +114,12 @@ function step5_updateGeminiMd() {
 
   const ruleFile = join(ROOT, 'global-config', 'gemini_rule.md');
 
-  const skillRefs = `@~/.gemini/antigravity/skills/using-superpowers/SKILL.md
-@~/.gemini/antigravity/skills/using-superpowers/references/gemini-tools.md`;
-
   mkdirSync(dirname(GEMINI_MD), { recursive: true });
 
   // Always overwrite — GEMINI.md is a generated file
-  let content = skillRefs + '\n';
+  let content = '';
   if (existsSync(ruleFile)) {
-    content += '\n' + readFileSync(ruleFile, 'utf8');
+    content = readFileSync(ruleFile, 'utf8');
   }
   writeFileSync(GEMINI_MD, content, 'utf8');
   log('✓', `Written: ${GEMINI_MD}`);
