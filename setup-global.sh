@@ -9,6 +9,10 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 GLOBAL_DIR="$HOME/.gemini/antigravity"
 GEMINI_MD="$HOME/.gemini/GEMINI.md"
 
+# Block markers for detect/replace
+BLOCK_START="<!-- BEGIN antigravity-superpowers -->"
+BLOCK_END="<!-- END antigravity-superpowers -->"
+
 echo "╔════════════════════════════════════════════════════════════╗"
 echo "║     Superpowers Global Setup for Antigravity               ║"
 echo "║     Install skills, rules, and workflows globally          ║"
@@ -22,63 +26,94 @@ if [ ! -d "$SCRIPT_DIR/global-config/skills" ]; then
     exit 1
 fi
 
-# Create global config directory
+# Step 1: Create directory
 echo "📁 Step 1: Creating global config directory..."
 mkdir -p "$GLOBAL_DIR"
 echo "   ✓ Created: $GLOBAL_DIR"
 echo ""
 
-# Backup existing config if present
+# Step 2: Backup
 if [ -d "$GLOBAL_DIR/skills" ] || [ -d "$GLOBAL_DIR/rules" ] || [ -d "$GLOBAL_DIR/workflows" ]; then
     BACKUP_DIR="$GLOBAL_DIR-backup-$(date +%Y%m%d-%H%M%S)"
     echo "📦 Step 2: Backing up existing config..."
     cp -r "$GLOBAL_DIR" "$BACKUP_DIR"
-    echo "   ✓ Backup created: $BACKUP_DIR"
+    echo "   ✓ Backup: $BACKUP_DIR"
     echo ""
 fi
 
-# Install skills
+# Step 3: Install skills
 echo "📚 Step 3: Installing skills..."
 rm -rf "$GLOBAL_DIR/skills"
 cp -r "$SCRIPT_DIR/global-config/skills" "$GLOBAL_DIR/skills"
 SKILL_COUNT=$(ls -1 "$GLOBAL_DIR/skills" | wc -l | tr -d ' ')
-echo "   ✓ Installed $SKILL_COUNT skills to $GLOBAL_DIR/skills/"
+echo "   ✓ $SKILL_COUNT skills installed"
 echo ""
 
-# Install rules
+# Step 4: Install rules
 echo "📋 Step 4: Installing rules..."
 rm -rf "$GLOBAL_DIR/rules"
 cp -r "$SCRIPT_DIR/global-config/rules" "$GLOBAL_DIR/rules"
 RULE_COUNT=$(ls -1 "$GLOBAL_DIR/rules" | wc -l | tr -d ' ')
-echo "   ✓ Installed $RULE_COUNT rules to $GLOBAL_DIR/rules/"
+echo "   ✓ $RULE_COUNT rules installed"
 echo ""
 
-# Install workflows
+# Step 5: Install workflows
 echo "⚙️  Step 5: Installing workflows..."
 rm -rf "$GLOBAL_DIR/workflows"
 cp -r "$SCRIPT_DIR/global-config/workflows" "$GLOBAL_DIR/workflows"
 chmod +x "$GLOBAL_DIR/workflows"/*.sh
 WORKFLOW_COUNT=$(ls -1 "$GLOBAL_DIR/workflows" | wc -l | tr -d ' ')
-echo "   ✓ Installed $WORKFLOW_COUNT workflows to $GLOBAL_DIR/workflows/"
+echo "   ✓ $WORKFLOW_COUNT workflows installed"
 echo ""
 
-# Language selection
-echo "🌐 Step 6: Select default language for documentation/explanations"
-echo "   1. English (default)"
-echo "   2. Tiếng Việt"
-echo "   3. 日本語 (Japanese)"
-echo "   4. 中文 (Chinese)"
-echo "   5. 한국어 (Korean)"
+# Step 6: Language selection
+echo "🌐 Step 6: Select default language"
 echo ""
-read -p "Choose (1-5) [1]: " lang_choice
+echo "   1.  English (default)"
+echo "   2.  Tiếng Việt (Vietnamese)"
+echo "   3.  日本語 (Japanese)"
+echo "   4.  中文 (Chinese)"
+echo "   5.  한국어 (Korean)"
+echo "   6.  Español (Spanish)"
+echo "   7.  Français (French)"
+echo "   8.  Deutsch (German)"
+echo "   9.  Português (Portuguese)"
+echo "   10. Русский (Russian)"
+echo "   11. हिन्दी (Hindi)"
+echo "   12. العربية (Arabic)"
+echo "   13. Bahasa Indonesia"
+echo "   14. ภาษาไทย (Thai)"
+echo "   15. Türkçe (Turkish)"
+echo "   16. Italiano (Italian)"
+echo "   17. Polski (Polish)"
+echo "   18. Nederlands (Dutch)"
+echo "   19. Українська (Ukrainian)"
+echo "   20. Filipino/Tagalog"
+echo ""
+read -p "Choose (1-20) [1]: " lang_choice
 lang_choice=${lang_choice:-1}
 
 case $lang_choice in
-    2) DOC_LANG="Vietnamese" ;;
-    3) DOC_LANG="Japanese" ;;
-    4) DOC_LANG="Chinese" ;;
-    5) DOC_LANG="Korean" ;;
-    *) DOC_LANG="English" ;;
+    2)  DOC_LANG="Vietnamese" ;;
+    3)  DOC_LANG="Japanese" ;;
+    4)  DOC_LANG="Chinese" ;;
+    5)  DOC_LANG="Korean" ;;
+    6)  DOC_LANG="Spanish" ;;
+    7)  DOC_LANG="French" ;;
+    8)  DOC_LANG="German" ;;
+    9)  DOC_LANG="Portuguese" ;;
+    10) DOC_LANG="Russian" ;;
+    11) DOC_LANG="Hindi" ;;
+    12) DOC_LANG="Arabic" ;;
+    13) DOC_LANG="Indonesian" ;;
+    14) DOC_LANG="Thai" ;;
+    15) DOC_LANG="Turkish" ;;
+    16) DOC_LANG="Italian" ;;
+    17) DOC_LANG="Polish" ;;
+    18) DOC_LANG="Dutch" ;;
+    19) DOC_LANG="Ukrainian" ;;
+    20) DOC_LANG="Filipino" ;;
+    *)  DOC_LANG="English" ;;
 esac
 
 # Generate language convention rule
@@ -104,28 +139,50 @@ All output should follow these language rules:
 - Code identifiers (variables, functions, classes) must ALWAYS be in English regardless of conversation language.
 LANGEOF
 
-echo "   ✓ Language set to: $DOC_LANG"
+echo "   ✓ Language: $DOC_LANG"
 echo ""
 
-# Generate global GEMINI.md with rule @imports
-echo "📝 Step 7: Generating global GEMINI.md..."
-cat > "$GEMINI_MD" << 'EOF'
-# Superpowers Global Rules
+# Step 7: Update GEMINI.md (block-based, non-destructive)
+echo "📝 Step 7: Updating global GEMINI.md..."
 
+SUPERPOWERS_BLOCK="$BLOCK_START
 @~/.gemini/antigravity/rules/00-mandatory-skills.md
 @~/.gemini/antigravity/rules/01-iron-laws.md
 @~/.gemini/antigravity/rules/02-workflow-enforcement.md
 @~/.gemini/antigravity/rules/03-language-convention.md
-EOF
-echo "   ✓ Generated: $GEMINI_MD"
+$BLOCK_END"
+
+if [ -f "$GEMINI_MD" ]; then
+    if grep -q "$BLOCK_START" "$GEMINI_MD" 2>/dev/null; then
+        # Replace existing block
+        # Use awk to replace content between markers
+        awk -v start="$BLOCK_START" -v end="$BLOCK_END" -v block="$SUPERPOWERS_BLOCK" '
+            $0 == start { print block; skip=1; next }
+            $0 == end { skip=0; next }
+            !skip { print }
+        ' "$GEMINI_MD" > "$GEMINI_MD.tmp"
+        mv "$GEMINI_MD.tmp" "$GEMINI_MD"
+        echo "   ✓ Updated existing block in: $GEMINI_MD"
+    else
+        # Append block to existing file
+        echo "" >> "$GEMINI_MD"
+        echo "$SUPERPOWERS_BLOCK" >> "$GEMINI_MD"
+        echo "   ✓ Appended block to: $GEMINI_MD"
+    fi
+else
+    # Create new file with block
+    echo "$SUPERPOWERS_BLOCK" > "$GEMINI_MD"
+    echo "   ✓ Created: $GEMINI_MD"
+fi
 echo ""
 
-# Verify installation
-echo "✅ Step 7: Verification..."
-echo "   Skills: $(ls -1 "$GLOBAL_DIR/skills" | wc -l | tr -d ' ')"
-echo "   Rules: $(ls -1 "$GLOBAL_DIR/rules" | wc -l | tr -d ' ')"
+# Step 8: Verify
+echo "✅ Step 8: Verification..."
+echo "   Skills:    $(ls -1 "$GLOBAL_DIR/skills" | wc -l | tr -d ' ')"
+echo "   Rules:     $(ls -1 "$GLOBAL_DIR/rules" | wc -l | tr -d ' ')"
 echo "   Workflows: $(ls -1 "$GLOBAL_DIR/workflows" | wc -l | tr -d ' ')"
-echo "   GEMINI.md: ✓ Generated"
+echo "   Language:  $DOC_LANG"
+echo "   GEMINI.md: ✓"
 echo ""
 
 # Summary
@@ -133,27 +190,9 @@ echo "╔═══════════════════════�
 echo "║     Installation Complete                                  ║"
 echo "╚════════════════════════════════════════════════════════════╝"
 echo ""
-echo "📊 Summary:"
-echo "   - Global config: $GLOBAL_DIR"
-echo "   - Global rules: $GEMINI_MD"
-echo "   - Skills: ✓ Installed ($SKILL_COUNT)"
-echo "   - Rules: ✓ Installed ($RULE_COUNT)"
-echo "   - Workflows: ✓ Installed ($WORKFLOW_COUNT)"
-echo ""
-echo "📝 What's installed:"
-echo "   - 14 Superpowers skills (brainstorming, TDD, debugging, etc.)"
-echo "   - 3 Iron Laws enforcement rules"
-echo "   - 3 workflow scripts (update, setup-project, setup-antigravity)"
-echo "   - Global GEMINI.md with rule @imports"
-echo ""
 echo "🚀 Next steps:"
-echo "   1. Navigate to your project directory"
-echo "   2. Run: bash ~/.gemini/antigravity/workflows/setup-antigravity-project.sh"
-echo "   3. Start Antigravity - skills will auto-load"
-echo ""
-echo "📚 Available workflows:"
-echo "   - Update skills: bash ~/.gemini/antigravity/workflows/update-superpowers.sh"
-echo "   - Setup Claude Code project: bash ~/.gemini/antigravity/workflows/setup-project.sh"
-echo "   - Setup Antigravity project: bash ~/.gemini/antigravity/workflows/setup-antigravity-project.sh"
+echo "   1. cd /path/to/project"
+echo "   2. bash ~/.gemini/antigravity/workflows/setup-antigravity-project.sh"
+echo "   3. Open Antigravity — skills auto-load"
 echo ""
 echo "✅ Done!"
