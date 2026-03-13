@@ -112,7 +112,14 @@ function step4_installScripts() {
 function step5_updateGeminiMd() {
   console.log('📝 Step 5: Updating global GEMINI.md...');
 
-  const block = `${BLOCK_START}\n${BLOCK_END}`;
+  // Read gemini_rule.md content for the block
+  const ruleFile = join(ROOT, 'global-config', 'gemini_rule.md');
+  let block;
+  if (existsSync(ruleFile)) {
+    block = readFileSync(ruleFile, 'utf8').trimEnd();
+  } else {
+    block = `${BLOCK_START}\n${BLOCK_END}`;
+  }
 
   const skillRefs = `@~/.gemini/antigravity/skills/using-superpowers/SKILL.md
 @~/.gemini/antigravity/skills/using-superpowers/references/gemini-tools.md`;
@@ -168,9 +175,8 @@ function footer() {
   console.log('╚════════════════════════════════════════════════════════════╝');
   console.log('');
   console.log('🚀 Next steps:');
-  console.log('   1. cd /path/to/project');
-  console.log('   2. bash ~/.gemini/antigravity/scripts/setup-antigravity-project.sh');
-  console.log('   3. Open Antigravity — skills auto-load');
+  console.log('   1. Open Antigravity in any project');
+  console.log('   2. Skills auto-load via ~/.gemini/GEMINI.md');
   console.log('');
   console.log('✅ Done!');
 }

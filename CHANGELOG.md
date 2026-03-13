@@ -34,7 +34,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 - `setup-global.sh` — One-time global installation script
 - `global-config/` directory structure for distribution
-- `setup-antigravity-project.sh` — Per-project setup workflow
+- `setup-antigravity-project.sh` — *(removed in v5.0.3)*
 - Global rules: `00-mandatory-skills.md`, `01-iron-laws.md`, `02-workflow-enforcement.md`
 
 ### Removed

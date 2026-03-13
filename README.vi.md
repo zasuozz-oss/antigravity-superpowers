@@ -53,16 +53,9 @@ powershell -ExecutionPolicy Bypass -File setup-global.ps1
 
 </details>
 
-### 2. Setup Cho Project Mới
+### 2. Bắt Đầu Sử Dụng
 
-```bash
-cd /path/to/project
-bash ~/.gemini/antigravity/scripts/setup-antigravity-project.sh
-```
-
-### 3. Bắt Đầu Sử Dụng
-
-Mở Antigravity trong thư mục project. Skills tự động load qua `GEMINI.md`.
+Mở Antigravity trong bất kỳ project nào. Skills tự động load qua `~/.gemini/GEMINI.md`.
 
 ---
 
@@ -90,7 +83,7 @@ antigravity-superpowers/
 ├── global-config/
 │   ├── GEMINI.md                # Cấu hình mẫu
 │   └── skills/                  # 14 Superpowers skills
-└── scripts/                     # Scripts setup/update
+└── scripts/                     # Script cập nhật
 ```
 
 **Sau khi cài đặt:**
