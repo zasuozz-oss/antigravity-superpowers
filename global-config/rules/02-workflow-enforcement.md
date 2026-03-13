@@ -27,7 +27,7 @@ Every task follows this workflow. No shortcuts.
 
 **How to invoke in Antigravity:**
 ```python
-view_file("~/.claude/global-config/skills/brainstorming/SKILL.md")
+view_file("~/.gemini/antigravity/skills/brainstorming/SKILL.md")
 ```
 
 ### Rule 2: Use Git Worktrees for Features
@@ -37,7 +37,7 @@ view_file("~/.claude/global-config/skills/brainstorming/SKILL.md")
 
 **How to invoke in Antigravity:**
 ```python
-view_file("~/.claude/global-config/skills/using-git-worktrees/SKILL.md")
+view_file("~/.gemini/antigravity/skills/using-git-worktrees/SKILL.md")
 ```
 
 ### Rule 3: Write Plans Before Execution
@@ -47,7 +47,7 @@ view_file("~/.claude/global-config/skills/using-git-worktrees/SKILL.md")
 
 **How to invoke in Antigravity:**
 ```python
-view_file("~/.claude/global-config/skills/writing-plans/SKILL.md")
+view_file("~/.gemini/antigravity/skills/writing-plans/SKILL.md")
 ```
 
 ### Rule 4: Execute with TDD
@@ -57,7 +57,7 @@ view_file("~/.claude/global-config/skills/writing-plans/SKILL.md")
 
 **How to invoke in Antigravity:**
 ```python
-view_file("~/.claude/global-config/skills/test-driven-development/SKILL.md")
+view_file("~/.gemini/antigravity/skills/test-driven-development/SKILL.md")
 ```
 
 ### Rule 5: Verify Before Claiming Done
@@ -67,7 +67,7 @@ view_file("~/.claude/global-config/skills/test-driven-development/SKILL.md")
 
 **How to invoke in Antigravity:**
 ```python
-view_file("~/.claude/global-config/skills/verification-before-completion/SKILL.md")
+view_file("~/.gemini/antigravity/skills/verification-before-completion/SKILL.md")
 ```
 
 ### Rule 6: Clean Finish
@@ -77,7 +77,7 @@ view_file("~/.claude/global-config/skills/verification-before-completion/SKILL.m
 
 **How to invoke in Antigravity:**
 ```python
-view_file("~/.claude/global-config/skills/finishing-a-development-branch/SKILL.md")
+view_file("~/.gemini/antigravity/skills/finishing-a-development-branch/SKILL.md")
 ```
 
 ## Red Flags

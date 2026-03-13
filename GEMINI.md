@@ -1,5 +1,5 @@
-@~/.claude/global-config/skills/using-superpowers/SKILL.md
-@~/.claude/global-config/skills/using-superpowers/references/gemini-tools.md
+@~/.gemini/antigravity/skills/using-superpowers/SKILL.md
+@~/.gemini/antigravity/skills/using-superpowers/references/gemini-tools.md
 
 # CRITICAL RULES - MUST FOLLOW
 
@@ -73,9 +73,9 @@ NO EXCEPTIONS
 
 ```python
 # Use view_file to activate skill
-view_file("~/.claude/global-config/skills/brainstorming/SKILL.md")
-view_file("~/.claude/global-config/skills/test-driven-development/SKILL.md")
-view_file("~/.claude/global-config/skills/systematic-debugging/SKILL.md")
+view_file("~/.gemini/antigravity/skills/brainstorming/SKILL.md")
+view_file("~/.gemini/antigravity/skills/test-driven-development/SKILL.md")
+view_file("~/.gemini/antigravity/skills/systematic-debugging/SKILL.md")
 ```
 
 **After invoking:**
@@ -116,7 +116,7 @@ User request
     ↓
 Check: Is this creative work? (add/build/create/modify)
     ↓ YES
-MUST invoke: view_file("~/.claude/global-config/skills/brainstorming/SKILL.md")
+MUST invoke: view_file("~/.gemini/antigravity/skills/brainstorming/SKILL.md")
     ↓
 Follow brainstorming skill completely
     ↓
@@ -129,7 +129,7 @@ THEN proceed to implementation
 ```
 About to write code
     ↓
-MUST invoke: view_file("~/.claude/global-config/skills/test-driven-development/SKILL.md")
+MUST invoke: view_file("~/.gemini/antigravity/skills/test-driven-development/SKILL.md")
     ↓
 Write failing test FIRST
     ↓
@@ -144,7 +144,7 @@ Verify it passes
 ```
 Bug or error encountered
     ↓
-MUST invoke: view_file("~/.claude/global-config/skills/systematic-debugging/SKILL.md")
+MUST invoke: view_file("~/.gemini/antigravity/skills/systematic-debugging/SKILL.md")
     ↓
 Phase 1: Root Cause Investigation
     ↓
@@ -159,7 +159,7 @@ Phase 4: Implementation
 ```
 About to claim "done" or "tests pass"
     ↓
-MUST invoke: view_file("~/.claude/global-config/skills/verification-before-completion/SKILL.md")
+MUST invoke: view_file("~/.gemini/antigravity/skills/verification-before-completion/SKILL.md")
     ↓
 Run verification command
     ↓

@@ -1,12 +1,13 @@
 #!/bin/bash
 # Global setup script for Superpowers in Antigravity
-# Installs skills, rules, and workflows to ~/.claude/global-config/
+# Installs skills, rules, and workflows to ~/.gemini/antigravity/
 # Usage: bash setup-global.sh
 
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-GLOBAL_DIR="$HOME/.claude/global-config"
+GLOBAL_DIR="$HOME/.gemini/antigravity"
+GEMINI_MD="$HOME/.gemini/GEMINI.md"
 
 echo "╔════════════════════════════════════════════════════════════╗"
 echo "║     Superpowers Global Setup for Antigravity               ║"
@@ -61,11 +62,25 @@ WORKFLOW_COUNT=$(ls -1 "$GLOBAL_DIR/workflows" | wc -l | tr -d ' ')
 echo "   ✓ Installed $WORKFLOW_COUNT workflows to $GLOBAL_DIR/workflows/"
 echo ""
 
+# Generate global GEMINI.md with rule @imports
+echo "📝 Step 6: Generating global GEMINI.md..."
+cat > "$GEMINI_MD" << 'EOF'
+# Superpowers Global Rules
+
+@~/.gemini/antigravity/rules/00-mandatory-skills.md
+@~/.gemini/antigravity/rules/01-iron-laws.md
+@~/.gemini/antigravity/rules/02-workflow-enforcement.md
+@~/.gemini/antigravity/rules/03-language-convention.md
+EOF
+echo "   ✓ Generated: $GEMINI_MD"
+echo ""
+
 # Verify installation
-echo "✅ Step 6: Verification..."
+echo "✅ Step 7: Verification..."
 echo "   Skills: $(ls -1 "$GLOBAL_DIR/skills" | wc -l | tr -d ' ')"
 echo "   Rules: $(ls -1 "$GLOBAL_DIR/rules" | wc -l | tr -d ' ')"
 echo "   Workflows: $(ls -1 "$GLOBAL_DIR/workflows" | wc -l | tr -d ' ')"
+echo "   GEMINI.md: ✓ Generated"
 echo ""
 
 # Summary
@@ -75,6 +90,7 @@ echo "╚═══════════════════════�
 echo ""
 echo "📊 Summary:"
 echo "   - Global config: $GLOBAL_DIR"
+echo "   - Global rules: $GEMINI_MD"
 echo "   - Skills: ✓ Installed ($SKILL_COUNT)"
 echo "   - Rules: ✓ Installed ($RULE_COUNT)"
 echo "   - Workflows: ✓ Installed ($WORKFLOW_COUNT)"
@@ -83,15 +99,16 @@ echo "📝 What's installed:"
 echo "   - 14 Superpowers skills (brainstorming, TDD, debugging, etc.)"
 echo "   - 3 Iron Laws enforcement rules"
 echo "   - 3 workflow scripts (update, setup-project, setup-antigravity)"
+echo "   - Global GEMINI.md with rule @imports"
 echo ""
 echo "🚀 Next steps:"
 echo "   1. Navigate to your project directory"
-echo "   2. Run: bash ~/.claude/global-config/workflows/setup-antigravity-project.sh"
+echo "   2. Run: bash ~/.gemini/antigravity/workflows/setup-antigravity-project.sh"
 echo "   3. Start Antigravity - skills will auto-load"
 echo ""
 echo "📚 Available workflows:"
-echo "   - Update skills: bash ~/.claude/global-config/workflows/update-superpowers.sh"
-echo "   - Setup Claude Code project: bash ~/.claude/global-config/workflows/setup-project.sh"
-echo "   - Setup Antigravity project: bash ~/.claude/global-config/workflows/setup-antigravity-project.sh"
+echo "   - Update skills: bash ~/.gemini/antigravity/workflows/update-superpowers.sh"
+echo "   - Setup Claude Code project: bash ~/.gemini/antigravity/workflows/setup-project.sh"
+echo "   - Setup Antigravity project: bash ~/.gemini/antigravity/workflows/setup-antigravity-project.sh"
 echo ""
 echo "✅ Done!"

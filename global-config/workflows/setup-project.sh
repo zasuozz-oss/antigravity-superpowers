@@ -1,7 +1,7 @@
 #!/bin/bash
 # Auto-setup script for new projects
 # Creates CLAUDE.md with reference to global Superpowers skills
-# Usage: bash ~/.claude/global-config/workflows/setup-project.sh
+# Usage: bash ~/.gemini/antigravity/workflows/setup-project.sh
 
 set -e
 
@@ -28,7 +28,7 @@ fi
 # Create CLAUDE.md
 echo "📝 Creating CLAUDE.md..."
 cat > "$CLAUDE_MD" << 'EOF'
-@~/.claude/global-config/skills/using-superpowers/SKILL.md
+@~/.gemini/antigravity/skills/using-superpowers/SKILL.md
 EOF
 
 echo "   ✓ CLAUDE.md created"

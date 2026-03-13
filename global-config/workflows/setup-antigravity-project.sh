@@ -1,7 +1,7 @@
 #!/bin/bash
 # Auto-setup script for new Antigravity projects
 # Creates GEMINI.md with reference to global Superpowers skills
-# Usage: bash ~/.claude/global-config/workflows/setup-antigravity-project.sh
+# Usage: bash ~/.gemini/antigravity/workflows/setup-antigravity-project.sh
 
 set -e
 
@@ -28,8 +28,8 @@ fi
 # Create GEMINI.md
 echo "📝 Creating GEMINI.md..."
 cat > "$GEMINI_MD" << 'EOF'
-@~/.claude/global-config/skills/using-superpowers/SKILL.md
-@~/.claude/global-config/skills/using-superpowers/references/gemini-tools.md
+@~/.gemini/antigravity/skills/using-superpowers/SKILL.md
+@~/.gemini/antigravity/skills/using-superpowers/references/gemini-tools.md
 
 # CRITICAL RULES - MUST FOLLOW
 
@@ -41,7 +41,7 @@ cat > "$GEMINI_MD" << 'EOF'
 
 1. **Analyze the request** - What is the user asking for?
 2. **Check if ANY skill applies** - Even 1% chance means invoke
-3. **Invoke the skill FIRST** - Use view_file on ~/.claude/global-config/skills/<skill-name>/SKILL.md
+3. **Invoke the skill FIRST** - Use view_file on ~/.gemini/antigravity/skills/<skill-name>/SKILL.md
 4. **Follow skill exactly** - No shortcuts, no adaptations
 5. **THEN respond** - After following skill instructions
 
@@ -103,9 +103,9 @@ NO EXCEPTIONS
 
 ```python
 # Use view_file to activate skill
-view_file("~/.claude/global-config/skills/brainstorming/SKILL.md")
-view_file("~/.claude/global-config/skills/test-driven-development/SKILL.md")
-view_file("~/.claude/global-config/skills/systematic-debugging/SKILL.md")
+view_file("~/.gemini/antigravity/skills/brainstorming/SKILL.md")
+view_file("~/.gemini/antigravity/skills/test-driven-development/SKILL.md")
+view_file("~/.gemini/antigravity/skills/systematic-debugging/SKILL.md")
 ```
 
 **After invoking:**

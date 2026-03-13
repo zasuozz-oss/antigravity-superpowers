@@ -13,7 +13,7 @@ These laws are absolute. No exceptions. No shortcuts.
 
 **How to invoke in Antigravity:**
 ```python
-view_file("~/.claude/global-config/skills/brainstorming/SKILL.md")
+view_file("~/.gemini/antigravity/skills/brainstorming/SKILL.md")
 ```
 
 **Why:**
@@ -39,7 +39,7 @@ view_file("~/.claude/global-config/skills/brainstorming/SKILL.md")
 
 **How to invoke in Antigravity:**
 ```python
-view_file("~/.claude/global-config/skills/test-driven-development/SKILL.md")
+view_file("~/.gemini/antigravity/skills/test-driven-development/SKILL.md")
 ```
 
 **Why:**
@@ -65,7 +65,7 @@ view_file("~/.claude/global-config/skills/test-driven-development/SKILL.md")
 
 **How to invoke in Antigravity:**
 ```python
-view_file("~/.claude/global-config/skills/systematic-debugging/SKILL.md")
+view_file("~/.gemini/antigravity/skills/systematic-debugging/SKILL.md")
 ```
 
 **Why:**

@@ -17,7 +17,7 @@ You MUST invoke the appropriate skill. This is not optional.
 
 **How to invoke in Antigravity:**
 ```python
-view_file("~/.claude/global-config/skills/brainstorming/SKILL.md")
+view_file("~/.gemini/antigravity/skills/brainstorming/SKILL.md")
 ```
 
 **Never skip this.** Even "simple" tasks benefit from structured thinking.
@@ -30,7 +30,7 @@ view_file("~/.claude/global-config/skills/brainstorming/SKILL.md")
 
 **How to invoke in Antigravity:**
 ```python
-view_file("~/.claude/global-config/skills/test-driven-development/SKILL.md")
+view_file("~/.gemini/antigravity/skills/test-driven-development/SKILL.md")
 ```
 
 **Write tests first.** No exceptions.
@@ -44,7 +44,7 @@ view_file("~/.claude/global-config/skills/test-driven-development/SKILL.md")
 
 **How to invoke in Antigravity:**
 ```python
-view_file("~/.claude/global-config/skills/systematic-debugging/SKILL.md")
+view_file("~/.gemini/antigravity/skills/systematic-debugging/SKILL.md")
 ```
 
 **Find root cause first.** No quick fixes.
