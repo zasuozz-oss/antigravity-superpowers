@@ -3,7 +3,6 @@
 import { cpSync, rmSync, existsSync, mkdirSync, readFileSync, writeFileSync, readdirSync, chmodSync } from 'fs';
 import { join, dirname } from 'path';
 import { homedir, platform } from 'os';
-import { createInterface } from 'readline';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -15,52 +14,6 @@ const GEMINI_MD = join(homedir(), '.gemini', 'GEMINI.md');
 
 const BLOCK_START = '<!-- BEGIN antigravity-superpowers -->';
 const BLOCK_END = '<!-- END antigravity-superpowers -->';
-
-const LANGUAGES = [
-  'English',
-  'Vietnamese',
-  'Japanese',
-  'Chinese',
-  'Korean',
-  'Spanish',
-  'French',
-  'German',
-  'Portuguese',
-  'Russian',
-  'Hindi',
-  'Arabic',
-  'Indonesian',
-  'Thai',
-  'Turkish',
-  'Italian',
-  'Polish',
-  'Dutch',
-  'Ukrainian',
-  'Filipino',
-];
-
-const LANGUAGE_LABELS = [
-  'English (default)',
-  'Tiếng Việt (Vietnamese)',
-  '日本語 (Japanese)',
-  '中文 (Chinese)',
-  '한국어 (Korean)',
-  'Español (Spanish)',
-  'Français (French)',
-  'Deutsch (German)',
-  'Português (Portuguese)',
-  'Русский (Russian)',
-  'हिन्दी (Hindi)',
-  'العربية (Arabic)',
-  'Bahasa Indonesia',
-  'ภาษาไทย (Thai)',
-  'Türkçe (Turkish)',
-  'Italiano (Italian)',
-  'Polski (Polish)',
-  'Nederlands (Dutch)',
-  'Українська (Ukrainian)',
-  'Filipino/Tagalog',
-];
 
 // ─── Helpers ───────────────────────────────────────────────
 
@@ -80,11 +33,9 @@ function countItems(dir) {
   }
 }
 
-function ask(rl, question) {
-  return new Promise((resolve) => rl.question(question, resolve));
+function escapeRegExp(s) {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
-
-
 
 // ─── Steps ─────────────────────────────────────────────────
 
@@ -107,7 +58,6 @@ function step1_createDir() {
 function step2_backup() {
   const hasExisting =
     existsSync(join(GLOBAL_DIR, 'skills')) ||
-    existsSync(join(GLOBAL_DIR, 'rules')) ||
     existsSync(join(GLOBAL_DIR, 'scripts'));
 
   if (hasExisting) {
@@ -136,22 +86,11 @@ function step3_installSkills() {
   console.log('');
 }
 
-function step4_installRules() {
-  const src = join(ROOT, 'global-config', 'rules');
-  const dest = join(GLOBAL_DIR, 'rules');
-
-  console.log('📋 Step 4: Installing rules...');
-  if (existsSync(dest)) rmSync(dest, { recursive: true, force: true });
-  copyDir(src, dest);
-  log('✓', `${countItems(dest)} rules installed`);
-  console.log('');
-}
-
-function step5_installScripts() {
+function step4_installScripts() {
   const src = join(ROOT, 'scripts');
   const dest = join(GLOBAL_DIR, 'scripts');
 
-  console.log('⚙️  Step 5: Installing scripts...');
+  console.log('⚙️  Step 4: Installing scripts...');
   if (existsSync(dest)) rmSync(dest, { recursive: true, force: true });
   copyDir(src, dest);
 
@@ -170,66 +109,13 @@ function step5_installScripts() {
   console.log('');
 }
 
-function step6_installWorkflows() {
-  const src = join(ROOT, 'global-config', 'workflows');
-  const dest = join(GLOBAL_DIR, 'global_workflows');
+function step5_updateGeminiMd() {
+  console.log('📝 Step 5: Updating global GEMINI.md...');
 
-  console.log('📝 Step 6: Installing workflows...');
-  if (existsSync(dest)) rmSync(dest, { recursive: true, force: true });
-  copyDir(src, dest);
-  log('✓', `${countItems(dest)} workflows installed`);
-  console.log('');
-}
+  const block = `${BLOCK_START}\n${BLOCK_END}`;
 
-async function step7_languageSelection(rl) {
-  console.log('🌐 Step 7: Select default language');
-  console.log('');
-  LANGUAGE_LABELS.forEach((label, i) => {
-    const num = String(i + 1).padStart(2, ' ');
-    console.log(`   ${num}. ${label}`);
-  });
-  console.log('');
-
-  const choice = await ask(rl, 'Choose (1-20) [1]: ');
-  const idx = parseInt(choice, 10) - 1;
-  const docLang = LANGUAGES[idx] || 'English';
-
-  const content = `# LANGUAGE CONVENTION
-
-## Default Language: ${docLang}
-
-All output should follow these language rules:
-
-| Content Type | Language |
-|-------------|----------|
-| Code, variables, functions, classes | English (always) |
-| Comments, logs, error messages | English |
-| Commit messages, PR descriptions | English |
-| Documentation, README, guides | ${docLang} |
-| User-facing explanations, responses | ${docLang} |
-
-## Override Rules
-
-- If the user writes in a specific language, respond in that same language.
-- If the user explicitly requests another language, follow the user's request.
-- Code identifiers (variables, functions, classes) must ALWAYS be in English regardless of conversation language.
-`;
-
-  writeFileSync(join(GLOBAL_DIR, 'rules', '03-language-convention.md'), content, 'utf8');
-  log('✓', `Language: ${docLang}`);
-  console.log('');
-  return docLang;
-}
-
-function step8_updateGeminiMd() {
-  console.log('📝 Step 8: Updating global GEMINI.md...');
-
-  const block = `${BLOCK_START}
-@~/.gemini/antigravity/rules/00-mandatory-skills.md
-@~/.gemini/antigravity/rules/01-iron-laws.md
-@~/.gemini/antigravity/rules/02-workflow-enforcement.md
-@~/.gemini/antigravity/rules/03-language-convention.md
-${BLOCK_END}`;
+  const skillRefs = `@~/.gemini/antigravity/skills/using-superpowers/SKILL.md
+@~/.gemini/antigravity/skills/using-superpowers/references/gemini-tools.md`;
 
   mkdirSync(dirname(GEMINI_MD), { recursive: true });
 
@@ -244,28 +130,34 @@ ${BLOCK_END}`;
       writeFileSync(GEMINI_MD, content, 'utf8');
       log('✓', `Updated existing block in: ${GEMINI_MD}`);
     } else {
-      // Append
+      // Append block
       writeFileSync(GEMINI_MD, content + '\n' + block + '\n', 'utf8');
       log('✓', `Appended block to: ${GEMINI_MD}`);
     }
   } else {
-    writeFileSync(GEMINI_MD, block + '\n', 'utf8');
+    writeFileSync(GEMINI_MD, skillRefs + '\n\n' + block + '\n', 'utf8');
     log('✓', `Created: ${GEMINI_MD}`);
   }
   console.log('');
 }
 
-function escapeRegExp(s) {
-  return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+function step6_cleanup() {
+  const rulesDir = join(GLOBAL_DIR, 'rules');
+  const workflowsDir = join(GLOBAL_DIR, 'global_workflows');
+
+  if (existsSync(rulesDir) || existsSync(workflowsDir)) {
+    console.log('🧹 Step 6: Cleaning up old rules/workflows...');
+    if (existsSync(rulesDir)) rmSync(rulesDir, { recursive: true, force: true });
+    if (existsSync(workflowsDir)) rmSync(workflowsDir, { recursive: true, force: true });
+    log('✓', 'Removed legacy rules and workflows');
+    console.log('');
+  }
 }
 
-function step9_verify(docLang) {
-  console.log('✅ Step 9: Verification...');
+function step7_verify() {
+  console.log('✅ Verification...');
   log('', `Skills:    ${countItems(join(GLOBAL_DIR, 'skills'))}`);
-  log('', `Rules:     ${countItems(join(GLOBAL_DIR, 'rules'))}`);
   log('', `Scripts:   ${countItems(join(GLOBAL_DIR, 'scripts'))}`);
-  log('', `Workflows: ${countItems(join(GLOBAL_DIR, 'global_workflows'))}`);
-  log('', `Language:  ${docLang}`);
   log('', `GEMINI.md: ✓`);
   console.log('');
 }
@@ -285,25 +177,16 @@ function footer() {
 
 // ─── Main ──────────────────────────────────────────────────
 
-async function main() {
+function main() {
   banner();
   step1_createDir();
   step2_backup();
   step3_installSkills();
-  step4_installRules();
-  step5_installScripts();
-  step6_installWorkflows();
-
-  const rl = createInterface({ input: process.stdin, output: process.stdout });
-  const docLang = await step7_languageSelection(rl);
-  rl.close();
-
-  step8_updateGeminiMd();
-  step9_verify(docLang);
+  step4_installScripts();
+  step5_updateGeminiMd();
+  step6_cleanup();
+  step7_verify();
   footer();
 }
 
-main().catch((err) => {
-  console.error('❌ Error:', err.message);
-  process.exit(1);
-});
+main();

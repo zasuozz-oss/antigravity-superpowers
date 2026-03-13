@@ -1,6 +1,6 @@
 # Antigravity Superpowers
 
-Framework [Superpowers](https://github.com/obra/superpowers) tùy chỉnh cho Google Antigravity với cấu hình toàn cục và các luật bắt buộc.
+Framework [Superpowers](https://github.com/obra/superpowers) tùy chỉnh cho Google Antigravity với cấu hình toàn cục.
 
 🌐 [English](README.md) · [Bắt Đầu Nhanh](#-bắt-đầu-nhanh) · [Tính Năng](#-bao-gồm-gì) · [Báo Lỗi](https://github.com/zasuozz-oss/antigravity-superpowers/issues)
 
@@ -16,12 +16,11 @@ Framework [Superpowers](https://github.com/obra/superpowers) tùy chỉnh cho Go
 
 ## 🎯 Giới Thiệu
 
-Fork từ framework [Superpowers](https://github.com/obra/superpowers), tùy chỉnh cho **Google Antigravity**. Bao gồm 14 skills + 4 rules cài đặt toàn cục tại `~/.gemini/antigravity/`.
+Fork từ framework [Superpowers](https://github.com/obra/superpowers), tùy chỉnh cho **Google Antigravity**. Bao gồm 14 skills cài đặt toàn cục tại `~/.gemini/antigravity/`.
 
 **Khác biệt so với bản gốc:**
 - ✅ Cài đặt tại đường dẫn native của Antigravity (`~/.gemini/antigravity/`)
-- ✅ Tự động tạo `~/.gemini/GEMINI.md` với global rules
-- ✅ 3 Luật Sắt + quy ước ngôn ngữ
+- ✅ Tự động tạo `~/.gemini/GEMINI.md` với skill references
 - ✅ Tự đồng bộ fork repo khi cập nhật từ upstream
 
 ---
@@ -79,31 +78,6 @@ Mở Antigravity trong thư mục project. Skills tự động load qua `GEMINI.
 | **Git** | using-git-worktrees, finishing-a-development-branch |
 | **Meta** | using-superpowers, writing-skills, verification-before-completion |
 
-### Rules (4)
-
-| File | Mục đích |
-|------|----------|
-| `00-mandatory-skills.md` | Yêu cầu gọi skill bắt buộc |
-| `01-iron-laws.md` | 3 Luật Sắt |
-| `02-workflow-enforcement.md` | Quy trình phát triển chuẩn |
-| `03-language-convention.md` | Quy ước ngôn ngữ (EN code / VI docs) |
-
-### Workflows (3)
-
-| Script | Mục đích |
-|--------|----------|
-| `setup-antigravity-project.sh` | Khởi tạo project Antigravity mới |
-| `setup-project.sh` | Khởi tạo project chung |
-| `update-superpowers.sh` | Cập nhật skills từ upstream + sync fork |
-
----
-
-## 🔑 3 Luật Sắt
-
-1. **Brainstorming trước khi code** — Không code khi chưa có thiết kế
-2. **Test-driven development** — Không code khi chưa có test
-3. **Tìm root cause trước khi fix** — Không fix khi chưa điều tra
-
 ---
 
 ## 📁 Cấu Trúc
@@ -112,24 +86,20 @@ Mở Antigravity trong thư mục project. Skills tự động load qua `GEMINI.
 antigravity-superpowers/
 ├── setup-global.sh              # Script cài đặt (macOS/Linux)
 ├── setup-global.ps1             # Script cài đặt (Windows)
-├── GEMINI.md                    # Cấu hình project mẫu
-├── gemini-extension.json        # Metadata extension
-├── scripts/                     # 3 scripts setup/update
-└── global-config/
-    ├── skills/                  # 14 Superpowers skills
-    ├── rules/                   # 4 enforcement rules
-    └── workflows/               # 3 Antigravity workflows
+├── bin/cli.mjs                  # npx installer
+├── global-config/
+│   ├── GEMINI.md                # Cấu hình mẫu
+│   └── skills/                  # 14 Superpowers skills
+└── scripts/                     # Scripts setup/update
 ```
 
 **Sau khi cài đặt:**
 ```
 ~/.gemini/
-├── GEMINI.md                    # Global rules (tự tạo)
+├── GEMINI.md                    # Global config (tự tạo)
 └── antigravity/
     ├── skills/                  # 14 skills
-    ├── rules/                   # 4 rules
-    ├── scripts/                 # 3 scripts
-    └── global_workflows/            # 4 workflows
+    └── scripts/                 # Setup scripts
 ```
 
 ---
