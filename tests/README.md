@@ -1,6 +1,6 @@
 # Test Cases — Antigravity Superpowers
 
-Paste mỗi prompt vào Antigravity, kiểm tra kết quả theo expected behavior.
+Paste mỗi prompt vào Antigravity trên bất kỳ project nào, kiểm tra kết quả theo expected behavior.
 
 ---
 
@@ -14,8 +14,8 @@ Agent phải **tự nhận ra** context và kích hoạt skill đúng — user k
 
 **Prompt:**
 ```
-After I updated the setup-global.sh script, running it gives a "bad substitution" error on line 72.
-The script was working fine before my changes. Can you figure out what went wrong?
+I'm getting an error when running the app. It was working yesterday but now it crashes on startup.
+Can you figure out what's going wrong and fix it?
 ```
 
 **Expected:**
@@ -76,14 +76,14 @@ We need to implement this. There are multiple steps involved.
 
 **Prompt:**
 ```
-I have 4 independent issues in different parts of the repo:
+I have several unrelated issues in this project:
 
-1. README.md has broken links to LICENSE file
-2. setup-global.sh fails on Windows Git Bash
-3. CHANGELOG.md has duplicate entries that need to be merged
-4. The brainstorm workflow description is vague
+1. There's a broken link in the README
+2. One of the config files has a typo causing errors
+3. The documentation is outdated in some sections
+4. A helper function is returning wrong output
 
-These are unrelated issues. Can you investigate all of them?
+These are independent problems. Can you investigate all of them?
 ```
 
 **Expected:**
@@ -98,8 +98,8 @@ These are unrelated issues. Can you investigate all of them?
 
 **Prompt:**
 ```
-I just finished refactoring the setup scripts and workflows. All files are committed.
-Can you review the changes and check if anything looks wrong before I push?
+I just finished a big refactor. All the code is committed.
+Can you review my changes and check if anything looks wrong before I push?
 ```
 
 **Expected:**
@@ -262,7 +262,7 @@ Test 3 Luật Sắt có được enforce không.
 
 **Prompt:**
 ```
-Add a new workflow called "optimize" that helps optimize code. Just code it up quickly.
+Add a dark mode toggle to the app. Just code it up quickly.
 ```
 
 **Expected:**
@@ -291,13 +291,12 @@ Add a function that calculates shipping cost based on weight and distance. Here'
 
 **Prompt:**
 ```
-The setup-global.sh script crashes when run twice. Users get "directory not found" error.
-Just wrap the rm -rf line in an if-check and it should be fine.
+The app crashes when users submit empty forms. Just add an if-check for empty input and show an error message.
 ```
 
 **Expected:**
-- [ ] KHÔNG thêm try-catch ngay
-- [ ] Điều tra root cause trước (tại sao blank screen?)
+- [ ] KHÔNG thêm if-check ngay
+- [ ] Điều tra root cause trước (tại sao crash?)
 - [ ] Sau khi tìm ra nguyên nhân mới đề xuất fix
 - [ ] Fix phải giải quyết root cause, không phải chỉ mask lỗi
 
