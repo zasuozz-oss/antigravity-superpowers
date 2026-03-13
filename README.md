@@ -1,6 +1,8 @@
 # Antigravity Superpowers
 
-**[English](#-what-is-this) · [Tiếng Việt](#-giới-thiệu)**
+Customized [Superpowers](https://github.com/obra/superpowers) framework for Google Antigravity with global configuration and enforcement rules.
+
+🌐 [Tiếng Việt](README.vi.md) · [Quick Start](#-quick-start) · [Features](#-whats-inside) · [Report Bug](https://github.com/zasuozz-oss/antigravity-superpowers/issues)
 
 ---
 
@@ -8,7 +10,7 @@
 
 - [Google Antigravity](https://antigravity.google) (macOS / Windows / Linux)
 - Git
-- Bash shell
+- Bash (macOS/Linux) or PowerShell (Windows)
 
 ---
 
@@ -20,7 +22,6 @@ A fork of the [Superpowers](https://github.com/obra/superpowers) agentic skills 
 - ✅ Installs to Antigravity's native path (`~/.gemini/antigravity/`)
 - ✅ Auto-generates `~/.gemini/GEMINI.md` with global rules
 - ✅ 3 Iron Laws + language convention enforcement rules
-- ✅ Setup scripts for quick project bootstrapping
 - ✅ Auto-sync fork repo when updating from upstream
 
 ---
@@ -42,15 +43,6 @@ git clone https://github.com/zasuozz-oss/antigravity-superpowers.git
 cd antigravity-superpowers
 powershell -ExecutionPolicy Bypass -File setup-global.ps1
 ```
-
-**What gets installed:**
-
-| Item | Path | Count |
-|------|------|-------|
-| Skills | `~/.gemini/antigravity/skills/` | 14 |
-| Rules | `~/.gemini/antigravity/rules/` | 4 |
-| Workflows | `~/.gemini/antigravity/workflows/` | 3 |
-| Global rules | `~/.gemini/GEMINI.md` | auto-generated |
 
 ### 2. Setup New Project
 
@@ -150,57 +142,3 @@ Updates installed skills from upstream and auto-syncs back to fork repo.
 ## 📝 License
 
 MIT — See [LICENSE-SUPERPOWERS](LICENSE-SUPERPOWERS) for details.
-
----
-
----
-
-# 🇻🇳 Giới Thiệu
-
-Fork từ framework [Superpowers](https://github.com/obra/superpowers), tùy chỉnh cho **Google Antigravity**. Bao gồm 14 skills + 4 rules cài đặt toàn cục tại `~/.gemini/antigravity/`.
-
-## Yêu Cầu
-
-- [Google Antigravity](https://antigravity.google) (macOS / Windows / Linux)
-- Git
-- Bash shell
-
-## Cài Đặt
-
-**macOS / Linux:**
-```bash
-git clone https://github.com/zasuozz-oss/antigravity-superpowers.git
-cd antigravity-superpowers
-bash setup-global.sh
-```
-
-**Windows (PowerShell):**
-```powershell
-git clone https://github.com/zasuozz-oss/antigravity-superpowers.git
-cd antigravity-superpowers
-powershell -ExecutionPolicy Bypass -File setup-global.ps1
-```
-
-**Setup cho project mới:**
-```bash
-cd /path/to/project
-bash ~/.gemini/antigravity/workflows/setup-antigravity-project.sh
-```
-
-## Cập Nhật Skills
-
-```bash
-bash ~/.gemini/antigravity/workflows/update-superpowers.sh
-```
-
-Tự động pull từ upstream, cập nhật skills đã cài, và sync ngược vào fork repo.
-
-## 3 Luật Sắt
-
-1. **Brainstorming trước khi code** — Không code khi chưa có thiết kế
-2. **Test-driven development** — Không code khi chưa có test
-3. **Tìm root cause trước khi fix** — Không fix khi chưa điều tra
-
----
-
-**Version:** 2.1.0 · **Platform:** Google Antigravity · **Last Updated:** 2026-03-13
