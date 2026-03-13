@@ -107,7 +107,8 @@ antigravity-superpowers/
 ├── scripts/                     # 3 setup/update scripts
 └── global-config/
     ├── skills/                  # 14 Superpowers skills
-    └── rules/                   # 4 enforcement rules
+    ├── rules/                   # 4 enforcement rules
+    └── workflows/               # 3 Antigravity workflows
 ```
 
 **After installation:**
@@ -117,7 +118,8 @@ antigravity-superpowers/
 └── antigravity/
     ├── skills/                  # 14 skills
     ├── rules/                   # 4 rules
-    └── scripts/                 # 3 scripts
+    ├── scripts/                 # 3 scripts
+    └── workflows/               # 3 workflows
 ```
 
 ---

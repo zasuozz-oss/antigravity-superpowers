@@ -55,16 +55,24 @@ $RuleCount = (Get-ChildItem "$GlobalDir\rules" -File).Count
 Write-Host "   OK: $RuleCount rules" -ForegroundColor Green
 Write-Host ""
 
-# Step 5: Install workflows
-Write-Host "[5/8] Installing workflows..."
+# Step 5: Install scripts
+Write-Host "[5/9] Installing scripts..."
 if (Test-Path "$GlobalDir\scripts") { Remove-Item "$GlobalDir\scripts" -Recurse -Force }
 Copy-Item -Path "$ScriptDir\scripts" -Destination "$GlobalDir\scripts" -Recurse
-$WorkflowCount = (Get-ChildItem "$GlobalDir\scripts" -File).Count
+$ScriptCount = (Get-ChildItem "$GlobalDir\scripts" -File).Count
+Write-Host "   OK: $ScriptCount scripts" -ForegroundColor Green
+Write-Host ""
+
+# Step 6: Install workflows
+Write-Host "[6/9] Installing workflows..."
+if (Test-Path "$GlobalDir\workflows") { Remove-Item "$GlobalDir\workflows" -Recurse -Force }
+Copy-Item -Path "$ScriptDir\global-config\workflows" -Destination "$GlobalDir\workflows" -Recurse
+$WorkflowCount = (Get-ChildItem "$GlobalDir\workflows" -File).Count
 Write-Host "   OK: $WorkflowCount workflows" -ForegroundColor Green
 Write-Host ""
 
-# Step 6: Language selection
-Write-Host "[6/8] Select default language" -ForegroundColor Yellow
+# Step 7: Language selection
+Write-Host "[7/9] Select default language" -ForegroundColor Yellow
 Write-Host ""
 Write-Host "   1.  English (default)"
 Write-Host "   2.  Tieng Viet (Vietnamese)"
@@ -140,7 +148,7 @@ Write-Host "   OK: Language = $DocLang" -ForegroundColor Green
 Write-Host ""
 
 # Step 7: Update GEMINI.md (block-based, non-destructive)
-Write-Host "[7/8] Updating global GEMINI.md..."
+Write-Host "[8/9] Updating global GEMINI.md..."
 
 $SuperpowersBlock = @"
 $BlockStart
@@ -174,7 +182,7 @@ if (Test-Path $GeminiMd) {
 Write-Host ""
 
 # Step 8: Verify
-Write-Host "[8/8] Verification..." -ForegroundColor Green
+Write-Host "[9/9] Verification..." -ForegroundColor Green
 Write-Host "   Skills:    $SkillCount"
 Write-Host "   Rules:     $RuleCount"
 Write-Host "   Workflows: $WorkflowCount"

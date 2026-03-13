@@ -57,17 +57,25 @@ RULE_COUNT=$(ls -1 "$GLOBAL_DIR/rules" | wc -l | tr -d ' ')
 echo "   ✓ $RULE_COUNT rules installed"
 echo ""
 
-# Step 5: Install workflows
-echo "⚙️  Step 5: Installing workflows..."
+# Step 5: Install scripts
+echo "⚙️  Step 5: Installing scripts..."
 rm -rf "$GLOBAL_DIR/scripts"
 cp -r "$SCRIPT_DIR/scripts" "$GLOBAL_DIR/scripts"
 chmod +x "$GLOBAL_DIR/scripts"/*.sh
-WORKFLOW_COUNT=$(ls -1 "$GLOBAL_DIR/scripts" | wc -l | tr -d ' ')
+SCRIPT_COUNT=$(ls -1 "$GLOBAL_DIR/scripts" | wc -l | tr -d ' ')
+echo "   ✓ $SCRIPT_COUNT scripts installed"
+echo ""
+
+# Step 6: Install workflows
+echo "📝 Step 6: Installing workflows..."
+rm -rf "$GLOBAL_DIR/workflows"
+cp -r "$SCRIPT_DIR/global-config/workflows" "$GLOBAL_DIR/workflows"
+WORKFLOW_COUNT=$(ls -1 "$GLOBAL_DIR/workflows" | wc -l | tr -d ' ')
 echo "   ✓ $WORKFLOW_COUNT workflows installed"
 echo ""
 
-# Step 6: Language selection
-echo "🌐 Step 6: Select default language"
+# Step 7: Language selection
+echo "🌐 Step 7: Select default language"
 echo ""
 echo "   1.  English (default)"
 echo "   2.  Tiếng Việt (Vietnamese)"
@@ -142,8 +150,8 @@ LANGEOF
 echo "   ✓ Language: $DOC_LANG"
 echo ""
 
-# Step 7: Update GEMINI.md (block-based, non-destructive)
-echo "📝 Step 7: Updating global GEMINI.md..."
+# Step 8: Update GEMINI.md (block-based, non-destructive)
+echo "📝 Step 8: Updating global GEMINI.md..."
 
 SUPERPOWERS_BLOCK="$BLOCK_START
 @~/.gemini/antigravity/rules/00-mandatory-skills.md
@@ -176,11 +184,12 @@ else
 fi
 echo ""
 
-# Step 8: Verify
-echo "✅ Step 8: Verification..."
+# Step 9: Verify
+echo "✅ Step 9: Verification..."
 echo "   Skills:    $(ls -1 "$GLOBAL_DIR/skills" | wc -l | tr -d ' ')"
 echo "   Rules:     $(ls -1 "$GLOBAL_DIR/rules" | wc -l | tr -d ' ')"
-echo "   Workflows: $(ls -1 "$GLOBAL_DIR/scripts" | wc -l | tr -d ' ')"
+echo "   Scripts:   $(ls -1 "$GLOBAL_DIR/scripts" | wc -l | tr -d ' ')"
+echo "   Workflows: $(ls -1 "$GLOBAL_DIR/workflows" | wc -l | tr -d ' ')"
 echo "   Language:  $DOC_LANG"
 echo "   GEMINI.md: ✓"
 echo ""
