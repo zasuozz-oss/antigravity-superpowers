@@ -1,5 +1,15 @@
 ---
-description: "Deprecated - use the superpowers:writing-plans skill instead"
+description: Write a structured implementation plan for an approved design.
 ---
 
-Tell your human partner that this command is deprecated and will be removed in the next major release. They should ask you to use the "superpowers writing-plans" skill instead.
+## Steps
+
+1. **Review the approved design** — Re-read the brainstorm output and user approval.
+2. **Break into tasks** — Split the work into ordered, concrete tasks with file paths.
+3. **Identify dependencies** — Note which tasks must be done first.
+4. **Estimate complexity** — Mark each task as small / medium / large.
+5. **Write the plan** — Create an `implementation_plan.md` artifact with:
+   - Goal description
+   - Proposed changes (grouped by component)
+   - Verification plan
+6. **Request review** — Ask the user to approve the plan before proceeding.
