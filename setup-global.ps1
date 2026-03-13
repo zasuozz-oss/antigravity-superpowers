@@ -31,7 +31,7 @@ Write-Host "   OK: $GlobalDir" -ForegroundColor Green
 Write-Host ""
 
 # Step 2: Backup
-if ((Test-Path "$GlobalDir\skills") -or (Test-Path "$GlobalDir\rules") -or (Test-Path "$GlobalDir\workflows")) {
+if ((Test-Path "$GlobalDir\skills") -or (Test-Path "$GlobalDir\rules") -or (Test-Path "$GlobalDir\scripts")) {
     $BackupDir = "$GlobalDir-backup-$(Get-Date -Format 'yyyyMMdd-HHmmss')"
     Write-Host "[2/8] Backing up existing config..."
     Copy-Item -Path $GlobalDir -Destination $BackupDir -Recurse
@@ -57,9 +57,9 @@ Write-Host ""
 
 # Step 5: Install workflows
 Write-Host "[5/8] Installing workflows..."
-if (Test-Path "$GlobalDir\workflows") { Remove-Item "$GlobalDir\workflows" -Recurse -Force }
-Copy-Item -Path "$ScriptDir\global-config\workflows" -Destination "$GlobalDir\workflows" -Recurse
-$WorkflowCount = (Get-ChildItem "$GlobalDir\workflows" -File).Count
+if (Test-Path "$GlobalDir\scripts") { Remove-Item "$GlobalDir\scripts" -Recurse -Force }
+Copy-Item -Path "$ScriptDir\scripts" -Destination "$GlobalDir\scripts" -Recurse
+$WorkflowCount = (Get-ChildItem "$GlobalDir\scripts" -File).Count
 Write-Host "   OK: $WorkflowCount workflows" -ForegroundColor Green
 Write-Host ""
 

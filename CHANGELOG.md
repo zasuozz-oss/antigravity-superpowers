@@ -28,7 +28,7 @@ All notable changes to this project will be documented in this file.
 - **Major refactor:** Changed from local to global configuration model
 - Skills now installed globally at `~/.gemini/antigravity/skills/`
 - Rules now installed globally at `~/.gemini/antigravity/rules/`
-- Workflows now installed globally at `~/.gemini/antigravity/workflows/`
+- Workflows now installed globally at `~/.gemini/antigravity/scripts/`
 - Projects reference global skills via GEMINI.md: `@~/.gemini/antigravity/skills/using-superpowers/SKILL.md`
 
 ### Added

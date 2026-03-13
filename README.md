@@ -48,7 +48,7 @@ powershell -ExecutionPolicy Bypass -File setup-global.ps1
 
 ```bash
 cd /path/to/your/project
-bash ~/.gemini/antigravity/workflows/setup-antigravity-project.sh
+bash ~/.gemini/antigravity/scripts/setup-antigravity-project.sh
 ```
 
 ### 3. Start Using
@@ -104,10 +104,10 @@ antigravity-superpowers/
 ├── setup-global.ps1             # Install script (Windows)
 ├── GEMINI.md                    # Example project configuration
 ├── gemini-extension.json        # Extension metadata
+├── scripts/                     # 3 setup/update scripts
 └── global-config/
     ├── skills/                  # 14 Superpowers skills
-    ├── rules/                   # 4 enforcement rules
-    └── workflows/               # 3 setup/update scripts
+    └── rules/                   # 4 enforcement rules
 ```
 
 **After installation:**
@@ -117,7 +117,7 @@ antigravity-superpowers/
 └── antigravity/
     ├── skills/                  # 14 skills
     ├── rules/                   # 4 rules
-    └── workflows/               # 3 scripts
+    └── scripts/                 # 3 scripts
 ```
 
 ---
@@ -125,7 +125,7 @@ antigravity-superpowers/
 ## 🔄 Updating
 
 ```bash
-bash ~/.gemini/antigravity/workflows/update-superpowers.sh
+bash ~/.gemini/antigravity/scripts/update-superpowers.sh
 ```
 
 Updates installed skills from upstream and auto-syncs back to fork repo.

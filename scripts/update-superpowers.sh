@@ -2,7 +2,7 @@
 # Update Superpowers skills from upstream repository
 # Pulls latest skills from obra/superpowers, updates installed skills,
 # and syncs changes back to fork repo's global-config/skills/
-# Usage: bash ~/.gemini/antigravity/workflows/update-superpowers.sh
+# Usage: bash ~/.gemini/antigravity/scripts/update-superpowers.sh
 
 set -e
 

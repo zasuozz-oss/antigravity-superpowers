@@ -33,7 +33,7 @@ echo "   ✓ Created: $GLOBAL_DIR"
 echo ""
 
 # Step 2: Backup
-if [ -d "$GLOBAL_DIR/skills" ] || [ -d "$GLOBAL_DIR/rules" ] || [ -d "$GLOBAL_DIR/workflows" ]; then
+if [ -d "$GLOBAL_DIR/skills" ] || [ -d "$GLOBAL_DIR/rules" ] || [ -d "$GLOBAL_DIR/scripts" ]; then
     BACKUP_DIR="$GLOBAL_DIR-backup-$(date +%Y%m%d-%H%M%S)"
     echo "📦 Step 2: Backing up existing config..."
     cp -r "$GLOBAL_DIR" "$BACKUP_DIR"
@@ -59,10 +59,10 @@ echo ""
 
 # Step 5: Install workflows
 echo "⚙️  Step 5: Installing workflows..."
-rm -rf "$GLOBAL_DIR/workflows"
-cp -r "$SCRIPT_DIR/global-config/workflows" "$GLOBAL_DIR/workflows"
-chmod +x "$GLOBAL_DIR/workflows"/*.sh
-WORKFLOW_COUNT=$(ls -1 "$GLOBAL_DIR/workflows" | wc -l | tr -d ' ')
+rm -rf "$GLOBAL_DIR/scripts"
+cp -r "$SCRIPT_DIR/scripts" "$GLOBAL_DIR/scripts"
+chmod +x "$GLOBAL_DIR/scripts"/*.sh
+WORKFLOW_COUNT=$(ls -1 "$GLOBAL_DIR/scripts" | wc -l | tr -d ' ')
 echo "   ✓ $WORKFLOW_COUNT workflows installed"
 echo ""
 
@@ -180,7 +180,7 @@ echo ""
 echo "✅ Step 8: Verification..."
 echo "   Skills:    $(ls -1 "$GLOBAL_DIR/skills" | wc -l | tr -d ' ')"
 echo "   Rules:     $(ls -1 "$GLOBAL_DIR/rules" | wc -l | tr -d ' ')"
-echo "   Workflows: $(ls -1 "$GLOBAL_DIR/workflows" | wc -l | tr -d ' ')"
+echo "   Workflows: $(ls -1 "$GLOBAL_DIR/scripts" | wc -l | tr -d ' ')"
 echo "   Language:  $DOC_LANG"
 echo "   GEMINI.md: ✓"
 echo ""
@@ -192,7 +192,7 @@ echo "╚═══════════════════════�
 echo ""
 echo "🚀 Next steps:"
 echo "   1. cd /path/to/project"
-echo "   2. bash ~/.gemini/antigravity/workflows/setup-antigravity-project.sh"
+echo "   2. bash ~/.gemini/antigravity/scripts/setup-antigravity-project.sh"
 echo "   3. Open Antigravity — skills auto-load"
 echo ""
 echo "✅ Done!"

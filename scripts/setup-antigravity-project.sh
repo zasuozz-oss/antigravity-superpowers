@@ -1,7 +1,7 @@
 #!/bin/bash
 # Auto-setup script for new Antigravity projects
 # Creates GEMINI.md with reference to global Superpowers skills
-# Usage: bash ~/.gemini/antigravity/workflows/setup-antigravity-project.sh
+# Usage: bash ~/.gemini/antigravity/scripts/setup-antigravity-project.sh
 
 set -e
 

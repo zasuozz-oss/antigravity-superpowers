@@ -48,7 +48,7 @@ powershell -ExecutionPolicy Bypass -File setup-global.ps1
 
 ```bash
 cd /path/to/project
-bash ~/.gemini/antigravity/workflows/setup-antigravity-project.sh
+bash ~/.gemini/antigravity/scripts/setup-antigravity-project.sh
 ```
 
 ### 3. Bắt Đầu Sử Dụng
@@ -104,10 +104,10 @@ antigravity-superpowers/
 ├── setup-global.ps1             # Script cài đặt (Windows)
 ├── GEMINI.md                    # Cấu hình project mẫu
 ├── gemini-extension.json        # Metadata extension
+├── scripts/                     # 3 scripts setup/update
 └── global-config/
     ├── skills/                  # 14 Superpowers skills
-    ├── rules/                   # 4 enforcement rules
-    └── workflows/               # 3 scripts setup/update
+    └── rules/                   # 4 enforcement rules
 ```
 
 **Sau khi cài đặt:**
@@ -117,7 +117,7 @@ antigravity-superpowers/
 └── antigravity/
     ├── skills/                  # 14 skills
     ├── rules/                   # 4 rules
-    └── workflows/               # 3 scripts
+    └── scripts/                 # 3 scripts
 ```
 
 ---
@@ -125,7 +125,7 @@ antigravity-superpowers/
 ## 🔄 Cập Nhật
 
 ```bash
-bash ~/.gemini/antigravity/workflows/update-superpowers.sh
+bash ~/.gemini/antigravity/scripts/update-superpowers.sh
 ```
 
 Tự động pull skills từ upstream, cập nhật bản cài đặt, và đồng bộ ngược vào fork repo.
