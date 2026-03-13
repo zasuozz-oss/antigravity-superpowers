@@ -1,6 +1,6 @@
 {
   "name": "@zasuo/ag-s",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "Antigravity Superpowers — Customized skills framework for Google Antigravity",
   "type": "module",
   "bin": {
