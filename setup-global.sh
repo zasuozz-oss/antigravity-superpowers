@@ -62,8 +62,53 @@ WORKFLOW_COUNT=$(ls -1 "$GLOBAL_DIR/workflows" | wc -l | tr -d ' ')
 echo "   ✓ Installed $WORKFLOW_COUNT workflows to $GLOBAL_DIR/workflows/"
 echo ""
 
+# Language selection
+echo "🌐 Step 6: Select default language for documentation/explanations"
+echo "   1. English (default)"
+echo "   2. Tiếng Việt"
+echo "   3. 日本語 (Japanese)"
+echo "   4. 中文 (Chinese)"
+echo "   5. 한국어 (Korean)"
+echo ""
+read -p "Choose (1-5) [1]: " lang_choice
+lang_choice=${lang_choice:-1}
+
+case $lang_choice in
+    2) DOC_LANG="Vietnamese" ;;
+    3) DOC_LANG="Japanese" ;;
+    4) DOC_LANG="Chinese" ;;
+    5) DOC_LANG="Korean" ;;
+    *) DOC_LANG="English" ;;
+esac
+
+# Generate language convention rule
+cat > "$GLOBAL_DIR/rules/03-language-convention.md" << LANGEOF
+# LANGUAGE CONVENTION
+
+## Default Language: $DOC_LANG
+
+All output should follow these language rules:
+
+| Content Type | Language |
+|-------------|----------|
+| Code, variables, functions, classes | English (always) |
+| Comments, logs, error messages | English |
+| Commit messages, PR descriptions | English |
+| Documentation, README, guides | $DOC_LANG |
+| User-facing explanations, responses | $DOC_LANG |
+
+## Override Rules
+
+- If the user writes in a specific language, respond in that same language.
+- If the user explicitly requests another language, follow the user's request.
+- Code identifiers (variables, functions, classes) must ALWAYS be in English regardless of conversation language.
+LANGEOF
+
+echo "   ✓ Language set to: $DOC_LANG"
+echo ""
+
 # Generate global GEMINI.md with rule @imports
-echo "📝 Step 6: Generating global GEMINI.md..."
+echo "📝 Step 7: Generating global GEMINI.md..."
 cat > "$GEMINI_MD" << 'EOF'
 # Superpowers Global Rules
 
