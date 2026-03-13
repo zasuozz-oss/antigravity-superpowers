@@ -65,9 +65,9 @@ Write-Host ""
 
 # Step 6: Install workflows
 Write-Host "[6/9] Installing workflows..."
-if (Test-Path "$GlobalDir\workflows") { Remove-Item "$GlobalDir\workflows" -Recurse -Force }
-Copy-Item -Path "$ScriptDir\global-config\workflows" -Destination "$GlobalDir\workflows" -Recurse
-$WorkflowCount = (Get-ChildItem "$GlobalDir\workflows" -File).Count
+if (Test-Path "$GlobalDir\global_workflows") { Remove-Item "$GlobalDir\global_workflows" -Recurse -Force }
+Copy-Item -Path "$ScriptDir\global-config\workflows" -Destination "$GlobalDir\global_workflows" -Recurse
+$WorkflowCount = (Get-ChildItem "$GlobalDir\global_workflows" -File).Count
 Write-Host "   OK: $WorkflowCount workflows" -ForegroundColor Green
 Write-Host ""
 

@@ -119,7 +119,7 @@ antigravity-superpowers/
     ├── skills/                  # 14 skills
     ├── rules/                   # 4 rules
     ├── scripts/                 # 3 scripts
-    └── workflows/               # 3 workflows
+    └── global_workflows/            # 4 workflows
 ```
 
 ---

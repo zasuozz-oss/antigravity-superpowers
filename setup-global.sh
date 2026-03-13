@@ -68,9 +68,9 @@ echo ""
 
 # Step 6: Install workflows
 echo "📝 Step 6: Installing workflows..."
-rm -rf "$GLOBAL_DIR/workflows"
-cp -r "$SCRIPT_DIR/global-config/workflows" "$GLOBAL_DIR/workflows"
-WORKFLOW_COUNT=$(ls -1 "$GLOBAL_DIR/workflows" | wc -l | tr -d ' ')
+rm -rf "$GLOBAL_DIR/global_workflows"
+cp -r "$SCRIPT_DIR/global-config/workflows" "$GLOBAL_DIR/global_workflows"
+WORKFLOW_COUNT=$(ls -1 "$GLOBAL_DIR/global_workflows" | wc -l | tr -d ' ')
 echo "   ✓ $WORKFLOW_COUNT workflows installed"
 echo ""
 
@@ -189,7 +189,7 @@ echo "✅ Step 9: Verification..."
 echo "   Skills:    $(ls -1 "$GLOBAL_DIR/skills" | wc -l | tr -d ' ')"
 echo "   Rules:     $(ls -1 "$GLOBAL_DIR/rules" | wc -l | tr -d ' ')"
 echo "   Scripts:   $(ls -1 "$GLOBAL_DIR/scripts" | wc -l | tr -d ' ')"
-echo "   Workflows: $(ls -1 "$GLOBAL_DIR/workflows" | wc -l | tr -d ' ')"
+echo "   Workflows: $(ls -1 "$GLOBAL_DIR/global_workflows" | wc -l | tr -d ' ')"
 echo "   Language:  $DOC_LANG"
 echo "   GEMINI.md: ✓"
 echo ""
