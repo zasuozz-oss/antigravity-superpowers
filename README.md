@@ -53,14 +53,6 @@ Open Antigravity in your project directory. Skills auto-load via `GEMINI.md`.
 
 ---
 
-## 📚 Documentation
-
-| File | Purpose | Read Time |
-|------|---------|-----------|
-| [README.md](README.md) | This file - Overview | 5 min |
-| [docs/GLOBAL-SETUP-GUIDE.md](docs/GLOBAL-SETUP-GUIDE.md) | Complete setup guide | 15 min |
-| [docs/UPDATE-WORKFLOW.md](docs/UPDATE-WORKFLOW.md) | Update instructions | 10 min |
-
 ---
 
 ## 🎯 What Gets Installed
@@ -137,8 +129,6 @@ Keep skills up-to-date with upstream:
 bash ~/.claude/global-config/workflows/update-superpowers.sh
 ```
 
-See [docs/UPDATE-WORKFLOW.md](docs/UPDATE-WORKFLOW.md) for details.
-
 ---
 
 ## 📁 Repository Structure
@@ -147,16 +137,12 @@ See [docs/UPDATE-WORKFLOW.md](docs/UPDATE-WORKFLOW.md) for details.
 antigravity-superpowers/
 ├── GEMINI.md                    # Example Antigravity configuration
 ├── README.md                    # This file
+├── CHANGELOG.md                 # Version history
 ├── setup-global.sh              # Global installation script
-│
-├── global-config/               # Files to be installed globally
-│   ├── skills/                  # 14 Superpowers skills
-│   ├── rules/                   # 3 enforcement rules
-│   └── workflows/               # 3 workflow scripts
-│
-└── docs/                        # Documentation
-    ├── GLOBAL-SETUP-GUIDE.md
-    └── UPDATE-WORKFLOW.md
+└── global-config/               # Files to be installed globally
+    ├── skills/                  # 14 Superpowers skills
+    ├── rules/                   # 3 enforcement rules
+    └── workflows/               # 3 workflow scripts
 ```
 
 ---
@@ -196,8 +182,8 @@ cat GEMINI.md
 
 ## 🆘 Need Help?
 
-1. **Quick start:** Read [docs/GLOBAL-SETUP-GUIDE.md](docs/GLOBAL-SETUP-GUIDE.md)
-2. **Updates:** Read [docs/UPDATE-WORKFLOW.md](docs/UPDATE-WORKFLOW.md)
+1. **Setup issues:** Re-read Quick Start section above
+2. **Update issues:** Run update script with option 2 to see diff
 3. **Issues:** Check [GitHub Issues](https://github.com/[your-username]/antigravity-superpowers/issues)
 
 ---
@@ -215,7 +201,7 @@ Version: 2.0.0 (Global configuration)
 ✅ Global Workflows: 3/3
 ✅ Auto-setup: Available
 ✅ Update Workflow: Available
-✅ Documentation: Complete
+✅ Git: Ready for production
 ```
 
 ---
@@ -234,6 +220,6 @@ This repository follows the Superpowers framework license. See upstream reposito
 
 ---
 
-**Last Updated:** 2026-03-13T05:21:44Z
+**Last Updated:** 2026-03-13T05:33:13Z
 **Version:** 2.0.0 (Global configuration)
 **Status:** Production-ready
