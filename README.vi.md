@@ -30,6 +30,14 @@ Fork từ framework [Superpowers](https://github.com/obra/superpowers), tùy ch�
 
 ### 1. Cài Đặt Toàn Cục (Chạy 1 lần)
 
+**Cài nhanh (khuyến nghị):**
+```bash
+npx @zasuo/ag-s
+```
+
+<details>
+<summary>Cách khác: Cài thủ công</summary>
+
 **macOS / Linux:**
 ```bash
 git clone https://github.com/zasuozz-oss/antigravity-superpowers.git
@@ -43,6 +51,8 @@ git clone https://github.com/zasuozz-oss/antigravity-superpowers.git
 cd antigravity-superpowers
 powershell -ExecutionPolicy Bypass -File setup-global.ps1
 ```
+
+</details>
 
 ### 2. Setup Cho Project Mới
 

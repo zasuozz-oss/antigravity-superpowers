@@ -1,0 +1,30 @@
+{
+  "name": "@zasuo/ag-s",
+  "version": "5.0.0",
+  "description": "Antigravity Superpowers — Customized skills framework for Google Antigravity",
+  "type": "module",
+  "bin": {
+    "ag-s": "bin/cli.mjs"
+  },
+  "files": [
+    "bin/",
+    "global-config/",
+    "scripts/",
+    "setup-global.sh",
+    "setup-global.ps1"
+  ],
+  "keywords": [
+    "antigravity",
+    "superpowers",
+    "gemini",
+    "ai",
+    "skills"
+  ],
+  "author": "zasuozz-oss",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zasuozz-oss/antigravity-superpowers.git"
+  },
+  "homepage": "https://github.com/zasuozz-oss/antigravity-superpowers"
+}

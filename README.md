@@ -30,6 +30,14 @@ A fork of the [Superpowers](https://github.com/obra/superpowers) agentic skills 
 
 ### 1. Install Globally (One-time)
 
+**Quick Install (recommended):**
+```bash
+npx @zasuo/ag-s
+```
+
+<details>
+<summary>Alternative: Manual Install</summary>
+
 **macOS / Linux:**
 ```bash
 git clone https://github.com/zasuozz-oss/antigravity-superpowers.git
@@ -43,6 +51,8 @@ git clone https://github.com/zasuozz-oss/antigravity-superpowers.git
 cd antigravity-superpowers
 powershell -ExecutionPolicy Bypass -File setup-global.ps1
 ```
+
+</details>
 
 ### 2. Setup New Project
 
