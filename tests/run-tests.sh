@@ -87,13 +87,15 @@ echo ""
 
 # ─── TC-04: GEMINI.md Content ────────────────────────────────
 echo -e "${YELLOW}TC-04: GEMINI.md Content Correctness${NC}"
-CONTENT=$(cat "$HOME/.gemini/GEMINI.md")
+GEMINI_FILE="$HOME/.gemini/GEMINI.md"
 
-assert "Contains 'Mandatory Skills Usage'" "echo '$CONTENT' | grep -q 'Mandatory Skills Usage'"
-assert "Contains 'FIRST ACTION IN EVERY CONVERSATION'" "echo '$CONTENT' | grep -q 'FIRST ACTION IN EVERY CONVERSATION'"
-assert "Contains view_file instructions" "echo '$CONTENT' | grep -q 'view_file'"
-assert "Contains 'Critical Rule'" "echo '$CONTENT' | grep -q 'Critical Rule'"
-assert "No @skill references" "! echo '$CONTENT' | grep -q '@~/.gemini/antigravity/skills/'"
+assert "Contains 'Mandatory Skills Usage'" "grep -q 'Mandatory Skills Usage' '$GEMINI_FILE'"
+assert "Contains 'FIRST ACTION IN EVERY CONVERSATION'" "grep -q 'FIRST ACTION IN EVERY CONVERSATION' '$GEMINI_FILE'"
+assert "Contains view_file instructions" "grep -q 'view_file' '$GEMINI_FILE'"
+assert "Contains 'Critical Rule'" "grep -q 'Critical Rule' '$GEMINI_FILE'"
+assert "Contains 'Iron Laws'" "grep -q 'Iron Laws' '$GEMINI_FILE'"
+assert "Contains skill trigger table" "grep -q 'brainstorming' '$GEMINI_FILE'"
+assert "No @skill references" "! grep -q '@~/.gemini/antigravity/skills/' '$GEMINI_FILE'"
 echo ""
 
 # ─── TC-05: Legacy Cleanup ──────────────────────────────────
