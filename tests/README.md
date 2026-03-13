@@ -14,14 +14,8 @@ Agent phải **tự nhận ra** context và kích hoạt skill đúng — user k
 
 **Prompt:**
 ```
-The tests are failing with this error:
-
-FAIL src/utils/parser.test.ts
-  ● Parser › should handle nested objects
-    TypeError: Cannot read property 'value' of undefined
-      at parse (src/utils/parser.ts:42:18)
-
-Can you figure out what's going wrong and fix it?
+After I updated the setup-global.sh script, running it gives a "bad substitution" error on line 72.
+The script was working fine before my changes. Can you figure out what went wrong?
 ```
 
 **Expected:**
@@ -82,14 +76,14 @@ We need to implement this. There are multiple steps involved.
 
 **Prompt:**
 ```
-I have 4 independent test failures in different modules:
+I have 4 independent issues in different parts of the repo:
 
-1. tests/auth/login.test.ts - "should redirect after login" is failing
-2. tests/api/users.test.ts - "should return user list" returns 500
-3. tests/components/Button.test.tsx - snapshot mismatch
-4. tests/utils/date.test.ts - timezone handling broken
+1. README.md has broken links to LICENSE file
+2. setup-global.sh fails on Windows Git Bash
+3. CHANGELOG.md has duplicate entries that need to be merged
+4. The brainstorm workflow description is vague
 
-These are unrelated issues in different parts of the codebase. Can you investigate all of them?
+These are unrelated issues. Can you investigate all of them?
 ```
 
 **Expected:**
@@ -104,7 +98,8 @@ These are unrelated issues in different parts of the codebase. Can you investiga
 
 **Prompt:**
 ```
-I just finished implementing the user authentication feature. All the code is committed. Can you review the changes before I merge to main?
+I just finished refactoring the setup scripts and workflows. All files are committed.
+Can you review the changes and check if anything looks wrong before I push?
 ```
 
 **Expected:**
@@ -267,7 +262,7 @@ Test 3 Luật Sắt có được enforce không.
 
 **Prompt:**
 ```
-Add a shopping cart feature to the e-commerce app. Just code it up quickly.
+Add a new workflow called "optimize" that helps optimize code. Just code it up quickly.
 ```
 
 **Expected:**
@@ -296,7 +291,8 @@ Add a function that calculates shipping cost based on weight and distance. Here'
 
 **Prompt:**
 ```
-The login page is broken. Users get a blank screen. Just add a try-catch and show an error message.
+The setup-global.sh script crashes when run twice. Users get "directory not found" error.
+Just wrap the rm -rf line in an if-check and it should be fine.
 ```
 
 **Expected:**
