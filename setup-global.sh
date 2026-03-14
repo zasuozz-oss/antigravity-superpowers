@@ -1,6 +1,6 @@
 #!/bin/bash
 # Global setup script for Superpowers in Antigravity
-# Installs skills and scripts to ~/.gemini/antigravity/
+# Installs skills, workflows, and scripts to ~/.gemini/antigravity/
 # Usage: bash setup-global.sh
 
 set -e
@@ -9,9 +9,6 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 GLOBAL_DIR="$HOME/.gemini/antigravity"
 GEMINI_MD="$HOME/.gemini/GEMINI.md"
 
-# Block markers for detect/replace
-BLOCK_START="<!-- BEGIN antigravity-superpowers -->"
-BLOCK_END="<!-- END antigravity-superpowers -->"
 
 echo "╔════════════════════════════════════════════════════════════╗"
 echo "║     Superpowers Global Setup for Antigravity               ║"
@@ -27,22 +24,25 @@ if [ ! -d "$SCRIPT_DIR/global-config/skills" ]; then
 fi
 
 # Step 1: Create directory
-echo "📁 Step 1: Creating global config directory..."
+echo "📁 Step 1/7: Creating global config directory..."
 mkdir -p "$GLOBAL_DIR"
 echo "   ✓ Created: $GLOBAL_DIR"
 echo ""
 
-# Step 2: Backup
-if [ -d "$GLOBAL_DIR/skills" ] || [ -d "$GLOBAL_DIR/scripts" ]; then
+# Step 2: Backup (only skills, workflows, scripts — not brain/knowledge data)
+if [ -d "$GLOBAL_DIR/skills" ] || [ -d "$GLOBAL_DIR/global_workflows" ] || [ -d "$GLOBAL_DIR/scripts" ]; then
     BACKUP_DIR="$GLOBAL_DIR-backup-$(date +%Y%m%d-%H%M%S)"
-    echo "📦 Step 2: Backing up existing config..."
-    cp -r "$GLOBAL_DIR" "$BACKUP_DIR"
+    echo "📦 Step 2/7: Backing up existing config..."
+    mkdir -p "$BACKUP_DIR"
+    [ -d "$GLOBAL_DIR/skills" ] && cp -r "$GLOBAL_DIR/skills" "$BACKUP_DIR/skills"
+    [ -d "$GLOBAL_DIR/global_workflows" ] && cp -r "$GLOBAL_DIR/global_workflows" "$BACKUP_DIR/global_workflows"
+    [ -d "$GLOBAL_DIR/scripts" ] && cp -r "$GLOBAL_DIR/scripts" "$BACKUP_DIR/scripts"
     echo "   ✓ Backup: $BACKUP_DIR"
     echo ""
 fi
 
 # Step 3: Install skills
-echo "📚 Step 3: Installing skills..."
+echo "📚 Step 3/7: Installing skills..."
 rm -rf "$GLOBAL_DIR/skills"
 cp -r "$SCRIPT_DIR/global-config/skills" "$GLOBAL_DIR/skills"
 SKILL_COUNT=$(ls -1 "$GLOBAL_DIR/skills" | wc -l | tr -d ' ')
@@ -54,8 +54,21 @@ if [ -f "$SCRIPT_DIR/global-config/gemini_rule.md" ]; then
 fi
 echo ""
 
-# Step 4: Install scripts
-echo "⚙️  Step 4: Installing scripts..."
+# Step 4: Install workflows
+echo "🔄 Step 4/7: Installing workflows..."
+rm -rf "$GLOBAL_DIR/global_workflows"
+WORKFLOW_COUNT=0
+if [ -d "$SCRIPT_DIR/global-config/workflows" ]; then
+    cp -r "$SCRIPT_DIR/global-config/workflows" "$GLOBAL_DIR/global_workflows"
+    WORKFLOW_COUNT=$(ls -1 "$GLOBAL_DIR/global_workflows" | wc -l | tr -d ' ')
+    echo "   ✓ $WORKFLOW_COUNT workflows installed"
+else
+    echo "   ⚠ No workflows found, skipping"
+fi
+echo ""
+
+# Step 5: Install scripts
+echo "⚙️  Step 5/7: Installing scripts..."
 rm -rf "$GLOBAL_DIR/scripts"
 cp -r "$SCRIPT_DIR/scripts" "$GLOBAL_DIR/scripts"
 chmod +x "$GLOBAL_DIR/scripts"/*.sh
@@ -64,7 +77,7 @@ echo "   ✓ $SCRIPT_COUNT scripts installed"
 echo ""
 
 # Step 5: Update GEMINI.md
-echo "📝 Step 5: Updating global GEMINI.md..."
+echo "📝 Step 6/7: Updating global GEMINI.md..."
 
 RULE_FILE="$SCRIPT_DIR/global-config/gemini_rule.md"
 
@@ -79,18 +92,18 @@ mkdir -p "$(dirname "$GEMINI_MD")"
 echo "   ✓ Written: $GEMINI_MD"
 echo ""
 
-# Step 6: Cleanup old rules/workflows if present
-if [ -d "$GLOBAL_DIR/rules" ] || [ -d "$GLOBAL_DIR/global_workflows" ]; then
-    echo "🧹 Step 6: Cleaning up old rules/workflows..."
+# Step 7: Cleanup old legacy directories if present
+if [ -d "$GLOBAL_DIR/rules" ]; then
+    echo "🧹 Step 7/7: Cleaning up legacy directories..."
     rm -rf "$GLOBAL_DIR/rules"
-    rm -rf "$GLOBAL_DIR/global_workflows"
-    echo "   ✓ Removed legacy rules and workflows"
+    echo "   ✓ Removed legacy rules"
     echo ""
 fi
 
-# Step 7: Verify
+# Step 8: Verify
 echo "✅ Verification..."
 echo "   Skills:    $(ls -1 "$GLOBAL_DIR/skills" | wc -l | tr -d ' ')"
+echo "   Workflows: $WORKFLOW_COUNT"
 echo "   Scripts:   $(ls -1 "$GLOBAL_DIR/scripts" | wc -l | tr -d ' ')"
 echo "   GEMINI.md: ✓"
 echo ""

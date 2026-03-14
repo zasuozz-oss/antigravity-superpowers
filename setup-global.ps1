@@ -1,5 +1,5 @@
 # Global setup script for Superpowers in Antigravity (Windows)
-# Installs skills and scripts to ~/.gemini/antigravity/
+# Installs skills, workflows, and scripts to ~/.gemini/antigravity/
 # Usage: powershell -ExecutionPolicy Bypass -File setup-global.ps1
 
 $ErrorActionPreference = "Stop"
@@ -8,9 +8,6 @@ $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $GlobalDir = "$env:USERPROFILE\.gemini\antigravity"
 $GeminiMd = "$env:USERPROFILE\.gemini\GEMINI.md"
 
-# Block markers for detect/replace
-$BlockStart = "<!-- BEGIN antigravity-superpowers -->"
-$BlockEnd = "<!-- END antigravity-superpowers -->"
 
 Write-Host ""
 Write-Host "========================================================" -ForegroundColor Cyan
@@ -25,38 +22,60 @@ if (-not (Test-Path "$ScriptDir\global-config\skills")) {
 }
 
 # Step 1: Create directory
-Write-Host "[1/6] Creating global config directory..."
+Write-Host "[1/7] Creating global config directory..."
 New-Item -ItemType Directory -Path $GlobalDir -Force | Out-Null
 Write-Host "   OK: $GlobalDir" -ForegroundColor Green
 Write-Host ""
 
-# Step 2: Backup
-if ((Test-Path "$GlobalDir\skills") -or (Test-Path "$GlobalDir\scripts")) {
+# Step 2: Backup (only skills, workflows, scripts — not brain/knowledge data)
+if ((Test-Path "$GlobalDir\skills") -or (Test-Path "$GlobalDir\global_workflows") -or (Test-Path "$GlobalDir\scripts")) {
     $BackupDir = "$GlobalDir-backup-$(Get-Date -Format 'yyyyMMdd-HHmmss')"
-    Write-Host "[2/6] Backing up existing config..."
-    Copy-Item -Path $GlobalDir -Destination $BackupDir -Recurse
+    Write-Host "[2/7] Backing up existing config..."
+    New-Item -ItemType Directory -Path $BackupDir -Force | Out-Null
+    if (Test-Path "$GlobalDir\skills") {
+        Copy-Item -Path "$GlobalDir\skills" -Destination "$BackupDir\skills" -Recurse
+    }
+    if (Test-Path "$GlobalDir\global_workflows") {
+        Copy-Item -Path "$GlobalDir\global_workflows" -Destination "$BackupDir\global_workflows" -Recurse
+    }
+    if (Test-Path "$GlobalDir\scripts") {
+        Copy-Item -Path "$GlobalDir\scripts" -Destination "$BackupDir\scripts" -Recurse
+    }
     Write-Host "   OK: $BackupDir" -ForegroundColor Green
     Write-Host ""
 }
 
 # Step 3: Install skills
-Write-Host "[3/6] Installing skills..."
+Write-Host "[3/7] Installing skills..."
 if (Test-Path "$GlobalDir\skills") { Remove-Item "$GlobalDir\skills" -Recurse -Force }
 Copy-Item -Path "$ScriptDir\global-config\skills" -Destination "$GlobalDir\skills" -Recurse
 $SkillCount = (Get-ChildItem "$GlobalDir\skills" -Directory).Count
 Write-Host "   OK: $SkillCount skills" -ForegroundColor Green
 Write-Host ""
 
-# Step 4: Install scripts
-Write-Host "[4/6] Installing scripts..."
+# Step 4: Install workflows
+Write-Host "[4/7] Installing workflows..."
+if (Test-Path "$GlobalDir\global_workflows") { Remove-Item "$GlobalDir\global_workflows" -Recurse -Force }
+$WorkflowCount = 0
+if (Test-Path "$ScriptDir\global-config\workflows") {
+    Copy-Item -Path "$ScriptDir\global-config\workflows" -Destination "$GlobalDir\global_workflows" -Recurse
+    $WorkflowCount = (Get-ChildItem "$GlobalDir\global_workflows" -File).Count
+    Write-Host "   OK: $WorkflowCount workflows" -ForegroundColor Green
+} else {
+    Write-Host "   SKIP: No workflows found" -ForegroundColor Yellow
+}
+Write-Host ""
+
+# Step 5: Install scripts
+Write-Host "[5/7] Installing scripts..."
 if (Test-Path "$GlobalDir\scripts") { Remove-Item "$GlobalDir\scripts" -Recurse -Force }
 Copy-Item -Path "$ScriptDir\scripts" -Destination "$GlobalDir\scripts" -Recurse
 $ScriptCount = (Get-ChildItem "$GlobalDir\scripts" -File).Count
 Write-Host "   OK: $ScriptCount scripts" -ForegroundColor Green
 Write-Host ""
 
-# Step 5: Update GEMINI.md
-Write-Host "[5/6] Updating global GEMINI.md..."
+# Step 6: Update GEMINI.md
+Write-Host "[6/7] Updating global GEMINI.md..."
 
 $RuleFile = "$ScriptDir\global-config\gemini_rule.md"
 
@@ -71,18 +90,18 @@ Set-Content -Path $GeminiMd -Value $content -Encoding UTF8
 Write-Host "   OK: Written $GeminiMd" -ForegroundColor Green
 Write-Host ""
 
-# Step 6: Cleanup old rules/workflows if present
-if ((Test-Path "$GlobalDir\rules") -or (Test-Path "$GlobalDir\global_workflows")) {
-    Write-Host "[6/6] Cleaning up old rules/workflows..."
-    if (Test-Path "$GlobalDir\rules") { Remove-Item "$GlobalDir\rules" -Recurse -Force }
-    if (Test-Path "$GlobalDir\global_workflows") { Remove-Item "$GlobalDir\global_workflows" -Recurse -Force }
-    Write-Host "   OK: Removed legacy rules and workflows" -ForegroundColor Green
+# Step 7: Cleanup old legacy directories if present
+if (Test-Path "$GlobalDir\rules") {
+    Write-Host "[7/7] Cleaning up legacy directories..."
+    Remove-Item "$GlobalDir\rules" -Recurse -Force
+    Write-Host "   OK: Removed legacy rules" -ForegroundColor Green
     Write-Host ""
 }
 
 # Verify
 Write-Host "Verification..." -ForegroundColor Green
 Write-Host "   Skills:    $SkillCount"
+Write-Host "   Workflows: $WorkflowCount"
 Write-Host "   Scripts:   $ScriptCount"
 Write-Host "   GEMINI.md: OK"
 Write-Host ""
