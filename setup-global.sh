@@ -29,17 +29,22 @@ mkdir -p "$GLOBAL_DIR"
 echo "   ✓ Created: $GLOBAL_DIR"
 echo ""
 
-# Step 2: Backup (only skills, workflows, scripts — not brain/knowledge data)
-if [ -d "$GLOBAL_DIR/skills" ] || [ -d "$GLOBAL_DIR/global_workflows" ] || [ -d "$GLOBAL_DIR/scripts" ]; then
-    BACKUP_DIR="$GLOBAL_DIR-backup-$(date +%Y%m%d-%H%M%S)"
-    echo "📦 Step 2/7: Backing up existing config..."
-    mkdir -p "$BACKUP_DIR"
-    [ -d "$GLOBAL_DIR/skills" ] && cp -r "$GLOBAL_DIR/skills" "$BACKUP_DIR/skills"
-    [ -d "$GLOBAL_DIR/global_workflows" ] && cp -r "$GLOBAL_DIR/global_workflows" "$BACKUP_DIR/global_workflows"
-    [ -d "$GLOBAL_DIR/scripts" ] && cp -r "$GLOBAL_DIR/scripts" "$BACKUP_DIR/scripts"
-    echo "   ✓ Backup: $BACKUP_DIR"
-    echo ""
+# Step 2: Check for duplicate skill names
+echo "🔍 Step 2/7: Checking for duplicate skills..."
+DUPLICATES=$(grep -rh '^name:' "$SCRIPT_DIR/global-config/skills/"*/SKILL.md 2>/dev/null | sed 's/^name:[[:space:]]*//' | sort | uniq -d)
+if [ -n "$DUPLICATES" ]; then
+    echo "   ❌ Duplicate skill names found:"
+    echo "$DUPLICATES" | while read -r dup; do
+        echo "      - $dup"
+        grep -rl "^name:[[:space:]]*$dup$" "$SCRIPT_DIR/global-config/skills/"*/SKILL.md | while read -r f; do
+            echo "        → $f"
+        done
+    done
+    exit 1
 fi
+SKILL_SRC_COUNT=$(ls -1d "$SCRIPT_DIR/global-config/skills/"*/ 2>/dev/null | wc -l | tr -d ' ')
+echo "   ✓ $SKILL_SRC_COUNT skills checked, no duplicates"
+echo ""
 
 # Step 3: Install skills
 echo "📚 Step 3/7: Installing skills..."

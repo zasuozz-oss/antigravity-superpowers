@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { cpSync, rmSync, existsSync, mkdirSync, readFileSync, writeFileSync, readdirSync, chmodSync } from 'fs';
+import { cpSync, rmSync, existsSync, mkdirSync, readFileSync, writeFileSync, readdirSync, chmodSync, statSync } from 'fs';
 import { join, dirname } from 'path';
 import { homedir, platform } from 'os';
 import { fileURLToPath } from 'url';
@@ -55,19 +55,33 @@ function step1_createDir() {
   console.log('');
 }
 
-function step2_backup() {
-  const hasExisting =
-    existsSync(join(GLOBAL_DIR, 'skills')) ||
-    existsSync(join(GLOBAL_DIR, 'scripts'));
+function step2_checkDuplicates() {
+  const src = join(ROOT, 'global-config', 'skills');
+  if (!existsSync(src)) return;
 
-  if (hasExisting) {
-    const ts = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
-    const backupDir = `${GLOBAL_DIR}-backup-${ts}`;
-    console.log('📦 Step 2: Backing up existing config...');
-    copyDir(GLOBAL_DIR, backupDir);
-    log('✓', `Backup: ${backupDir}`);
-    console.log('');
+  console.log('🔍 Step 2: Checking for duplicate skills...');
+  const names = new Map();
+
+  for (const entry of readdirSync(src)) {
+    const skillMd = join(src, entry, 'SKILL.md');
+    if (!statSync(join(src, entry)).isDirectory() || !existsSync(skillMd)) continue;
+
+    const content = readFileSync(skillMd, 'utf8');
+    const match = content.match(/^name:\s*(.+)$/m);
+    if (!match) continue;
+
+    const name = match[1].trim();
+    if (names.has(name)) {
+      console.error(`❌ Duplicate skill name "${name}" found in:`);
+      console.error(`   - ${names.get(name)}/SKILL.md`);
+      console.error(`   - ${entry}/SKILL.md`);
+      process.exit(1);
+    }
+    names.set(name, entry);
   }
+
+  log('✓', `${names.size} skills checked, no duplicates`);
+  console.log('');
 }
 
 function step3_installSkills() {
@@ -164,7 +178,7 @@ function footer() {
 function main() {
   banner();
   step1_createDir();
-  step2_backup();
+  step2_checkDuplicates();
   step3_installSkills();
   step4_installScripts();
   step5_updateGeminiMd();

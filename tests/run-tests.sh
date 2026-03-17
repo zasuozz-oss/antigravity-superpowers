@@ -78,11 +78,16 @@ MD5_THIRD=$(md5 -q "$HOME/.gemini/GEMINI.md")
 assert "MD5 unchanged after 3rd run" "[ '$MD5_BEFORE' = '$MD5_THIRD' ]"
 echo ""
 
-# ─── TC-03: Backup Created ──────────────────────────────────
-echo -e "${YELLOW}TC-03: Backup Created${NC}"
+# ─── TC-03: No Duplicate Skills ─────────────────────────────
+echo -e "${YELLOW}TC-03: No Duplicate Skills${NC}"
+DUPLICATES=$(grep -rh '^name:' "$SCRIPT_DIR/global-config/skills/"*/SKILL.md 2>/dev/null | sed 's/^name:[[:space:]]*//' | sort | uniq -d)
+assert "No duplicate skill names" "[ -z '$DUPLICATES' ]"
+echo ""
+
+# ─── TC-03b: No Backup Created ──────────────────────────────
+echo -e "${YELLOW}TC-03b: No Backup Directories${NC}"
 BACKUP_COUNT=$(ls -1d "$HOME/.gemini/antigravity-backup-"* 2>/dev/null | wc -l | tr -d ' ')
-assert "Backup directories exist ($BACKUP_COUNT)" "[ $BACKUP_COUNT -ge 1 ]"
-assert "Backup contains skills/" "ls '$HOME/.gemini/antigravity-backup-'*/skills/ > /dev/null 2>&1"
+assert "No backup directories created ($BACKUP_COUNT)" "[ $BACKUP_COUNT -eq 0 ]"
 echo ""
 
 # ─── TC-04: GEMINI.md Content ────────────────────────────────

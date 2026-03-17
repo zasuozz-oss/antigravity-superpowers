@@ -27,23 +27,25 @@ New-Item -ItemType Directory -Path $GlobalDir -Force | Out-Null
 Write-Host "   OK: $GlobalDir" -ForegroundColor Green
 Write-Host ""
 
-# Step 2: Backup (only skills, workflows, scripts — not brain/knowledge data)
-if ((Test-Path "$GlobalDir\skills") -or (Test-Path "$GlobalDir\global_workflows") -or (Test-Path "$GlobalDir\scripts")) {
-    $BackupDir = "$GlobalDir-backup-$(Get-Date -Format 'yyyyMMdd-HHmmss')"
-    Write-Host "[2/7] Backing up existing config..."
-    New-Item -ItemType Directory -Path $BackupDir -Force | Out-Null
-    if (Test-Path "$GlobalDir\skills") {
-        Copy-Item -Path "$GlobalDir\skills" -Destination "$BackupDir\skills" -Recurse
+# Step 2: Check for duplicate skill names
+Write-Host "[2/7] Checking for duplicate skills..."
+$SkillNames = @{}
+$SkillFiles = Get-ChildItem -Path "$ScriptDir\global-config\skills\*\SKILL.md" -ErrorAction SilentlyContinue
+foreach ($file in $SkillFiles) {
+    $nameMatch = Select-String -Path $file -Pattern '^name:\s*(.+)$' | Select-Object -First 1
+    if ($nameMatch) {
+        $skillName = $nameMatch.Matches[0].Groups[1].Value.Trim()
+        if ($SkillNames.ContainsKey($skillName)) {
+            Write-Host "   ERROR: Duplicate skill name '$skillName' found in:" -ForegroundColor Red
+            Write-Host "      - $($SkillNames[$skillName])" -ForegroundColor Red
+            Write-Host "      - $($file.FullName)" -ForegroundColor Red
+            exit 1
+        }
+        $SkillNames[$skillName] = $file.FullName
     }
-    if (Test-Path "$GlobalDir\global_workflows") {
-        Copy-Item -Path "$GlobalDir\global_workflows" -Destination "$BackupDir\global_workflows" -Recurse
-    }
-    if (Test-Path "$GlobalDir\scripts") {
-        Copy-Item -Path "$GlobalDir\scripts" -Destination "$BackupDir\scripts" -Recurse
-    }
-    Write-Host "   OK: $BackupDir" -ForegroundColor Green
-    Write-Host ""
 }
+Write-Host "   OK: $($SkillNames.Count) skills checked, no duplicates" -ForegroundColor Green
+Write-Host ""
 
 # Step 3: Install skills
 Write-Host "[3/7] Installing skills..."
