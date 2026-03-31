@@ -16,7 +16,7 @@ Framework [Superpowers](https://github.com/obra/superpowers) tùy chỉnh cho Go
 
 ## 🎯 Giới Thiệu
 
-Fork từ framework [Superpowers](https://github.com/obra/superpowers), tùy chỉnh cho **Google Antigravity**. Bao gồm 14 skills cài đặt toàn cục tại `~/.gemini/antigravity/`.
+Fork từ framework [Superpowers](https://github.com/obra/superpowers), tùy chỉnh cho **Google Antigravity**. Bao gồm 13 skills cài đặt toàn cục tại `~/.gemini/antigravity/`.
 
 **Khác biệt so với bản gốc:**
 - ✅ Cài đặt tại đường dẫn native của Antigravity (`~/.gemini/antigravity/`)
@@ -61,14 +61,14 @@ Mở Antigravity trong bất kỳ project nào. Skills tự động load qua `~/
 
 ## 📚 Bao Gồm Gì
 
-### Skills (14)
+### Skills (13)
 
 | Loại | Skills |
 |------|--------|
 | **Cốt lõi** | brainstorming, test-driven-development, systematic-debugging |
 | **Cộng tác** | writing-plans, executing-plans, subagent-driven-development, dispatching-parallel-agents |
 | **Review** | requesting-code-review, receiving-code-review |
-| **Git** | using-git-worktrees, finishing-a-development-branch |
+| **Git** | finishing-a-development-branch |
 | **Meta** | using-superpowers, writing-skills, verification-before-completion |
 
 ---
@@ -91,7 +91,7 @@ antigravity-superpowers/
 ~/.gemini/
 ├── GEMINI.md                    # Global config (tự tạo)
 └── antigravity/
-    ├── skills/                  # 14 skills
+    ├── skills/                  # 13 skills
     └── scripts/                 # Setup scripts
 ```
 

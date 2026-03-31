@@ -16,7 +16,7 @@ Customized [Superpowers](https://github.com/obra/superpowers) framework for Goog
 
 ## 🎯 What Is This?
 
-A fork of the [Superpowers](https://github.com/obra/superpowers) agentic skills framework, customized for **Google Antigravity**. Ships 14 skills that install globally to `~/.gemini/antigravity/`.
+A fork of the [Superpowers](https://github.com/obra/superpowers) agentic skills framework, customized for **Google Antigravity**. Ships 13 skills that install globally to `~/.gemini/antigravity/`.
 
 **Key differences from upstream:**
 - ✅ Installs to Antigravity's native path (`~/.gemini/antigravity/`)
@@ -61,14 +61,14 @@ Open Antigravity in any project. Skills auto-load via `~/.gemini/GEMINI.md`.
 
 ## 📚 What's Inside
 
-### Skills (14)
+### Skills (13)
 
 | Category | Skills |
 |----------|--------|
 | **Core** | brainstorming, test-driven-development, systematic-debugging |
 | **Collaboration** | writing-plans, executing-plans, subagent-driven-development, dispatching-parallel-agents |
 | **Review** | requesting-code-review, receiving-code-review |
-| **Git** | using-git-worktrees, finishing-a-development-branch |
+| **Git** | finishing-a-development-branch |
 | **Meta** | using-superpowers, writing-skills, verification-before-completion |
 
 ---
@@ -91,7 +91,7 @@ antigravity-superpowers/
 ~/.gemini/
 ├── GEMINI.md                    # Global config (auto-generated)
 └── antigravity/
-    ├── skills/                  # 14 skills
+    ├── skills/                  # 13 skills
     └── scripts/                 # Setup scripts
 ```
 

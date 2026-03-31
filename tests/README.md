@@ -16,7 +16,7 @@ bash setup-global.sh
 
 **Expected:**
 - [ ] Exit code 0
-- [ ] `~/.gemini/antigravity/skills/` exists with 14 skill directories
+- [ ] `~/.gemini/antigravity/skills/` exists with 13 skill directories
 - [ ] `~/.gemini/antigravity/scripts/` exists with `update-superpowers.sh`
 - [ ] `~/.gemini/antigravity/gemini_rule.md` exists
 - [ ] `~/.gemini/GEMINI.md` exists and contains rules from `gemini_rule.md`
@@ -38,7 +38,7 @@ bash setup-global.sh
 - [ ] `~/.gemini/GEMINI.md` content is identical after each run
 - [ ] No duplicated rules
 - [ ] Backup directories are created for each re-run
-- [ ] Skill count remains 14
+- [ ] Skill count remains 13
 
 **Verify:**
 ```bash
@@ -74,7 +74,7 @@ npx @zasuo/ag-s
 
 **Expected:**
 - [ ] Same results as TC-01
-- [ ] `~/.gemini/antigravity/skills/` exists with 14 skills
+- [ ] `~/.gemini/antigravity/skills/` exists with 13 skills
 - [ ] `~/.gemini/GEMINI.md` contains rules (not empty)
 - [ ] Output shows "Installation Complete"
 
@@ -123,7 +123,7 @@ bash setup-global.sh
 ls ~/.gemini/antigravity/skills/
 ```
 
-**Expected 14 skills:**
+**Expected 13 skills:**
 - [ ] brainstorming
 - [ ] dispatching-parallel-agents
 - [ ] executing-plans
@@ -133,7 +133,7 @@ ls ~/.gemini/antigravity/skills/
 - [ ] subagent-driven-development
 - [ ] systematic-debugging
 - [ ] test-driven-development
-- [ ] using-git-worktrees
+
 - [ ] using-superpowers
 - [ ] verification-before-completion
 - [ ] writing-plans

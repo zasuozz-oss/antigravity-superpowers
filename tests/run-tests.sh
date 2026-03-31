@@ -54,7 +54,7 @@ assert "Scripts directory exists" "[ -d '$HOME/.gemini/antigravity/scripts' ]"
 assert "gemini_rule.md installed" "[ -f '$HOME/.gemini/antigravity/gemini_rule.md' ]"
 assert "GEMINI.md exists" "[ -f '$HOME/.gemini/GEMINI.md' ]"
 SKILL_COUNT=$(ls -1 "$HOME/.gemini/antigravity/skills" | wc -l | tr -d ' ')
-assert "14 skills installed ($SKILL_COUNT found)" "[ $SKILL_COUNT -eq 14 ]"
+assert "13 skills installed ($SKILL_COUNT found)" "[ $SKILL_COUNT -eq 13 ]"
 SCRIPT_COUNT=$(ls -1 "$HOME/.gemini/antigravity/scripts" | wc -l | tr -d ' ')
 assert "Scripts installed ($SCRIPT_COUNT found)" "[ $SCRIPT_COUNT -ge 1 ]"
 echo ""

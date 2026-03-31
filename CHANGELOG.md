@@ -12,7 +12,7 @@ All notable changes to this project will be documented in this file.
 - All rule files updated with native Antigravity skill paths
 - Updated `GEMINI.md` `@` references to use `~/.gemini/antigravity/skills/`
 - All 3 workflow scripts updated with new paths
-- Verified against upstream [obra/superpowers](https://github.com/obra/superpowers) — 14/14 skills match
+- Verified against upstream [obra/superpowers](https://github.com/obra/superpowers) — 13/13 skills match
 
 ### Fixed
 - Upstream repo URL: `cyanheads/superpowers` → `obra/superpowers`
