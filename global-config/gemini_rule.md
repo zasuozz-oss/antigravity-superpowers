@@ -5,13 +5,6 @@
 - Documentation, explanations, descriptions, README files,
   user guides, and business-facing content: Vietnamese.
 - If the user explicitly requests another language, follow the user's request.
-
-# BROWSER TESTING RESTRICTION
-
-- NEVER use browser_subagent to test or verify UI changes.
-- Instead, verify by reading code and running build/lint checks.
-- Let the user test in the browser manually.
-
 # Mandatory Skills Bootstrap
 
 Before doing ANYTHING else (including answering questions, asking clarifications,
