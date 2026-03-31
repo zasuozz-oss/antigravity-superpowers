@@ -12,9 +12,6 @@ const ROOT = join(__dirname, '..');
 const GLOBAL_DIR = join(homedir(), '.gemini', 'antigravity');
 const GEMINI_MD = join(homedir(), '.gemini', 'GEMINI.md');
 
-const BLOCK_START = '<!-- BEGIN antigravity-superpowers -->';
-const BLOCK_END = '<!-- END antigravity-superpowers -->';
-
 // ─── Helpers ───────────────────────────────────────────────
 
 function log(icon, msg) {
@@ -31,10 +28,6 @@ function countItems(dir) {
   } catch {
     return 0;
   }
-}
-
-function escapeRegExp(s) {
-  return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
 // ─── Steps ─────────────────────────────────────────────────

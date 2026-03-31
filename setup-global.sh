@@ -24,13 +24,13 @@ if [ ! -d "$SCRIPT_DIR/global-config/skills" ]; then
 fi
 
 # Step 1: Create directory
-echo "📁 Step 1/7: Creating global config directory..."
+echo "📁 Step 1/5: Creating global config directory..."
 mkdir -p "$GLOBAL_DIR"
 echo "   ✓ Created: $GLOBAL_DIR"
 echo ""
 
 # Step 2: Check for duplicate skill names
-echo "🔍 Step 2/7: Checking for duplicate skills..."
+echo "🔍 Step 2/5: Checking for duplicate skills..."
 DUPLICATES=$(grep -rh '^name:' "$SCRIPT_DIR/global-config/skills/"*/SKILL.md 2>/dev/null | sed 's/^name:[[:space:]]*//' | sort | uniq -d)
 if [ -n "$DUPLICATES" ]; then
     echo "   ❌ Duplicate skill names found:"
@@ -47,7 +47,7 @@ echo "   ✓ $SKILL_SRC_COUNT skills checked, no duplicates"
 echo ""
 
 # Step 3: Install skills
-echo "📚 Step 3/7: Installing skills..."
+echo "📚 Step 3/5: Installing skills..."
 rm -rf "$GLOBAL_DIR/skills"
 cp -r "$SCRIPT_DIR/global-config/skills" "$GLOBAL_DIR/skills"
 SKILL_COUNT=$(ls -1 "$GLOBAL_DIR/skills" | wc -l | tr -d ' ')
@@ -59,21 +59,8 @@ if [ -f "$SCRIPT_DIR/global-config/gemini_rule.md" ]; then
 fi
 echo ""
 
-# Step 4: Install workflows
-echo "🔄 Step 4/7: Installing workflows..."
-rm -rf "$GLOBAL_DIR/global_workflows"
-WORKFLOW_COUNT=0
-if [ -d "$SCRIPT_DIR/global-config/workflows" ]; then
-    cp -r "$SCRIPT_DIR/global-config/workflows" "$GLOBAL_DIR/global_workflows"
-    WORKFLOW_COUNT=$(ls -1 "$GLOBAL_DIR/global_workflows" | wc -l | tr -d ' ')
-    echo "   ✓ $WORKFLOW_COUNT workflows installed"
-else
-    echo "   ⚠ No workflows found, skipping"
-fi
-echo ""
-
-# Step 5: Install scripts
-echo "⚙️  Step 5/7: Installing scripts..."
+# Step 4: Install scripts
+echo "⚙️  Step 4/5: Installing scripts..."
 rm -rf "$GLOBAL_DIR/scripts"
 cp -r "$SCRIPT_DIR/scripts" "$GLOBAL_DIR/scripts"
 chmod +x "$GLOBAL_DIR/scripts"/*.sh
@@ -82,7 +69,7 @@ echo "   ✓ $SCRIPT_COUNT scripts installed"
 echo ""
 
 # Step 5: Update GEMINI.md
-echo "📝 Step 6/7: Updating global GEMINI.md..."
+echo "📝 Step 5/5: Updating global GEMINI.md..."
 
 RULE_FILE="$SCRIPT_DIR/global-config/gemini_rule.md"
 
@@ -97,18 +84,17 @@ mkdir -p "$(dirname "$GEMINI_MD")"
 echo "   ✓ Written: $GEMINI_MD"
 echo ""
 
-# Step 7: Cleanup old legacy directories if present
-if [ -d "$GLOBAL_DIR/rules" ]; then
-    echo "🧹 Step 7/7: Cleaning up legacy directories..."
-    rm -rf "$GLOBAL_DIR/rules"
-    echo "   ✓ Removed legacy rules"
+# Cleanup old legacy directories if present
+if [ -d "$GLOBAL_DIR/rules" ] || [ -d "$GLOBAL_DIR/global_workflows" ]; then
+    echo "🧹 Cleaning up legacy directories..."
+    rm -rf "$GLOBAL_DIR/rules" "$GLOBAL_DIR/global_workflows"
+    echo "   ✓ Removed legacy directories"
     echo ""
 fi
 
-# Step 8: Verify
+# Verify
 echo "✅ Verification..."
 echo "   Skills:    $(ls -1 "$GLOBAL_DIR/skills" | wc -l | tr -d ' ')"
-echo "   Workflows: $WORKFLOW_COUNT"
 echo "   Scripts:   $(ls -1 "$GLOBAL_DIR/scripts" | wc -l | tr -d ' ')"
 echo "   GEMINI.md: ✓"
 echo ""
