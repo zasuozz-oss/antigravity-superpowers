@@ -1,6 +1,6 @@
 # LANGUAGE CONVENTION
 - **Code & technical**: English — variables, functions, classes, comments, logs, error messages, workflow files, identifiers.
-- **Docs & content**: Vietnamese — documentation, explanations, READMEs, user guides, business-facing content.
+- **Docs & content**: Vietnamese — documentation, explanations, user guides, business-facing content.
 - **Responses**: Vietnamese — explanations, plans, artifacts, and all direct replies to the user.
 - **User override**: Follow the user's requested language if explicitly stated.
 
