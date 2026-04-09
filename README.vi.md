@@ -16,7 +16,7 @@ Framework [Superpowers](https://github.com/obra/superpowers) tùy chỉnh cho Go
 
 ## 🎯 Giới Thiệu
 
-Fork từ framework [Superpowers](https://github.com/obra/superpowers), tùy chỉnh cho **Google Antigravity**. Bao gồm 13 skills cài đặt toàn cục tại `~/.gemini/antigravity/`.
+Fork từ framework [Superpowers](https://github.com/obra/superpowers), tùy chỉnh cho **Google Antigravity**. Bao gồm bộ skills cốt lõi cài đặt toàn cục tại `~/.gemini/antigravity/`.
 
 **Khác biệt so với bản gốc:**
 - ✅ Cài đặt tại đường dẫn native của Antigravity (`~/.gemini/antigravity/`)
@@ -41,14 +41,14 @@ npx @zasuo/ag-s
 ```bash
 git clone https://github.com/zasuozz-oss/antigravity-superpowers.git
 cd antigravity-superpowers
-bash setup-global.sh
+bash scripts/setup-global.sh
 ```
 
 **Windows (PowerShell):**
 ```powershell
 git clone https://github.com/zasuozz-oss/antigravity-superpowers.git
 cd antigravity-superpowers
-powershell -ExecutionPolicy Bypass -File setup-global.ps1
+powershell -ExecutionPolicy Bypass -File scripts/setup-global.ps1
 ```
 
 </details>
@@ -61,12 +61,12 @@ Mở Antigravity trong bất kỳ project nào. Skills tự động load qua `~/
 
 ## 📚 Bao Gồm Gì
 
-### Skills (13)
+### Tổng quan bộ Skills
 
 | Loại | Skills |
 |------|--------|
 | **Cốt lõi** | brainstorming, test-driven-development, systematic-debugging |
-| **Cộng tác** | writing-plans, executing-plans, subagent-driven-development, dispatching-parallel-agents |
+| **Cộng tác** | writing-plans, executing-plans |
 | **Review** | requesting-code-review, receiving-code-review |
 | **Git** | finishing-a-development-branch |
 | **Meta** | using-superpowers, writing-skills, verification-before-completion |
@@ -77,13 +77,13 @@ Mở Antigravity trong bất kỳ project nào. Skills tự động load qua `~/
 
 ```
 antigravity-superpowers/
-├── setup-global.sh              # Script cài đặt (macOS/Linux)
-├── setup-global.ps1             # Script cài đặt (Windows)
 ├── bin/cli.mjs                  # npx installer
-├── global-config/
-│   ├── GEMINI.md                # Cấu hình mẫu
-│   └── skills/                  # 14 Superpowers skills
-└── scripts/                     # Script cập nhật
+├── scripts/                     # Script cài đặt & cập nhật
+│   ├── setup-global.sh
+│   ├── setup-global.ps1
+│   └── update-superpowers.sh
+├── skills/                      # Các skill từ Superpowers & Gitnexus
+└── workflows/                   # Pre-made workflows
 ```
 
 **Sau khi cài đặt:**
@@ -91,7 +91,7 @@ antigravity-superpowers/
 ~/.gemini/
 ├── GEMINI.md                    # Global config (tự tạo)
 └── antigravity/
-    ├── skills/                  # 13 skills
+    ├── skills/                  # Các skills đã cài đặt
     └── scripts/                 # Setup scripts
 ```
 

@@ -16,7 +16,7 @@ Customized [Superpowers](https://github.com/obra/superpowers) framework for Goog
 
 ## 🎯 What Is This?
 
-A fork of the [Superpowers](https://github.com/obra/superpowers) agentic skills framework, customized for **Google Antigravity**. Ships 13 skills that install globally to `~/.gemini/antigravity/`.
+A fork of the [Superpowers](https://github.com/obra/superpowers) agentic skills framework, customized for **Google Antigravity**. Ships a complete set of skills that install globally to `~/.gemini/antigravity/`.
 
 **Key differences from upstream:**
 - ✅ Installs to Antigravity's native path (`~/.gemini/antigravity/`)
@@ -41,14 +41,14 @@ npx @zasuo/ag-s
 ```bash
 git clone https://github.com/zasuozz-oss/antigravity-superpowers.git
 cd antigravity-superpowers
-bash setup-global.sh
+bash scripts/setup-global.sh
 ```
 
 **Windows (PowerShell):**
 ```powershell
 git clone https://github.com/zasuozz-oss/antigravity-superpowers.git
 cd antigravity-superpowers
-powershell -ExecutionPolicy Bypass -File setup-global.ps1
+powershell -ExecutionPolicy Bypass -File scripts/setup-global.ps1
 ```
 
 </details>
@@ -61,12 +61,12 @@ Open Antigravity in any project. Skills auto-load via `~/.gemini/GEMINI.md`.
 
 ## 📚 What's Inside
 
-### Skills (13)
+### Core Skills
 
 | Category | Skills |
 |----------|--------|
 | **Core** | brainstorming, test-driven-development, systematic-debugging |
-| **Collaboration** | writing-plans, executing-plans, subagent-driven-development, dispatching-parallel-agents |
+| **Collaboration** | writing-plans, executing-plans |
 | **Review** | requesting-code-review, receiving-code-review |
 | **Git** | finishing-a-development-branch |
 | **Meta** | using-superpowers, writing-skills, verification-before-completion |
@@ -77,13 +77,13 @@ Open Antigravity in any project. Skills auto-load via `~/.gemini/GEMINI.md`.
 
 ```
 antigravity-superpowers/
-├── setup-global.sh              # Install script (macOS/Linux)
-├── setup-global.ps1             # Install script (Windows)
 ├── bin/cli.mjs                  # npx installer
-├── global-config/
-│   ├── GEMINI.md                # Template configuration
-│   └── skills/                  # 14 Superpowers skills
-└── scripts/                     # Update script
+├── scripts/                     # Setup & Update scripts
+│   ├── setup-global.sh
+│   ├── setup-global.ps1
+│   └── update-superpowers.sh
+├── skills/                      # Superpowers + Gitnexus skills
+└── workflows/                   # Pre-made workflows
 ```
 
 **After installation:**
@@ -91,7 +91,7 @@ antigravity-superpowers/
 ~/.gemini/
 ├── GEMINI.md                    # Global config (auto-generated)
 └── antigravity/
-    ├── skills/                  # 13 skills
+    ├── skills/                  # Installed skills
     └── scripts/                 # Setup scripts
 ```
 

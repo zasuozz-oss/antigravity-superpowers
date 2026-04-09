@@ -1,0 +1,8 @@
+using-git-worktrees/
+finishing-a-development-branch/
+mcp-builder/
+frontend-design/
+webapp-testing/
+dispatching-parallel-agents/
+subagent-driven-development/
+test-driven-development/

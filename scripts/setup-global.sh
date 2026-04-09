@@ -17,8 +17,8 @@ echo "╚═══════════════════════�
 echo ""
 
 # Check if source directories exist
-if [ ! -d "$SCRIPT_DIR/global-config/skills" ]; then
-    echo "❌ Error: global-config/skills/ not found"
+if [ ! -d "$SCRIPT_DIR/../skills" ]; then
+    echo "❌ Error: skills/ not found"
     echo "   Make sure you're running this from the repository root"
     exit 1
 fi
@@ -31,38 +31,33 @@ echo ""
 
 # Step 2: Check for duplicate skill names
 echo "🔍 Step 2/5: Checking for duplicate skills..."
-DUPLICATES=$(grep -rh '^name:' "$SCRIPT_DIR/global-config/skills/"*/SKILL.md 2>/dev/null | sed 's/^name:[[:space:]]*//' | sort | uniq -d)
+DUPLICATES=$(grep -rh '^name:' "$SCRIPT_DIR/../skills/"*/SKILL.md 2>/dev/null | sed 's/^name:[[:space:]]*//' | sort | uniq -d)
 if [ -n "$DUPLICATES" ]; then
     echo "   ❌ Duplicate skill names found:"
     echo "$DUPLICATES" | while read -r dup; do
         echo "      - $dup"
-        grep -rl "^name:[[:space:]]*$dup$" "$SCRIPT_DIR/global-config/skills/"*/SKILL.md | while read -r f; do
+        grep -rl "^name:[[:space:]]*$dup$" "$SCRIPT_DIR/../skills/"*/SKILL.md | while read -r f; do
             echo "        → $f"
         done
     done
     exit 1
 fi
-SKILL_SRC_COUNT=$(ls -1d "$SCRIPT_DIR/global-config/skills/"*/ 2>/dev/null | wc -l | tr -d ' ')
+SKILL_SRC_COUNT=$(ls -1d "$SCRIPT_DIR/../skills/"*/ 2>/dev/null | wc -l | tr -d ' ')
 echo "   ✓ $SKILL_SRC_COUNT skills checked, no duplicates"
 echo ""
 
 # Step 3: Install skills
 echo "📚 Step 3/5: Installing skills..."
-rm -rf "$GLOBAL_DIR/skills"
-cp -r "$SCRIPT_DIR/global-config/skills" "$GLOBAL_DIR/skills"
+rsync -av --delete --exclude-from="$SCRIPT_DIR/blocked-skills.txt" "$SCRIPT_DIR/../skills/" "$GLOBAL_DIR/skills/"
+
 SKILL_COUNT=$(ls -1 "$GLOBAL_DIR/skills" | wc -l | tr -d ' ')
 echo "   ✓ $SKILL_COUNT skills installed"
-# Also install gemini_rule.md to global dir
-if [ -f "$SCRIPT_DIR/global-config/gemini_rule.md" ]; then
-    cp "$SCRIPT_DIR/global-config/gemini_rule.md" "$GLOBAL_DIR/gemini_rule.md"
-    echo "   ✓ gemini_rule.md installed"
-fi
+
 echo ""
 
 # Step 4: Install scripts
 echo "⚙️  Step 4/5: Installing scripts..."
-rm -rf "$GLOBAL_DIR/scripts"
-cp -r "$SCRIPT_DIR/scripts" "$GLOBAL_DIR/scripts"
+rsync -av --delete "$SCRIPT_DIR/" "$GLOBAL_DIR/scripts/" --exclude="setup-global.sh" --exclude="setup-global.ps1" --exclude="blocked-skills.txt"
 chmod +x "$GLOBAL_DIR/scripts"/*.sh
 SCRIPT_COUNT=$(ls -1 "$GLOBAL_DIR/scripts" | wc -l | tr -d ' ')
 echo "   ✓ $SCRIPT_COUNT scripts installed"
@@ -71,7 +66,7 @@ echo ""
 # Step 5: Update GEMINI.md
 echo "📝 Step 5/5: Updating global GEMINI.md..."
 
-RULE_FILE="$SCRIPT_DIR/global-config/gemini_rule.md"
+RULE_FILE="$SCRIPT_DIR/gemini_rule.md"
 
 mkdir -p "$(dirname "$GEMINI_MD")"
 

@@ -16,8 +16,9 @@ Write-Host "========================================================" -Foregroun
 Write-Host ""
 
 # Check source
-if (-not (Test-Path "$ScriptDir\global-config\skills")) {
-    Write-Host "ERROR: global-config\skills\ not found" -ForegroundColor Red
+$ProjectRoot = Resolve-Path "$ScriptDir\.." | Select-Object -ExpandProperty Path
+if (-not (Test-Path "$ProjectRoot\skills")) {
+    Write-Host "ERROR: skills\ not found" -ForegroundColor Red
     exit 1
 }
 
@@ -29,7 +30,7 @@ Write-Host ""
 # Step 2: Check for duplicate skill names
 Write-Host "[2/5] Checking for duplicate skills..."
 $SkillNames = @{}
-$SkillFiles = Get-ChildItem -Path "$ScriptDir\global-config\skills\*\SKILL.md" -ErrorAction SilentlyContinue
+$SkillFiles = Get-ChildItem -Path "$ProjectRoot\skills\*\SKILL.md" -ErrorAction SilentlyContinue
 foreach ($file in $SkillFiles) {
     $nameMatch = Select-String -Path $file -Pattern '^name:\s*(.+)$' | Select-Object -First 1
     if ($nameMatch) {
@@ -49,7 +50,22 @@ Write-Host ""
 # Step 3: Install skills
 Write-Host "[3/5] Installing skills..."
 if (Test-Path "$GlobalDir\skills") { Remove-Item "$GlobalDir\skills" -Recurse -Force }
-Copy-Item -Path "$ScriptDir\global-config\skills" -Destination "$GlobalDir\skills" -Recurse
+Copy-Item -Path "$ProjectRoot\skills" -Destination "$GlobalDir\skills" -Recurse
+
+# Remove excluded skills
+$ExcludesFile = "$ScriptDir\blocked-skills.txt"
+if (Test-Path $ExcludesFile) {
+    Get-Content $ExcludesFile | ForEach-Object {
+        $excl = $_.Trim().TrimEnd('/')
+        if (![string]::IsNullOrEmpty($excl)) {
+            $exclPath = Join-Path "$GlobalDir\skills" $excl
+            if (Test-Path $exclPath) {
+                Remove-Item $exclPath -Recurse -Force
+            }
+        }
+    }
+}
+
 $SkillCount = (Get-ChildItem "$GlobalDir\skills" -Directory).Count
 Write-Host "   OK: $SkillCount skills" -ForegroundColor Green
 Write-Host ""
@@ -57,7 +73,7 @@ Write-Host ""
 # Step 4: Install scripts
 Write-Host "[4/5] Installing scripts..."
 if (Test-Path "$GlobalDir\scripts") { Remove-Item "$GlobalDir\scripts" -Recurse -Force }
-Copy-Item -Path "$ScriptDir\scripts" -Destination "$GlobalDir\scripts" -Recurse
+Copy-Item -Path "$ProjectRoot\scripts" -Destination "$GlobalDir\scripts" -Recurse
 $ScriptCount = (Get-ChildItem "$GlobalDir\scripts" -File).Count
 Write-Host "   OK: $ScriptCount scripts" -ForegroundColor Green
 Write-Host ""
@@ -65,7 +81,7 @@ Write-Host ""
 # Step 5: Update GEMINI.md
 Write-Host "[5/5] Updating global GEMINI.md..."
 
-$RuleFile = "$ScriptDir\global-config\gemini_rule.md"
+$RuleFile = "$ScriptDir\gemini_rule.md"
 
 New-Item -ItemType Directory -Path (Split-Path $GeminiMd) -Force | Out-Null
 
