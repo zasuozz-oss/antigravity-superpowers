@@ -135,6 +135,10 @@ Wait for the user's response. If they request changes, make them and re-run the 
 - Invoke the writing-plans skill to create a detailed implementation plan
 - Do NOT invoke any other skill. writing-plans is the next step.
 
+> **Optional:** If the spec contains `[NEEDS CLARIFICATION]` markers or unclear
+> requirements, invoke `spec-clarify` skill before writing-plans to validate and
+> resolve ambiguities.
+
 ## Key Principles
 
 - **One question at a time** - Don't overwhelm with multiple questions
