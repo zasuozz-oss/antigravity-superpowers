@@ -71,25 +71,26 @@ if [ ! -d "$SCRIPT_DIR/../skills" ]; then
     exit 1
 fi
 
-# Step 1: Create directory & fix ownership
-echo "📁 Step 1/7: Creating global config directory..."
-mkdir -p "$GLOBAL_DIR"
+# Step 1: Create directories & check permissions
+echo "📁 Step 1/7: Creating config directories..."
+mkdir -p "$GLOBAL_DIR" "$CODEX_DIR" "$(dirname "$GEMINI_MD")" "$(dirname "$CLAUDE_MD")"
 
-# Fix ownership if any files inside are owned by root (common after initial sudo setup)
-ROOT_OWNED=$(find "$GLOBAL_DIR" ! -user "$(whoami)" 2>/dev/null | head -1)
-if [ -n "$ROOT_OWNED" ]; then
-    echo "   ⚠ Found files not owned by $(whoami), fixing ownership..."
-    sudo chown -R "$(whoami)" "$GLOBAL_DIR" 2>/dev/null || {
-        echo "   ❌ Cannot fix ownership automatically."
-        echo "   Run this first, then re-run setup:"
-        echo ""
-        echo "      sudo chown -R $(whoami) $GLOBAL_DIR"
-        echo ""
-        exit 1
-    }
-    echo "   ✓ Ownership fixed"
+PERM_ERRORS=""
+for dir in "$GLOBAL_DIR" "$CODEX_DIR" "$(dirname "$GEMINI_MD")" "$(dirname "$CLAUDE_MD")"; do
+    if [ ! -w "$dir" ]; then
+        PERM_ERRORS="$PERM_ERRORS
+      sudo chown -R $(whoami) $dir"
+    fi
+done
+
+if [ -n "$PERM_ERRORS" ]; then
+    echo "   ❌ Permission denied on some directories."
+    echo "   Run these commands first, then re-run setup:"
+    echo "$PERM_ERRORS"
+    echo ""
+    exit 1
 fi
-echo "   ✓ Created: $GLOBAL_DIR"
+echo "   ✓ All directories ready"
 echo ""
 
 # Step 2: Check for duplicate skill names
@@ -112,7 +113,7 @@ echo ""
 # Step 3: Install skills
 echo "📚 Step 3/7: Installing skills..."
 if command -v rsync >/dev/null 2>&1; then
-    rsync -av --delete --exclude-from="$SCRIPT_DIR/ignore-skills.txt" "$SCRIPT_DIR/../skills/" "$GLOBAL_DIR/skills/"
+    rsync -av --exclude-from="$SCRIPT_DIR/ignore-skills.txt" "$SCRIPT_DIR/../skills/" "$GLOBAL_DIR/skills/"
 else
     mkdir -p "$GLOBAL_DIR/skills"
     for skill_path in "$SCRIPT_DIR/../skills"/*; do
@@ -130,7 +131,7 @@ echo "   ✓ $SKILL_COUNT skills installed to $GLOBAL_DIR/skills"
 # Mirror skills into ~/.codex/skills/ so Codex can read them via its own path
 mkdir -p "$CODEX_DIR/skills"
 if command -v rsync >/dev/null 2>&1; then
-    rsync -a --delete --exclude-from="$SCRIPT_DIR/ignore-skills.txt" "$SCRIPT_DIR/../skills/" "$CODEX_DIR/skills/"
+    rsync -a --exclude-from="$SCRIPT_DIR/ignore-skills.txt" "$SCRIPT_DIR/../skills/" "$CODEX_DIR/skills/"
 else
     for skill_path in "$SCRIPT_DIR/../skills"/*; do
         [ -e "$skill_path" ] || continue
