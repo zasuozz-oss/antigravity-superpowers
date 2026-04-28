@@ -135,13 +135,7 @@ If you find issues, fix them inline. No need to re-review — just fix and move 
 
 After saving the plan, offer execution choice:
 
-**"Plan complete and saved to `docs/superpowers/plans/<filename>.md`.**
-
-> **Optional:** Before execution, invoke `task-decomposition` skill to generate
-> a structured task list with parallel markers, dependency tracking, and phased
-> delivery strategy at `docs/superpowers/plans/<feature>/tasks.md`.
-
-**Two execution options:**
+**"Plan complete and saved to `docs/superpowers/plans/<filename>.md`. Two execution options:**
 
 **1. Subagent-Driven (recommended)** - I dispatch a fresh subagent per task, review between tasks, fast iteration
 

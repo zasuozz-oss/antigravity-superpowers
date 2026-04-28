@@ -1,3 +1,4 @@
+<!-- AG-SUPERPOWERS:BEGIN -->
 # LANGUAGE CONVENTION
 - **Code & technical**: English — variables, functions, classes, comments, logs, error messages, workflow files, identifiers.
 - **Docs & content**: Vietnamese — documentation, explanations, user guides, business-facing content.
@@ -15,3 +16,4 @@ These files contain the skill activation protocol. If you skip this step,
 ALL subsequent skill invocations will be missed.
 
 **This is non-negotiable. Do it NOW before reading further.**
+<!-- AG-SUPERPOWERS:END -->

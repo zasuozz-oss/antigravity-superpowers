@@ -85,20 +85,46 @@ SCRIPT_COUNT=$(ls -1 "$GLOBAL_DIR/setup" | wc -l | tr -d ' ')
 echo "   ✓ $SCRIPT_COUNT setup scripts installed"
 echo ""
 
-# Step 5: Update GEMINI.md
+# Step 5: Update GEMINI.md (block-based, preserves user content)
 echo "📝 Step 5/5: Updating global GEMINI.md..."
 
 RULE_FILE="$SCRIPT_DIR/gemini_rule.md"
+BEGIN_MARKER="<!-- AG-SUPERPOWERS:BEGIN -->"
+END_MARKER="<!-- AG-SUPERPOWERS:END -->"
 
 mkdir -p "$(dirname "$GEMINI_MD")"
 
-# Always overwrite — GEMINI.md is a generated file
-{
-    if [ -f "$RULE_FILE" ]; then
-        cat "$RULE_FILE"
+if [ -f "$RULE_FILE" ]; then
+    BLOCK_CONTENT=$(cat "$RULE_FILE")
+
+    if [ -f "$GEMINI_MD" ] && grep -qF "$BEGIN_MARKER" "$GEMINI_MD"; then
+        # Replace existing block, keep everything else
+        python3 -c "
+import sys
+with open(sys.argv[1], 'r') as f:
+    content = f.read()
+begin = sys.argv[2]
+end = sys.argv[3]
+block = sys.argv[4]
+start_idx = content.find(begin)
+end_idx = content.find(end)
+if start_idx != -1 and end_idx != -1:
+    end_idx += len(end)
+    content = content[:start_idx] + block + content[end_idx:]
+with open(sys.argv[1], 'w') as f:
+    f.write(content)
+" "$GEMINI_MD" "$BEGIN_MARKER" "$END_MARKER" "$BLOCK_CONTENT"
+        echo "   ✓ Updated block in: $GEMINI_MD (user content preserved)"
+    elif [ -f "$GEMINI_MD" ] && [ -s "$GEMINI_MD" ]; then
+        # File exists with content but no markers — append block
+        printf "\n%s\n" "$BLOCK_CONTENT" >> "$GEMINI_MD"
+        echo "   ✓ Appended block to: $GEMINI_MD (existing content preserved)"
+    else
+        # No file or empty file — write fresh
+        echo "$BLOCK_CONTENT" > "$GEMINI_MD"
+        echo "   ✓ Created: $GEMINI_MD"
     fi
-} > "$GEMINI_MD"
-echo "   ✓ Written: $GEMINI_MD"
+fi
 echo ""
 
 # Cleanup old legacy directories if present
