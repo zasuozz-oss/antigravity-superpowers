@@ -1,6 +1,6 @@
 #!/bin/bash
 # Global setup script for Superpowers in Antigravity
-# Installs skills, workflows, and scripts to ~/.gemini/antigravity/
+# Installs skills and rules to ~/.gemini/antigravity/, ~/.claude/, ~/.codex/
 # Usage: bash setup-global.sh
 
 set -e
@@ -8,11 +8,58 @@ set -e
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 GLOBAL_DIR="$HOME/.gemini/antigravity"
 GEMINI_MD="$HOME/.gemini/GEMINI.md"
+CLAUDE_MD="$HOME/.claude/CLAUDE.md"
+CODEX_MD="$HOME/.codex/AGENTS.md"
+
+BEGIN_MARKER="<!-- AG-SUPERPOWERS:BEGIN -->"
+END_MARKER="<!-- AG-SUPERPOWERS:END -->"
+
+# ─── upsert_block: replace or append a marker-delimited block in a file ───
+# Usage: upsert_block <target_file> <rule_source_file>
+# Preserves all content outside the AG-SUPERPOWERS markers.
+upsert_block() {
+    local target_file="$1"
+    local rule_file="$2"
+
+    [ -f "$rule_file" ] || return 1
+
+    mkdir -p "$(dirname "$target_file")"
+    local block_content
+    block_content=$(cat "$rule_file")
+
+    if [ -f "$target_file" ] && grep -qF "$BEGIN_MARKER" "$target_file"; then
+        # Replace existing block in-place
+        python3 -c "
+import sys
+with open(sys.argv[1], 'r') as f:
+    content = f.read()
+begin = sys.argv[2]
+end = sys.argv[3]
+block = sys.argv[4]
+start_idx = content.find(begin)
+end_idx = content.find(end)
+if start_idx != -1 and end_idx != -1:
+    end_idx += len(end)
+    content = content[:start_idx] + block + content[end_idx:]
+with open(sys.argv[1], 'w') as f:
+    f.write(content)
+" "$target_file" "$BEGIN_MARKER" "$END_MARKER" "$block_content"
+        echo "   ✓ Updated block in: $target_file (user content preserved)"
+    elif [ -f "$target_file" ] && [ -s "$target_file" ]; then
+        # File exists with content but no markers — append
+        printf "\n%s\n" "$block_content" >> "$target_file"
+        echo "   ✓ Appended block to: $target_file (existing content preserved)"
+    else
+        # No file or empty — write fresh
+        echo "$block_content" > "$target_file"
+        echo "   ✓ Created: $target_file"
+    fi
+}
 
 
 echo "╔════════════════════════════════════════════════════════════╗"
-echo "║     Superpowers Global Setup for Antigravity               ║"
-echo "║     Install skills globally                                ║"
+echo "║     Superpowers Global Setup                               ║"
+echo "║     Install skills & rules globally                        ║"
 echo "╚════════════════════════════════════════════════════════════╝"
 echo ""
 
@@ -24,13 +71,13 @@ if [ ! -d "$SCRIPT_DIR/../skills" ]; then
 fi
 
 # Step 1: Create directory
-echo "📁 Step 1/5: Creating global config directory..."
+echo "📁 Step 1/7: Creating global config directory..."
 mkdir -p "$GLOBAL_DIR"
 echo "   ✓ Created: $GLOBAL_DIR"
 echo ""
 
 # Step 2: Check for duplicate skill names
-echo "🔍 Step 2/5: Checking for duplicate skills..."
+echo "🔍 Step 2/7: Checking for duplicate skills..."
 DUPLICATES=$(grep -rh '^name:' "$SCRIPT_DIR/../skills/"*/SKILL.md 2>/dev/null | sed 's/^name:[[:space:]]*//' | sort | uniq -d)
 if [ -n "$DUPLICATES" ]; then
     echo "   ❌ Duplicate skill names found:"
@@ -47,7 +94,7 @@ echo "   ✓ $SKILL_SRC_COUNT skills checked, no duplicates"
 echo ""
 
 # Step 3: Install skills
-echo "📚 Step 3/5: Installing skills..."
+echo "📚 Step 3/7: Installing skills..."
 if command -v rsync >/dev/null 2>&1; then
     rsync -av --delete --exclude-from="$SCRIPT_DIR/ignore-skills.txt" "$SCRIPT_DIR/../skills/" "$GLOBAL_DIR/skills/"
 else
@@ -67,7 +114,7 @@ echo "   ✓ $SKILL_COUNT skills installed"
 echo ""
 
 # Step 4: Install scripts
-echo "⚙️  Step 4/5: Installing setup scripts..."
+echo "⚙️  Step 4/7: Installing setup scripts..."
 if command -v rsync >/dev/null 2>&1; then
     rsync -av --delete "$SCRIPT_DIR/" "$GLOBAL_DIR/setup/" --exclude="setup-global.sh" --exclude="setup-global.ps1" --exclude="ignore-skills.txt"
 else
@@ -85,46 +132,19 @@ SCRIPT_COUNT=$(ls -1 "$GLOBAL_DIR/setup" | wc -l | tr -d ' ')
 echo "   ✓ $SCRIPT_COUNT setup scripts installed"
 echo ""
 
-# Step 5: Update GEMINI.md (block-based, preserves user content)
-echo "📝 Step 5/5: Updating global GEMINI.md..."
+# Step 5: Update GEMINI.md (Antigravity)
+echo "📝 Step 5/7: Updating Antigravity rules (~/.gemini/GEMINI.md)..."
+upsert_block "$GEMINI_MD" "$SCRIPT_DIR/gemini_rule.md"
+echo ""
 
-RULE_FILE="$SCRIPT_DIR/gemini_rule.md"
-BEGIN_MARKER="<!-- AG-SUPERPOWERS:BEGIN -->"
-END_MARKER="<!-- AG-SUPERPOWERS:END -->"
+# Step 6: Update CLAUDE.md (Claude Desktop)
+echo "📝 Step 6/7: Updating Claude Desktop rules (~/.claude/CLAUDE.md)..."
+upsert_block "$CLAUDE_MD" "$SCRIPT_DIR/claude_rule.md"
+echo ""
 
-mkdir -p "$(dirname "$GEMINI_MD")"
-
-if [ -f "$RULE_FILE" ]; then
-    BLOCK_CONTENT=$(cat "$RULE_FILE")
-
-    if [ -f "$GEMINI_MD" ] && grep -qF "$BEGIN_MARKER" "$GEMINI_MD"; then
-        # Replace existing block, keep everything else
-        python3 -c "
-import sys
-with open(sys.argv[1], 'r') as f:
-    content = f.read()
-begin = sys.argv[2]
-end = sys.argv[3]
-block = sys.argv[4]
-start_idx = content.find(begin)
-end_idx = content.find(end)
-if start_idx != -1 and end_idx != -1:
-    end_idx += len(end)
-    content = content[:start_idx] + block + content[end_idx:]
-with open(sys.argv[1], 'w') as f:
-    f.write(content)
-" "$GEMINI_MD" "$BEGIN_MARKER" "$END_MARKER" "$BLOCK_CONTENT"
-        echo "   ✓ Updated block in: $GEMINI_MD (user content preserved)"
-    elif [ -f "$GEMINI_MD" ] && [ -s "$GEMINI_MD" ]; then
-        # File exists with content but no markers — append block
-        printf "\n%s\n" "$BLOCK_CONTENT" >> "$GEMINI_MD"
-        echo "   ✓ Appended block to: $GEMINI_MD (existing content preserved)"
-    else
-        # No file or empty file — write fresh
-        echo "$BLOCK_CONTENT" > "$GEMINI_MD"
-        echo "   ✓ Created: $GEMINI_MD"
-    fi
-fi
+# Step 7: Update AGENTS.md (Codex)
+echo "📝 Step 7/7: Updating Codex rules (~/.codex/AGENTS.md)..."
+upsert_block "$CODEX_MD" "$SCRIPT_DIR/codex_rule.md"
 echo ""
 
 # Cleanup old legacy directories if present
@@ -137,9 +157,11 @@ fi
 
 # Verify
 echo "✅ Verification..."
-echo "   Skills:    $(ls -1 "$GLOBAL_DIR/skills" | wc -l | tr -d ' ')"
-echo "   Setup Scripts:   $(ls -1 "$GLOBAL_DIR/setup" | wc -l | tr -d ' ')"
-echo "   GEMINI.md: ✓"
+echo "   Skills:        $(ls -1 "$GLOBAL_DIR/skills" | wc -l | tr -d ' ')"
+echo "   Setup Scripts: $(ls -1 "$GLOBAL_DIR/setup" | wc -l | tr -d ' ')"
+echo "   GEMINI.md:     $([ -f "$GEMINI_MD" ] && echo '✓' || echo '✗')"
+echo "   CLAUDE.md:     $([ -f "$CLAUDE_MD" ] && echo '✓' || echo '✗')"
+echo "   AGENTS.md:     $([ -f "$CODEX_MD" ] && echo '✓' || echo '✗')"
 echo ""
 
 # Summary
@@ -148,7 +170,7 @@ echo "║     Installation Complete                                  ║"
 echo "╚════════════════════════════════════════════════════════════╝"
 echo ""
 echo "🚀 Next steps:"
-echo "   1. Open Antigravity in any project"
-echo "   2. Skills auto-load via ~/.gemini/GEMINI.md"
+echo "   1. Restart Antigravity / Claude Desktop / Codex"
+echo "   2. Rules auto-load from global instruction files"
 echo ""
 echo "✅ Done!"
