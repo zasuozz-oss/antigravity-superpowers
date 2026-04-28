@@ -7,6 +7,7 @@ set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 GLOBAL_DIR="$HOME/.gemini/antigravity"
+CODEX_DIR="$HOME/.codex"
 GEMINI_MD="$HOME/.gemini/GEMINI.md"
 CLAUDE_MD="$HOME/.claude/CLAUDE.md"
 CODEX_MD="$HOME/.codex/AGENTS.md"
@@ -124,7 +125,23 @@ else
 fi
 
 SKILL_COUNT=$(ls -1 "$GLOBAL_DIR/skills" | wc -l | tr -d ' ')
-echo "   ✓ $SKILL_COUNT skills installed"
+echo "   ✓ $SKILL_COUNT skills installed to $GLOBAL_DIR/skills"
+
+# Mirror skills into ~/.codex/skills/ so Codex can read them via its own path
+mkdir -p "$CODEX_DIR/skills"
+if command -v rsync >/dev/null 2>&1; then
+    rsync -a --delete --exclude-from="$SCRIPT_DIR/ignore-skills.txt" "$SCRIPT_DIR/../skills/" "$CODEX_DIR/skills/"
+else
+    for skill_path in "$SCRIPT_DIR/../skills"/*; do
+        [ -e "$skill_path" ] || continue
+        skill_name=$(basename "$skill_path")
+        if ! grep -qE "^${skill_name}/?(\r)?$" "$SCRIPT_DIR/ignore-skills.txt" 2>/dev/null; then
+            cp -R "$skill_path" "$CODEX_DIR/skills/"
+        fi
+    done
+fi
+CODEX_SKILL_COUNT=$(ls -1 "$CODEX_DIR/skills" | wc -l | tr -d ' ')
+echo "   ✓ $CODEX_SKILL_COUNT skills mirrored to $CODEX_DIR/skills"
 
 echo ""
 
