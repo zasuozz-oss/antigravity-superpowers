@@ -74,12 +74,16 @@ fi
 echo "📁 Step 1/7: Creating global config directory..."
 mkdir -p "$GLOBAL_DIR"
 
-# Fix ownership if directory is owned by root (common after initial sudo setup)
-if [ -d "$GLOBAL_DIR" ] && [ "$(stat -f '%u' "$GLOBAL_DIR" 2>/dev/null || stat -c '%u' "$GLOBAL_DIR" 2>/dev/null)" != "$(id -u)" ]; then
-    echo "   ⚠ Directory owned by another user, fixing ownership..."
+# Fix ownership if any files inside are owned by root (common after initial sudo setup)
+ROOT_OWNED=$(find "$GLOBAL_DIR" ! -user "$(whoami)" 2>/dev/null | head -1)
+if [ -n "$ROOT_OWNED" ]; then
+    echo "   ⚠ Found files not owned by $(whoami), fixing ownership..."
     sudo chown -R "$(whoami)" "$GLOBAL_DIR" 2>/dev/null || {
-        echo "   ❌ Cannot fix ownership. Run manually:"
+        echo "   ❌ Cannot fix ownership automatically."
+        echo "   Run this first, then re-run setup:"
+        echo ""
         echo "      sudo chown -R $(whoami) $GLOBAL_DIR"
+        echo ""
         exit 1
     }
     echo "   ✓ Ownership fixed"
