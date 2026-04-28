@@ -1,5 +1,4 @@
 finishing-a-development-branch/
-mcp-builder/
 frontend-design/
 webapp-testing/
 dispatching-parallel-agents/

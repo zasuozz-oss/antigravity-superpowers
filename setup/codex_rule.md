@@ -5,6 +5,19 @@
 - **Responses**: Vietnamese — explanations, plans, artifacts, and all direct replies to the user.
 - **User override**: Follow the user's requested language if explicitly stated.
 
+# Mandatory Skills Bootstrap
+
+Before doing ANYTHING else (including answering questions, asking clarifications,
+or reading any files), you MUST read these files using your file-read tool:
+
+1. `~/.codex/skills/using-superpowers/SKILL.md`
+2. `~/.codex/skills/using-superpowers/references/codex-tools.md`
+
+These files contain the skill activation protocol. If you skip this step,
+ALL subsequent skill invocations will be missed.
+
+**This is non-negotiable. Do it NOW before reading further.**
+
 # Karpathy Guidelines
 
 Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-specific instructions as needed.
