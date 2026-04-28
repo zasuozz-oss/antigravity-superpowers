@@ -70,9 +70,20 @@ if [ ! -d "$SCRIPT_DIR/../skills" ]; then
     exit 1
 fi
 
-# Step 1: Create directory
+# Step 1: Create directory & fix ownership
 echo "📁 Step 1/7: Creating global config directory..."
 mkdir -p "$GLOBAL_DIR"
+
+# Fix ownership if directory is owned by root (common after initial sudo setup)
+if [ -d "$GLOBAL_DIR" ] && [ "$(stat -f '%u' "$GLOBAL_DIR" 2>/dev/null || stat -c '%u' "$GLOBAL_DIR" 2>/dev/null)" != "$(id -u)" ]; then
+    echo "   ⚠ Directory owned by another user, fixing ownership..."
+    sudo chown -R "$(whoami)" "$GLOBAL_DIR" 2>/dev/null || {
+        echo "   ❌ Cannot fix ownership. Run manually:"
+        echo "      sudo chown -R $(whoami) $GLOBAL_DIR"
+        exit 1
+    }
+    echo "   ✓ Ownership fixed"
+fi
 echo "   ✓ Created: $GLOBAL_DIR"
 echo ""
 
