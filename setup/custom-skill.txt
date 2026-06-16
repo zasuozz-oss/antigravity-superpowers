@@ -4,3 +4,21 @@
 # Lines starting with # are comments. Trailing slashes are stripped automatically.
 karpathy-guidelines
 using-subagents
+banner-design
+brand
+canvas-design
+design
+design-system
+doc-coauthoring
+docx
+frontend-design
+internal-comms
+pdf
+pptx
+slack-gif-creator
+slides
+theme-factory
+ui-styling
+ui-ux-pro-max
+web-artifacts-builder
+xlsx
