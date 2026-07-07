@@ -29,5 +29,8 @@
     "type": "git",
     "url": "https://github.com/zasuozz-oss/agentic-superpowers.git"
   },
-  "homepage": "https://github.com/zasuozz-oss/agentic-superpowers"
+  "homepage": "https://github.com/zasuozz-oss/agentic-superpowers",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.110.0"
+  }
 }
